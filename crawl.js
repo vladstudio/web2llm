@@ -177,7 +177,8 @@ async function crawlAndScrape(startUrl, contentSelector, crawlMode, limit, curre
         break;
     }
 
-    console.log(`Crawl: ${currentUrl} (${visitedCountOverall + 1}/${limit})`);
+    // Format: Crawl, X/Y: URL  <- Changed Line
+    console.log(`Crawl, ${visitedCountOverall + 1}/${limit}: ${currentUrl}`);
     visitedUrlsInThisCrawl.add(normalizedUrl);
     visitedCountOverall++;
 
