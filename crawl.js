@@ -189,21 +189,21 @@ async function crawlAndScrape(startUrl, contentSelector, crawlMode, limit, curre
       // --- Scrape Content ---
       if (contentSelector) {
         // User provided a selector - use Cheerio
-        console.log(`Info: Using provided selector "${contentSelector}" for ${currentUrl}`);
+        console.log(`Info: Using provided selector "${contentSelector}" for ${currentUrl}`); // Keep this log for clarity when overriding
         const $ = cheerio.load(html);
         contentHtml = $(contentSelector).html();
       } else {
-        // No selector provided - attempt auto-detection with Readability
-        console.log(`Info: Attempting automatic content detection (Readability) for ${currentUrl}`);
+        // No selector provided - attempt auto-detection with Readability (no "Attempting" log)
         try {
-          const doc = new JSDOM(html, { url: currentUrl }); // Provide URL for Readability context
+          const doc = new JSDOM(html, { url: currentUrl });
           const reader = new Readability(doc.window.document);
           const article = reader.parse();
           if (article && article.content) {
-            contentHtml = article.content; // Use the HTML content from Readability
-            console.log(`Info: Readability extracted content successfully.`);
+            contentHtml = article.content;
+            // No success log here - assume success unless warned below
           } else {
-            console.warn(`WARN: Readability failed to extract content from ${currentUrl}.`);
+            // Only log Readability failure
+            console.warn(`WARN: Readability could not extract content from ${currentUrl}.`);
           }
         } catch (readabilityError) {
             console.warn(`WARN: Readability processing failed for ${currentUrl}: ${readabilityError.message}`);
@@ -215,11 +215,10 @@ async function crawlAndScrape(startUrl, contentSelector, crawlMode, limit, curre
         const markdown = turndownService.turndown(contentHtml);
         singleCrawlMarkdown.push(`## Page: ${currentUrl}\n\n${markdown}`);
       } else {
-         // Log if neither method found content
-         if(contentSelector) {
+         // Log if manual selector failed (Readability failure logged above)
+         if(contentSelector && !contentHtml) {
              console.log(`Info: No content found on ${currentUrl} with selector "${contentSelector}"`);
          }
-         // Warning for Readability failure is logged above
       }
 
       // --- Find Links (only if crawlMode is not 'disabled') ---
