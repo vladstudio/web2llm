@@ -1,4 +1,4 @@
-# URL Content Crawler & Markdown Converter
+# web2md
 
 Crawls web pages starting from given URLs, scrapes main content, converts to Markdown, and merges into one file. Features automatic content detection, crawl scoping, page limits, exclusions, and GFM table conversion.
 
@@ -49,3 +49,14 @@ node crawl.js -u https://page1.com -u https://page2.com -m disabled
 ## How it Works
 
 The script processes each starting URL. It fetches pages, attempts to extract the main content (using Readability by default, or a provided CSS selector), and converts it to Markdown (including GFM tables). It follows links based on the chosen `crawl-mode`, respecting the `limit` and `exclude` patterns. Visited URLs (ignoring `#fragments`) are tracked per crawl sequence to avoid duplicates. Finally, all collected Markdown is merged into the output file with YAML frontmatter containing the run arguments and a `rerun_command`.
+
+## Credits
+
+This tool relies on the following excellent libraries:
+
+*   [Mozilla Readability](https://github.com/mozilla/readability): For automatic content extraction.
+*   [Turndown](https://github.com/mixmark-io/turndown): For converting HTML to Markdown.
+
+## Author
+
+Created by Vlad Gerasimov. Visit [vlad.studio](https://vlad.studio/) and check out my wallpapers!
