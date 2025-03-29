@@ -1,27 +1,64 @@
 ---
 rerun_command: >-
-  node crawl.js -u
-  "https://beta.tinybase.org/guides/the-basics/getting-started/" -u
-  "https://beta.tinybase.org/guides/the-basics/creating-a-store/" --selector
-  "article" --crawl-mode strict --limit 100 --output "test.md"
+  node crawl.js -u "https://beta.tinybase.org/guides/the-basics/" --crawl-mode
+  strict --limit 100 --output "test.md"
 command_args:
   url:
-    - https://beta.tinybase.org/guides/the-basics/getting-started/
-    - https://beta.tinybase.org/guides/the-basics/creating-a-store/
-  selector: article
+    - https://beta.tinybase.org/guides/the-basics/
   crawl-mode: strict
   limit: 100
   output: test.md
 ---
 
+## Page: https://beta.tinybase.org/guides/the-basics/
+
+These guides cover the very basics of TinyBase.
+
+We start with common ways to install the modules and then learn about how to interact with [`Store`](https://beta.tinybase.org/api/store/interfaces/store/store/) objects including creation, reading data, writing data, and listening for changes.
+
+See also the [Hello World](https://beta.tinybase.org/demos/hello-world/) demos, and the [Todo App](https://beta.tinybase.org/demos/todo-app/) demos.
+
+Let's get started!
+
+## Getting Started
+
+This guide gets you up and running quickly with TinyBase. [Read more](https://beta.tinybase.org/guides/the-basics/getting-started/).
+
+## Creating A Store
+
+This guide shows you how to create a new [`Store`](https://beta.tinybase.org/api/store/interfaces/store/store/). [Read more](https://beta.tinybase.org/guides/the-basics/creating-a-store/).
+
+## Writing To Stores
+
+This guide shows you how to write data to a [`Store`](https://beta.tinybase.org/api/store/interfaces/store/store/). [Read more](https://beta.tinybase.org/guides/the-basics/writing-to-stores/).
+
+## Reading From Stores
+
+This guide shows you how to read data from a [`Store`](https://beta.tinybase.org/api/store/interfaces/store/store/). [Read more](https://beta.tinybase.org/guides/the-basics/reading-from-stores/).
+
+## Listening To Stores
+
+This guide shows you how to listen to changes in the data in a [`Store`](https://beta.tinybase.org/api/store/interfaces/store/store/). [Read more](https://beta.tinybase.org/guides/the-basics/listening-to-stores/).
+
+## Transactions
+
+This guide shows you how to wrap multiple changes to the data in a [`Store`](https://beta.tinybase.org/api/store/interfaces/store/store/). [Read more](https://beta.tinybase.org/guides/the-basics/transactions/).
+
+## Importing TinyBase
+
+This guide provides an aside about importing TinyBase into your application. [Read more](https://beta.tinybase.org/guides/the-basics/importing-tinybase/).
+
+## TinyBase And TypeScript
+
+This guide summarizes the two different levels of TypeScript coverage you can use with TinyBase. [Read more](https://beta.tinybase.org/guides/the-basics/tinybase-and-typescript/).
+
+## Architectural Options
+
+This guide discusses some of the ways in which you can use TinyBase, and how you can architect it into the bigger picture of how your app is built. [Read more](https://beta.tinybase.org/guides/the-basics/architectural-options/).
+
+---
+
 ## Page: https://beta.tinybase.org/guides/the-basics/getting-started/
-
-*   [TinyBase](/)
-*   [Guides](/guides/)
-*   [The Basics](/guides/the-basics/)
-*   [Getting Started](/guides/the-basics/getting-started/)
-
-# Getting Started
 
 This guide gets you up and running quickly with TinyBase.
 
@@ -47,7 +84,7 @@ Then go into the directory, install the dependencies, and run the application:
 
 The final step will display a local URL, which should serve up a basic TinyBase application for you:
 
-![Thumbnail of Vite app](/vite-tinybase.png "Thumbnail of Vite app")
+![Thumbnail of Vite app](https://beta.tinybase.org/vite-tinybase.png "Thumbnail of Vite app")
 
 In fact, there are eleven templates for TinyBase, depending on whether you want to use TypeScript or React, and the integrations you want to target. Instructions are available in the README of each:
 
@@ -57,7 +94,7 @@ In fact, there are eleven templates for TinyBase, depending on whether you want 
 | [vite-tinybase-ts](https://github.com/tinyplex/vite-tinybase-ts) | TypeScript | No |  |
 | [vite-tinybase-react](https://github.com/tinyplex/vite-tinybase-react) | JavaScript | Yes |  |
 | [vite-tinybase-ts-react](https://github.com/tinyplex/vite-tinybase-ts-react) | TypeScript | Yes |  |
-| [vite-tinybase-ts-react-sync](https://github.com/tinyplex/vite-tinybase-ts-react-sync) | TypeScript | Yes | [Synchronization](/guides/synchronization/) |
+| [vite-tinybase-ts-react-sync](https://github.com/tinyplex/vite-tinybase-ts-react-sync) | TypeScript | Yes | [Synchronization](https://beta.tinybase.org/guides/synchronization/) |
 | [vite-tinybase-ts-react-sync-durable-object](https://github.com/tinyplex/vite-tinybase-ts-react-sync-durable-object) | TypeScript | Yes | Sync & Durable Objects |
 | [vite-tinybase-ts-react-pglite](https://github.com/tinyplex/vite-tinybase-ts-react-pglite) | TypeScript | Yes | PGlite |
 | [vite-tinybase-ts-react-crsqlite](https://github.com/tinyplex/vite-tinybase-ts-react-crsqlite) | TypeScript | Yes | CR-SQLite |
@@ -92,7 +129,7 @@ Another simple way to get started with TinyBase is to include it from a CDN in a
     </html>
     
 
-Open this file in your browser and you should see the words '[Hello World](/demos/hello-world/)' on the screen, each having been written to, and read from, a [`Store`](/api/store/interfaces/store/store/).
+Open this file in your browser and you should see the words '[Hello World](https://beta.tinybase.org/demos/hello-world/)' on the screen, each having been written to, and read from, a [`Store`](https://beta.tinybase.org/api/store/interfaces/store/store/).
 
 Note that the TinyBase module is pulled in from esm.sh, and the `importmap` allows you to use a regular import statement in the main script section.
 
@@ -121,35 +158,28 @@ Run this module script with:
     node index.mjs
     
 
-Again, you will see the words '[Hello World](/demos/hello-world/)' on the screen, having each been written to, and read from, a [`Store`](/api/store/interfaces/store/store/).
+Again, you will see the words '[Hello World](https://beta.tinybase.org/demos/hello-world/)' on the screen, having each been written to, and read from, a [`Store`](https://beta.tinybase.org/api/store/interfaces/store/store/).
 
 If that all worked, you are set up and ready to learn more about TinyBase! From here on, we will mostly show Node-based code snippets, but most should be easily translatable to run in a browser too.
 
-Before we move on, you should be aware that the overall package includes a number of different versions of TinyBase, transpiled for different targets and formats. You may want to take a look at the [Importing TinyBase](/guides/the-basics/importing-tinybase/) guide if the code above isn't working in your environment - React Native in particular.
+Before we move on, you should be aware that the overall package includes a number of different versions of TinyBase, transpiled for different targets and formats. You may want to take a look at the [Importing TinyBase](https://beta.tinybase.org/guides/the-basics/importing-tinybase/) guide if the code above isn't working in your environment - React Native in particular.
 
-Let's move onto the [Creating A Store](/guides/the-basics/creating-a-store/) guide.
+Let's move onto the [Creating A Store](https://beta.tinybase.org/guides/the-basics/creating-a-store/) guide.
 
 ---
 
 ## Page: https://beta.tinybase.org/guides/the-basics/creating-a-store/
 
-*   [TinyBase](/)
-*   [Guides](/guides/)
-*   [The Basics](/guides/the-basics/)
-*   [Creating A Store](/guides/the-basics/creating-a-store/)
+This guide shows you how to create a new [`Store`](https://beta.tinybase.org/api/store/interfaces/store/store/).
 
-# Creating A Store
-
-This guide shows you how to create a new [`Store`](/api/store/interfaces/store/store/).
-
-Creating a [`Store`](/api/store/interfaces/store/store/) requires just a simple call to the [`createStore`](/api/store/functions/creation/createstore/) function from the [`store`](/api/store/) module.
+Creating a [`Store`](https://beta.tinybase.org/api/store/interfaces/store/store/) requires just a simple call to the [`createStore`](https://beta.tinybase.org/api/store/functions/creation/createstore/) function from the [`store`](https://beta.tinybase.org/api/store/) module.
 
     import {createStore} from 'tinybase';
     
     const store = createStore();
     
 
-Easy enough! The returned [`Store`](/api/store/interfaces/store/store/) starts off empty of course:
+Easy enough! The returned [`Store`](https://beta.tinybase.org/api/store/interfaces/store/store/) starts off empty of course:
 
     console.log(store.getValues());
     // -> {}
@@ -158,4 +188,791 @@ Easy enough! The returned [`Store`](/api/store/interfaces/store/store/) starts o
     // -> {}
     
 
-To fix that, let's move onto the [Writing To Stores](/guides/the-basics/writing-to-stores/) guide.
+To fix that, let's move onto the [Writing To Stores](https://beta.tinybase.org/guides/the-basics/writing-to-stores/) guide.
+
+---
+
+## Page: https://beta.tinybase.org/guides/the-basics/writing-to-stores/
+
+This guide shows you how to write data to a [`Store`](https://beta.tinybase.org/api/store/interfaces/store/store/).
+
+A [`Store`](https://beta.tinybase.org/api/store/interfaces/store/store/) has two types of data in it: keyed values ('[`Values`](https://beta.tinybase.org/api/store/type-aliases/store/values/)'), and tabular data ('[`Tables`](https://beta.tinybase.org/api/store/type-aliases/store/tables/)').
+
+[`Values`](https://beta.tinybase.org/api/store/type-aliases/store/values/) are just [`Id`](https://beta.tinybase.org/api/common/type-aliases/identity/id/)/[`Value`](https://beta.tinybase.org/api/store/type-aliases/store/value/) pairs. [`Tables`](https://beta.tinybase.org/api/store/type-aliases/store/tables/) on the other hand, have a simple hierarchical structure:
+
+*   The [`Store`](https://beta.tinybase.org/api/store/interfaces/store/store/)'s [`Tables`](https://beta.tinybase.org/api/store/type-aliases/store/tables/) object contains a number of [`Table`](https://beta.tinybase.org/api/store/type-aliases/store/table/) objects.
+*   Each [`Table`](https://beta.tinybase.org/api/store/type-aliases/store/table/) contains a number of [`Row`](https://beta.tinybase.org/api/store/type-aliases/store/row/) objects.
+*   Each [`Row`](https://beta.tinybase.org/api/store/type-aliases/store/row/) contains a number of [`Cell`](https://beta.tinybase.org/api/store/type-aliases/store/cell/) objects.
+
+Once you have created a [`Store`](https://beta.tinybase.org/api/store/interfaces/store/store/), you can write data to it with one of its setter methods, according to the level of the hierarchy that you want to set.
+
+For example, you can set the data for the keyed value structure of [`Store`](https://beta.tinybase.org/api/store/interfaces/store/store/) with the [`setValues`](https://beta.tinybase.org/api/store/interfaces/store/store/methods/setter/setvalues/) method:
+
+    import {createStore} from 'tinybase';
+    
+    const store = createStore();
+    store.setValues({employees: 3, open: true});
+    
+
+Similarly, you can set the data for the tabular structure of [`Store`](https://beta.tinybase.org/api/store/interfaces/store/store/) with the [`setTables`](https://beta.tinybase.org/api/store/interfaces/store/store/methods/setter/settables/) method:
+
+    store.setTables({pets: {fido: {species: 'dog'}}});
+    
+
+Hopefully self-evidently, this sets the [`Store`](https://beta.tinybase.org/api/store/interfaces/store/store/) to have two [`Values`](https://beta.tinybase.org/api/store/type-aliases/store/values/) (`employees` and `open`, which are `3` and `true` respectively). It also has one [`Table`](https://beta.tinybase.org/api/store/type-aliases/store/table/) object (called `pets`), containing one [`Row`](https://beta.tinybase.org/api/store/type-aliases/store/row/) object (called `fido`), containing one [`Cell`](https://beta.tinybase.org/api/store/type-aliases/store/cell/) object (called `species` and with the string value `dog`):
+
+    console.log(store.getValues());
+    // -> {employees: 3, open: true}
+    
+    console.log(store.getTables());
+    // -> {pets: {fido: {species: 'dog'}}}
+    
+
+You can also alter [`Store`](https://beta.tinybase.org/api/store/interfaces/store/store/) data at different granularities with the [`setValue`](https://beta.tinybase.org/api/store/interfaces/store/store/methods/setter/setvalue/) method, the [`setTable`](https://beta.tinybase.org/api/store/interfaces/store/store/methods/setter/settable/) method, the [`setRow`](https://beta.tinybase.org/api/store/interfaces/store/store/methods/setter/setrow/) method, and the [`setCell`](https://beta.tinybase.org/api/store/interfaces/store/store/methods/setter/setcell/) method:
+
+    store.setValue('employees', 4);
+    console.log(store.getValues());
+    // -> {employees: 4, open: true}
+    
+    store.setTable('species', {dog: {price: 5}});
+    console.log(store.getTables());
+    // -> {pets: {fido: {species: 'dog'}}, species: {dog: {price: 5}}}
+    
+    store.setRow('species', 'cat', {price: 4});
+    console.log(store.getTables());
+    // -> {pets: {fido: {species: 'dog'}}, species: {dog: {price: 5}, cat: {price: 4}}}
+    
+    store.setCell('pets', 'fido', 'color', 'brown');
+    console.log(store.getTables());
+    // -> {pets: {fido: {species: 'dog', color: 'brown'}}, species: {dog: {price: 5}, cat: {price: 4}}}
+    
+
+The data in a [`Value`](https://beta.tinybase.org/api/store/type-aliases/store/value/) or a [`Cell`](https://beta.tinybase.org/api/store/type-aliases/store/cell/) can be a string, a number, or a boolean type.
+
+It's worth mentioning here that there are two extra methods to manipulate [`Row`](https://beta.tinybase.org/api/store/type-aliases/store/row/) objects. The [`addRow`](https://beta.tinybase.org/api/store/interfaces/store/store/methods/setter/addrow/) method is like the [`setRow`](https://beta.tinybase.org/api/store/interfaces/store/store/methods/setter/setrow/) method but automatically assigns it a new unique [`Id`](https://beta.tinybase.org/api/common/type-aliases/identity/id/). And the [`setPartialRow`](https://beta.tinybase.org/api/store/interfaces/store/store/methods/setter/setpartialrow/) method lets you update multiple [`Cell`](https://beta.tinybase.org/api/store/type-aliases/store/cell/) values in a [`Row`](https://beta.tinybase.org/api/store/type-aliases/store/row/) without affecting the others. (setPartialValues does the same for [`Values`](https://beta.tinybase.org/api/store/type-aliases/store/values/).)
+
+### Deleting Data
+
+There are dedicated deletion methods (again, for each level of granularity), such as the [`delValue`](https://beta.tinybase.org/api/store/interfaces/store/store/methods/deleter/delvalue/) method, the [`delTable`](https://beta.tinybase.org/api/store/interfaces/store/store/methods/deleter/deltable/) method, the [`delRow`](https://beta.tinybase.org/api/store/interfaces/store/store/methods/deleter/delrow/) method, and the [`delCell`](https://beta.tinybase.org/api/store/interfaces/store/store/methods/deleter/delcell/) method. For example:
+
+    store.delValue('employees');
+    console.log(store.getValues());
+    // -> {open: true}
+    
+    store.delTable('species');
+    console.log(store.getTables());
+    // -> {pets: {fido: {species: 'dog', color: 'brown'}}}
+    
+
+Deletions are also implied when you set an object that omits something that existed before:
+
+    console.log(store.getTables());
+    // -> {pets: {fido: {species: 'dog', color: 'brown'}}}
+    
+    store.setRow('pets', 'fido', {species: 'dog'});
+    console.log(store.getTables());
+    // -> {pets: {fido: {species: 'dog'}}}
+    // The `color` Cell has been deleted.
+    
+
+[`Table`](https://beta.tinybase.org/api/store/type-aliases/store/table/) and [`Row`](https://beta.tinybase.org/api/store/type-aliases/store/row/) objects cannot be empty - if they are, they are removed - which leads to a cascading effect when you remove the final child of a parent object:
+
+    store.delCell('pets', 'fido', 'species');
+    console.log(store.getTables());
+    // -> {}
+    // The `fido` Row and `pets` Table have been recursively deleted.
+    
+
+### Summary
+
+That's a quick overview on how to write data to a [`Store`](https://beta.tinybase.org/api/store/interfaces/store/store/). But of course you want to get it out again too!
+
+In the examples above, we've used the [`getValues`](https://beta.tinybase.org/api/store/interfaces/store/store/methods/getter/getvalues/) method and the [`getTables`](https://beta.tinybase.org/api/store/interfaces/store/store/methods/getter/gettables/) method to get a view into the data in the [`Store`](https://beta.tinybase.org/api/store/interfaces/store/store/). Unsurprisingly, you can also use more granular methods to get data out - for which we proceed to the [Reading From Stores](https://beta.tinybase.org/guides/the-basics/reading-from-stores/) guide.
+
+---
+
+## Page: https://beta.tinybase.org/guides/the-basics/reading-from-stores/
+
+This guide shows you how to read data from a [`Store`](https://beta.tinybase.org/api/store/interfaces/store/store/).
+
+While we're here, notice how the the [`createStore`](https://beta.tinybase.org/api/store/functions/creation/createstore/) function and setter methods return the [`Store`](https://beta.tinybase.org/api/store/interfaces/store/store/) again, so we can easily instantiate it by chaining methods together:
+
+    import {createStore} from 'tinybase';
+    
+    const store = createStore()
+      .setValues({employees: 3, open: true})
+      .setTables({
+        pets: {fido: {species: 'dog'}},
+        species: {dog: {price: 5}},
+      });
+    
+
+To get the data out again, according to the level of the hierarchy that you want to get data for, you can use the [`getValues`](https://beta.tinybase.org/api/store/interfaces/store/store/methods/getter/getvalues/) method, the [`getValue`](https://beta.tinybase.org/api/store/interfaces/store/store/methods/getter/getvalue/) method, the [`getTables`](https://beta.tinybase.org/api/store/interfaces/store/store/methods/getter/gettables/) method, the [`getTable`](https://beta.tinybase.org/api/store/interfaces/store/store/methods/getter/gettable/) method, the [`getRow`](https://beta.tinybase.org/api/store/interfaces/store/store/methods/getter/getrow/) method, or the [`getCell`](https://beta.tinybase.org/api/store/interfaces/store/store/methods/getter/getcell/) method.
+
+By now, this should be starting to look intuitive. (I hope so! If not, let me know!)
+
+    console.log(store.getValues());
+    // -> {employees: 3, open: true}
+    
+    console.log(store.getValue('employees'));
+    // -> 3
+    
+    console.log(store.getTables());
+    // -> {pets: {fido: {species: 'dog'}}, species: {dog: {price: 5}}}
+    
+    console.log(store.getTable('pets'));
+    // -> {fido: {species: 'dog'}}
+    
+    console.log(store.getRow('pets', 'fido'));
+    // -> {species: 'dog'}
+    
+    console.log(store.getCell('pets', 'fido', 'species'));
+    // -> 'dog'
+    
+
+It is worth noting that the return types of these methods are by value, not by reference. So if you manipulate the returned object, the [`Store`](https://beta.tinybase.org/api/store/interfaces/store/store/) is not updated:
+
+    const fido = store.getRow('pets', 'fido');
+    fido.color = 'brown';
+    console.log(fido);
+    // -> {species: 'dog', color: 'brown'}
+    
+    console.log(store.getRow('pets', 'fido'));
+    // -> {species: 'dog'}
+    
+
+### Handling Non-Existent Data
+
+The [`hasValue`](https://beta.tinybase.org/api/store/interfaces/store/store/methods/getter/hasvalue/) method, the [`hasTable`](https://beta.tinybase.org/api/store/interfaces/store/store/methods/getter/hastable/) method, the [`hasRow`](https://beta.tinybase.org/api/store/interfaces/store/store/methods/getter/hasrow/) method, and the [`hasCell`](https://beta.tinybase.org/api/store/interfaces/store/store/methods/getter/hascell/) method can be used to see whether a given object exists, without having to read it:
+
+    console.log(store.hasValue('website'));
+    // -> false
+    
+    console.log(store.hasTable('customers'));
+    // -> false
+    
+    console.log(store.hasRow('pets', 'fido'));
+    // -> true
+    
+
+When you try to access something that doesn't exist, you'll receive an `undefined` value for a [`Value`](https://beta.tinybase.org/api/store/type-aliases/store/value/) or [`Cell`](https://beta.tinybase.org/api/store/type-aliases/store/cell/), or an empty object:
+
+    console.log(store.getValue('website'));
+    // -> undefined
+    
+    console.log(store.getTable('customers'));
+    // -> {}
+    
+    console.log(store.getRow('pets', 'felix'));
+    // -> {}
+    
+    console.log(store.getCell('pets', 'fido', 'color'));
+    // -> undefined
+    
+
+### Enumerating [`Ids`](https://beta.tinybase.org/api/common/type-aliases/identity/ids/)
+
+A [`Store`](https://beta.tinybase.org/api/store/interfaces/store/store/) contains [`Value`](https://beta.tinybase.org/api/store/type-aliases/store/value/) and [`Table`](https://beta.tinybase.org/api/store/type-aliases/store/table/) objects, keyed by [`Id`](https://beta.tinybase.org/api/common/type-aliases/identity/id/). A [`Table`](https://beta.tinybase.org/api/store/type-aliases/store/table/) contains [`Row`](https://beta.tinybase.org/api/store/type-aliases/store/row/) objects, keyed by [`Id`](https://beta.tinybase.org/api/common/type-aliases/identity/id/). And a [`Row`](https://beta.tinybase.org/api/store/type-aliases/store/row/) contains [`Cell`](https://beta.tinybase.org/api/store/type-aliases/store/cell/) objects, keyed by [`Id`](https://beta.tinybase.org/api/common/type-aliases/identity/id/).
+
+You can enumerate the [`Id`](https://beta.tinybase.org/api/common/type-aliases/identity/id/) keys for each with the [`getValueIds`](https://beta.tinybase.org/api/store/interfaces/store/store/methods/getter/getvalueids/) method, the [`getTableIds`](https://beta.tinybase.org/api/store/interfaces/store/store/methods/getter/gettableids/) method, the [`getRowIds`](https://beta.tinybase.org/api/store/interfaces/store/store/methods/getter/getrowids/) method, or the [`getCellIds`](https://beta.tinybase.org/api/store/interfaces/store/store/methods/getter/getcellids/) method - each of which return arrays:
+
+    console.log(store.getValueIds());
+    // -> ['employees', 'open']
+    
+    console.log(store.getTableIds());
+    // -> ['pets', 'species']
+    
+    console.log(store.getRowIds('pets'));
+    // -> ['fido']
+    
+    console.log(store.getCellIds('pets', 'fido'));
+    // -> ['species']
+    
+
+There is also the [`getSortedRowIds`](https://beta.tinybase.org/api/store/interfaces/store/store/methods/getter/getsortedrowids/) method that lets you get the [`Ids`](https://beta.tinybase.org/api/common/type-aliases/identity/ids/) sorted by a specific [`Cell`](https://beta.tinybase.org/api/store/type-aliases/store/cell/) [`Id`](https://beta.tinybase.org/api/common/type-aliases/identity/id/), and the [`getTableCellIds`](https://beta.tinybase.org/api/store/interfaces/store/store/methods/getter/gettablecellids/) method that lets you get all the [`Ids`](https://beta.tinybase.org/api/common/type-aliases/identity/ids/) used across a whole [`Table`](https://beta.tinybase.org/api/store/type-aliases/store/table/).
+
+Again, the return types of these methods are by value, not by reference. So if you manipulate the returned array, the [`Store`](https://beta.tinybase.org/api/store/interfaces/store/store/) is not updated:
+
+    const tableIds = store.getTableIds();
+    tableIds.pop();
+    console.log(tableIds);
+    // -> ['pets']
+    
+    console.log(store.getTableIds());
+    // -> ['pets', 'species']
+    
+
+Finally, the [`forEachValue`](https://beta.tinybase.org/api/store/interfaces/store/store/methods/iterator/foreachvalue/) method, the [`forEachTable`](https://beta.tinybase.org/api/store/interfaces/store/store/methods/iterator/foreachtable/) method, the [`forEachRow`](https://beta.tinybase.org/api/store/interfaces/store/store/methods/iterator/foreachrow/) method, and the [`forEachCell`](https://beta.tinybase.org/api/store/interfaces/store/store/methods/iterator/foreachcell/) method each provide a convenient way to iterate over these objects and their children in turn:
+
+    store.forEachTable((tableId, forEachRow) => {
+      console.log(tableId);
+      forEachRow((rowId) => console.log(`- ${rowId}`));
+    });
+    // -> 'pets'
+    // -> '- fido'
+    // -> 'species'
+    // -> '- dog'
+    
+
+### Summary
+
+So far, this should seem relatively straightforward. For more information on all of these methods, you'll find a lot more in the [`Store`](https://beta.tinybase.org/api/store/interfaces/store/store/) documentation.
+
+The reactive TinyBase magic starts to happen when we register listeners on the [`Store`](https://beta.tinybase.org/api/store/interfaces/store/store/) so we don't have to keep explicitly fetching data.
+
+For that, we proceed to the [Listening To Stores](https://beta.tinybase.org/guides/the-basics/listening-to-stores/) guide.
+
+---
+
+## Page: https://beta.tinybase.org/guides/the-basics/listening-to-stores/
+
+This guide shows you how to listen to changes in the data in a [`Store`](https://beta.tinybase.org/api/store/interfaces/store/store/).
+
+By now, you'll have noticed that there are always consistent methods for each level of the [`Store`](https://beta.tinybase.org/api/store/interfaces/store/store/) hierarchy, and the way you register listeners is no exception:
+
+*   Listen to [`Values`](https://beta.tinybase.org/api/store/type-aliases/store/values/) with the [`addValuesListener`](https://beta.tinybase.org/api/store/interfaces/store/store/methods/listener/addvalueslistener/) method.
+*   Listen to [`Value`](https://beta.tinybase.org/api/store/type-aliases/store/value/) [`Ids`](https://beta.tinybase.org/api/common/type-aliases/identity/ids/) with the [`addValueIdsListener`](https://beta.tinybase.org/api/store/interfaces/store/store/methods/listener/addvalueidslistener/) method.
+*   Listen to a [`Value`](https://beta.tinybase.org/api/store/type-aliases/store/value/) with the [`addValueListener`](https://beta.tinybase.org/api/store/interfaces/store/store/methods/listener/addvaluelistener/) method.
+
+And for tabular data:
+
+*   Listen to [`Tables`](https://beta.tinybase.org/api/store/type-aliases/store/tables/) with the [`addTablesListener`](https://beta.tinybase.org/api/store/interfaces/store/store/methods/listener/addtableslistener/) method.
+*   Listen to [`Table`](https://beta.tinybase.org/api/store/type-aliases/store/table/) [`Ids`](https://beta.tinybase.org/api/common/type-aliases/identity/ids/) with the [`addTableIdsListener`](https://beta.tinybase.org/api/store/interfaces/store/store/methods/listener/addtableidslistener/) method.
+*   Listen to a [`Table`](https://beta.tinybase.org/api/store/type-aliases/store/table/) with the [`addTableListener`](https://beta.tinybase.org/api/store/interfaces/store/store/methods/listener/addtablelistener/) method.
+*   Listen to Cells [`Ids`](https://beta.tinybase.org/api/common/type-aliases/identity/ids/) across a [`Table`](https://beta.tinybase.org/api/store/type-aliases/store/table/) with the [`addTableCellIdsListener`](https://beta.tinybase.org/api/store/interfaces/store/store/methods/listener/addtablecellidslistener/) method.
+*   Listen to [`Row`](https://beta.tinybase.org/api/store/type-aliases/store/row/) [`Ids`](https://beta.tinybase.org/api/common/type-aliases/identity/ids/) with the [`addRowIdsListener`](https://beta.tinybase.org/api/store/interfaces/store/store/methods/listener/addrowidslistener/) method.
+*   Listen to sorted [`Row`](https://beta.tinybase.org/api/store/type-aliases/store/row/) [`Ids`](https://beta.tinybase.org/api/common/type-aliases/identity/ids/) with the [`addSortedRowIdsListener`](https://beta.tinybase.org/api/store/interfaces/store/store/methods/listener/addsortedrowidslistener/) method.
+*   Listen to a [`Row`](https://beta.tinybase.org/api/store/type-aliases/store/row/) with the [`addRowListener`](https://beta.tinybase.org/api/store/interfaces/store/store/methods/listener/addrowlistener/) method.
+*   Listen to [`Cell`](https://beta.tinybase.org/api/store/type-aliases/store/cell/) [`Ids`](https://beta.tinybase.org/api/common/type-aliases/identity/ids/) with the [`addCellIdsListener`](https://beta.tinybase.org/api/store/interfaces/store/store/methods/listener/addcellidslistener/) method.
+*   Listen to a [`Cell`](https://beta.tinybase.org/api/store/type-aliases/store/cell/) with the [`addCellListener`](https://beta.tinybase.org/api/store/interfaces/store/store/methods/listener/addcelllistener/) method.
+
+You can also listen to attempts to write invalid data to a [`Value`](https://beta.tinybase.org/api/store/type-aliases/store/value/) with the [`addInvalidValueListener`](https://beta.tinybase.org/api/store/interfaces/store/store/methods/listener/addinvalidvaluelistener/) method, and to a [`Cell`](https://beta.tinybase.org/api/store/type-aliases/store/cell/) with the [`addInvalidCellListener`](https://beta.tinybase.org/api/store/interfaces/store/store/methods/listener/addinvalidcelllistener/) method.
+
+Let's start with the simplest type of listener, addTablesListener, which listens to changes to any tabular data in the [`Store`](https://beta.tinybase.org/api/store/interfaces/store/store/). Firstly, let's set up some simple data:
+
+    import {createStore} from 'tinybase';
+    
+    const store = createStore().setTables({
+      pets: {fido: {species: 'dog'}},
+      species: {dog: {price: 5}},
+    });
+    
+
+We can then use the [`addTablesListener`](https://beta.tinybase.org/api/store/interfaces/store/store/methods/listener/addtableslistener/) method to register a function on the [`Store`](https://beta.tinybase.org/api/store/interfaces/store/store/) that will be called whenever the data in the [`Store`](https://beta.tinybase.org/api/store/interfaces/store/store/) changes:
+
+    const listenerId = store.addTablesListener(() =>
+      console.log('Tables changed!'),
+    );
+    
+
+Let's test it out by updating a [`Cell`](https://beta.tinybase.org/api/store/type-aliases/store/cell/) in the [`Store`](https://beta.tinybase.org/api/store/interfaces/store/store/):
+
+    store.setCell('species', 'dog', 'price', 6);
+    // -> 'Tables changed!'
+    
+
+The listener will be called, regardless of which type of setter method was used to make the change. But a change needs to have been made! If a setter method was used to no effect, the listener is not called:
+
+    store.setCell('pets', 'fido', 'species', 'dog');
+    // Since the data didn't actually change, the listener was not called.
+    
+
+It is important to note that by default, you can't mutate the [`Store`](https://beta.tinybase.org/api/store/interfaces/store/store/) with code inside a listener, and attempting to do so will fail silently. We cover how to mutate the [`Store`](https://beta.tinybase.org/api/store/interfaces/store/store/) from with in a listener (in order to adhere to a [`TablesSchema`](https://beta.tinybase.org/api/store/type-aliases/schema/tablesschema/), for example) in the [Mutating Data With Listeners](https://beta.tinybase.org/guides/schemas/mutating-data-with-listeners/) guide.
+
+### Cleaning Up Listeners
+
+You will have noticed that the [`addTablesListener`](https://beta.tinybase.org/api/store/interfaces/store/store/methods/listener/addtableslistener/) method didn't return a reference to the [`Store`](https://beta.tinybase.org/api/store/interfaces/store/store/) object (so you can't chain other methods after it), but an [`Id`](https://beta.tinybase.org/api/common/type-aliases/identity/id/) representing the registration of that listener.
+
+You can use that [`Id`](https://beta.tinybase.org/api/common/type-aliases/identity/id/) to remove the listener at a later stage with the [`delListener`](https://beta.tinybase.org/api/store/interfaces/store/store/methods/listener/dellistener/) method:
+
+    store.delListener(listenerId);
+    store.setCell('species', 'dog', 'price', 7);
+    // Listener has been unregistered and so is not called.
+    
+
+It's good habit to remove the listeners you are no longer using. Note that listener [`Ids`](https://beta.tinybase.org/api/common/type-aliases/identity/ids/) are commonly re-used, so you have removed a listener with a given [`Id`](https://beta.tinybase.org/api/common/type-aliases/identity/id/), don't try to use that [`Id`](https://beta.tinybase.org/api/common/type-aliases/identity/id/) again.
+
+### Listener Parameters
+
+In the example above, we registered a listener that didn't take any parameters. However, all [`Store`](https://beta.tinybase.org/api/store/interfaces/store/store/) listeners are called with at least a reference to the [`Store`](https://beta.tinybase.org/api/store/interfaces/store/store/), and often a convenient `getCellChange` function that lets you inspect changes that might have happened:
+
+    const listenerId2 = store.addTablesListener((store, getCellChange) =>
+      console.log(getCellChange('species', 'dog', 'price')),
+    );
+    
+    store.setCell('species', 'dog', 'price', 8);
+    // -> [true, 7, 8]
+    
+    store.delListener(listenerId2);
+    
+
+See the [`addTablesListener`](https://beta.tinybase.org/api/store/interfaces/store/store/methods/listener/addtableslistener/) method documentation for more information on these parameters.
+
+When you listen to changes down inside a [`Store`](https://beta.tinybase.org/api/store/interfaces/store/store/) (with more granular listeners), you will also be passed [`Id`](https://beta.tinybase.org/api/common/type-aliases/identity/id/) parameters reflecting what changed.
+
+For example, here we register a listener on the `fido` [`Row`](https://beta.tinybase.org/api/store/type-aliases/store/row/) in the `pets` [`Table`](https://beta.tinybase.org/api/store/type-aliases/store/table/):
+
+    const listenerId3 = store.addRowListener(
+      'pets',
+      'fido',
+      (store, tableId, rowId) =>
+        console.log(`${rowId} row in ${tableId} table changed`),
+    );
+    
+    store.setCell('pets', 'fido', 'color', 'brown');
+    // -> 'fido row in pets table changed'
+    
+    store.delListener(listenerId3);
+    
+
+When you register a [`CellListener`](https://beta.tinybase.org/api/store/type-aliases/listener/celllistener/) listener with the [`addCellListener`](https://beta.tinybase.org/api/store/interfaces/store/store/methods/listener/addcelllistener/) method, that also receives parameters containing the old and new [`Cell`](https://beta.tinybase.org/api/store/type-aliases/store/cell/) values.
+
+### Wildcard Listeners
+
+The fact that the listeners are passed parameters for what changed becomes very useful when you register wildcard listeners. These listen to changes at a particular part of the [`Store`](https://beta.tinybase.org/api/store/interfaces/store/store/) hierarchy but not necessarily to a specific object.
+
+So for example, you can listen to changes to any [`Row`](https://beta.tinybase.org/api/store/type-aliases/store/row/) in a given [`Table`](https://beta.tinybase.org/api/store/type-aliases/store/table/). To wildcard what you want to listen to, simply use `null` in place of an [`Id`](https://beta.tinybase.org/api/common/type-aliases/identity/id/) argument when you add a listener:
+
+    const listenerId4 = store.addRowListener(null, null, (store, tableId, rowId) =>
+      console.log(`${rowId} row in ${tableId} table changed`),
+    );
+    
+    store.setCell('pets', 'fido', 'color', 'walnut');
+    // -> 'fido row in pets table changed'
+    
+    store.setCell('species', 'dog', 'price', '9');
+    // -> 'dog row in species table changed'
+    
+    store.delListener(listenerId4);
+    
+
+You can intermingle wildcards and actual [`Id`](https://beta.tinybase.org/api/common/type-aliases/identity/id/) values for any of the parameters. So, for example, you could listen to the [`Cell`](https://beta.tinybase.org/api/store/type-aliases/store/cell/) values with a given [`Id`](https://beta.tinybase.org/api/common/type-aliases/identity/id/) in any [`Row`](https://beta.tinybase.org/api/store/type-aliases/store/row/) in a given [`Table`](https://beta.tinybase.org/api/store/type-aliases/store/table/), and so on.
+
+Note that you can't use the wildcard technique with the [`addSortedRowIdsListener`](https://beta.tinybase.org/api/store/interfaces/store/store/methods/listener/addsortedrowidslistener/) method. You must explicitly specify just one [`Table`](https://beta.tinybase.org/api/store/type-aliases/store/table/), for performance reasons.
+
+### Summary
+
+We've now seen how to create a [`Store`](https://beta.tinybase.org/api/store/interfaces/store/store/), set data in it, read it back out, and set up listeners to detect whenever it changes. Finally we'll cover how to wrap multiple changes together, in the [Transactions](https://beta.tinybase.org/guides/the-basics/transactions/) guide.
+
+---
+
+## Page: https://beta.tinybase.org/guides/the-basics/transactions/
+
+*   [TinyBase](https://beta.tinybase.org/)
+*   [Guides](https://beta.tinybase.org/guides/)
+*   [The Basics](https://beta.tinybase.org/guides/the-basics/)
+*   [Transactions](https://beta.tinybase.org/guides/the-basics/transactions/)
+
+This guide shows you how to wrap multiple changes to the data in a [`Store`](https://beta.tinybase.org/api/store/interfaces/store/store/).
+
+A transaction is a sequence of changes made to a [`Store`](https://beta.tinybase.org/api/store/interfaces/store/store/). No listeners will be fired until the full transaction is complete. This is a useful way to debounce listener side-effects and ensure that you are only responding to net changes. [`Changes`](https://beta.tinybase.org/api/store/type-aliases/transaction/changes/) are made silently during the transaction, and listeners relevant to the changes you have made will instead only be called when the whole transaction is complete.
+
+A transaction can also be rolled back and the original state of the [`Store`](https://beta.tinybase.org/api/store/interfaces/store/store/) will be restored.
+
+### Creating Transactions
+
+The [`transaction`](https://beta.tinybase.org/api/store/interfaces/store/store/methods/transaction/transaction/) method takes a function that makes multiple mutations to the store, buffering all calls to the relevant listeners until it completes.
+
+    import {createStore} from 'tinybase';
+    
+    const store = createStore().setTables({pets: {fido: {species: 'dog'}}});
+    const listenerId = store.addRowListener('pets', 'fido', () =>
+      console.log('Fido changed'),
+    );
+    
+    // Multiple changes, not in a transaction
+    store.setCell('pets', 'fido', 'color', 'brown');
+    store.setCell('pets', 'fido', 'sold', false);
+    // -> 'Fido changed'
+    // -> 'Fido changed'
+    
+    // Multiple changes in a transaction
+    store.transaction(() => {
+      store.setCell('pets', 'fido', 'color', 'walnut');
+      store.setCell('pets', 'fido', 'sold', true);
+    });
+    // -> 'Fido changed'
+    
+    store.delListener(listenerId);
+    
+
+If multiple changes are made to a piece of [`Store`](https://beta.tinybase.org/api/store/interfaces/store/store/) data throughout the transaction, a relevant listener will only be called with the final value (assuming it is different to the value at the start of the transaction), regardless of the changes that happened in between. For example, if a [`Cell`](https://beta.tinybase.org/api/store/type-aliases/store/cell/) had a value `'a'` and then, within a transaction, it was changed to `'b'` and then `'c'`, any [`CellListener`](https://beta.tinybase.org/api/store/type-aliases/listener/celllistener/) registered for that cell would be called once as if there had been a single change from `'a'` to `'c'`:
+
+    const listenerId2 = store.addCellListener(
+      'pets',
+      'fido',
+      'color',
+      (store, tableId, rowId, cellId, newCell) =>
+        console.log(`Fido color changed to ${newCell}`),
+    );
+    
+    store.transaction(() => {
+      store.setCell('pets', 'fido', 'color', 'black');
+      store.setCell('pets', 'fido', 'color', 'brown');
+    });
+    // -> 'Fido color changed to brown'
+    
+    store.delListener(listenerId2);
+    
+
+Note that transactions can be nested. Relevant listeners will be called only when the outermost one completes.
+
+### Rolling Back Transactions
+
+The [`transaction`](https://beta.tinybase.org/api/store/interfaces/store/store/methods/transaction/transaction/) method takes a second optional parameter, `doRollback`. This is a callback that you can use to rollback the transaction if it did not complete to your satisfaction.
+
+This example makes multiple changes to the [`Store`](https://beta.tinybase.org/api/store/interfaces/store/store/), including some attempts to update a [`Cell`](https://beta.tinybase.org/api/store/type-aliases/store/cell/) with invalid values. The `doRollback` callback fetches information about the changes and invalid attempts, and then judges that the transaction should be rolled back to its original state.
+
+    store.transaction(
+      () => {
+        store.setCell('pets', 'fido', 'color', 'black');
+        store.setCell('pets', 'fido', 'eyes', ['left', 'right']);
+        store.setCell('pets', 'fido', 'buyer', {name: 'Bob'});
+      },
+      () => {
+        const [, , changedCells, invalidCells] = store.getTransactionLog();
+        console.log(store.getTables());
+        // -> {pets: {fido: {species: 'dog', color: 'black', sold: true}}}
+        console.log(changedCells);
+        // -> {pets: {fido: {color: ['brown', 'black']}}}
+        console.log(invalidCells);
+        // -> {pets: {fido: {eyes: [['left', 'right']], buyer: [{name: 'Bob'}]}}}
+        return invalidCells['pets'] != null;
+      },
+    );
+    
+    console.log(store.getTables());
+    // -> {pets: {fido: {species: 'dog', color: 'brown', sold: true}}}
+    
+
+### Listening to transactions
+
+You can register listeners to the start and finish of a transaction. There are three points in its lifecycle:
+
+| Event | Add a listener with | When | Can mutate data |
+| --- | --- | --- | --- |
+| Start | [`addStartTransactionListener`](https://beta.tinybase.org/api/store/interfaces/store/store/methods/listener/addstarttransactionlistener/) | Before changes | Yes |
+| WillFinish | [`addWillFinishTransactionListener`](https://beta.tinybase.org/api/store/interfaces/store/store/methods/listener/addwillfinishtransactionlistener/) | After changes and other mutator listeners | Yes |
+| DidFinish | [`addDidFinishTransactionListener`](https://beta.tinybase.org/api/store/interfaces/store/store/methods/listener/adddidfinishtransactionlistener/) | After non-mutator listeners | No |
+
+For example:
+
+    store.delTables();
+    
+    const startListenerId = store.addStartTransactionListener(() => {
+      console.log('Start transaction');
+      console.log(store.getTables());
+      // Can mutate data
+    });
+    
+    const willFinishListenerId = store.addWillFinishTransactionListener(() => {
+      console.log('Will finish transaction');
+      console.log(store.getTables());
+      // Can mutate data
+    });
+    
+    const didFinishListenerId = store.addDidFinishTransactionListener(() => {
+      console.log('Did finish transaction');
+      console.log(store.getTables());
+      // Cannot mutate data
+    });
+    
+    store.setTable('pets', {fido: {species: 'dog'}});
+    // -> 'Start transaction'
+    // -> {}
+    // -> 'Will finish transaction'
+    // -> {pets: {fido: {species: 'dog'}}}
+    // -> 'Did finish transaction'
+    // -> {pets: {fido: {species: 'dog'}}}
+    
+    store
+      .delListener(startListenerId)
+      .delListener(willFinishListenerId)
+      .delListener(didFinishListenerId);
+    
+
+### Summary
+
+We've covered all of the essential basics of working with a TinyBase [`Store`](https://beta.tinybase.org/api/store/interfaces/store/store/), but that's still just the start!
+
+Before we move on, we have a quick aside about how to use various flavors of TinyBase in your app, in the [Importing TinyBase](https://beta.tinybase.org/guides/the-basics/importing-tinybase/) guide.
+
+---
+
+## Page: https://beta.tinybase.org/guides/the-basics/importing-tinybase/
+
+This guide provides an aside about importing TinyBase into your application.
+
+### The Simplest Imports
+
+The simplest import of TinyBase is:
+
+    import {createMetrics, createStore} from 'tinybase';
+    
+
+This will get you an ESNext, ESM, non-minified import of the main `tinybase` module, (which contains most of the core functionality), and should be enough to get started. You may also want to import specific persister, synchronizer, or UI modules:
+
+    import {createSessionPersister} from 'tinybase/persisters/persister-browser';
+    import {createWsSynchronizer} from 'tinybase/synchronizers/synchronizer-ws-client';
+    import {useCell} from 'tinybase/ui-react';
+    import {TableInHtmlTable} from 'tinybase/ui-react-dom';
+    
+    // ... etc
+    
+
+All the example code throughout these guides and the API documentation are shown with the correct imports so that you can be clear about which functions and types come from which modules.
+
+### Using TinyBase Submodules
+
+The `tinybase` module is the master package of most of the core functionality. It includes the following submodules:
+
+*   The [`store`](https://beta.tinybase.org/api/store/) module
+*   The [`metrics`](https://beta.tinybase.org/api/metrics/) module
+*   The [`indexes`](https://beta.tinybase.org/api/indexes/) module
+*   The [`relationships`](https://beta.tinybase.org/api/relationships/) module
+*   The [`queries`](https://beta.tinybase.org/api/queries/) module
+*   The [`checkpoints`](https://beta.tinybase.org/api/checkpoints/) module
+*   The [`mergeable-store`](https://beta.tinybase.org/api/mergeable-store/) module
+*   The [`common`](https://beta.tinybase.org/api/common/) module
+
+Since many of the submodules above share compiled-in dependencies, the master package is smaller to include than including all of the submodules separately.
+
+However, for a very minimal set of submodules, you may save size by including them piecemeal. If you only wanted a [`Store`](https://beta.tinybase.org/api/store/interfaces/store/store/) and a [`Metrics`](https://beta.tinybase.org/api/metrics/interfaces/metrics/metrics/) object, for example, you could import them alone like this:
+
+    import {createMetrics} from 'tinybase/metrics';
+    import {createStore} from 'tinybase/store';
+    
+    // ...
+    
+
+With a good minifier in your application bundler, however, you may find that this level of granularity is unnecessary, and that you can just stick with the overall `tinybase` module for most things.
+
+The submodules for various [`Persister`](https://beta.tinybase.org/api/persisters/interfaces/persister/persister/) and [`Synchronizer`](https://beta.tinybase.org/api/synchronizers/interfaces/synchronizer/synchronizer/) types are _not_ included in the main tinybase module, but should be imported separately from inside the `persisters` and `synchronizers` folders. See the [Persistence](https://beta.tinybase.org/guides/persistence/) and [Synchronization](https://beta.tinybase.org/guides/synchronization/) guides, respectively, for more details.
+
+### Targets And Formats
+
+Prior to TinyBase v6.0, the NPM package included a number of different versions of each module, transpiled for different targets and formats. From v6.0 onwards, only ESNext, ESM modules are included in the main package.
+
+However, both non-minified and minified versions are available: the default is non-minified code, but minified versions are available in the top-level `min` folder:
+
+    import {createStore} from 'tinybase'; // non-minified
+    // or
+    import {createStore} from 'tinybase/min'; // minified
+    
+
+### Indicating Schema-based Typing
+
+As we will see in more details in the following [TinyBase And TypeScript](https://beta.tinybase.org/guides/the-basics/tinybase-and-typescript/) guide, it is possible to use schema-aware type definitions by appending `with-schemas` to the very end of the path like this:
+
+    import {createStore} from 'tinybase/with-schemas';
+    
+    // NB the 'with-schemas'
+    
+
+### Putting It All Together
+
+As long as you put the optional parts of the path in the right order, you can access all the valid combinations of minification, sub-module and schema support. The syntax for the import (split onto different lines for clarity) is:
+
+    tinybase
+      [ /min ]
+        [ /store | /metrics | /queries | ... ]
+          [ /with-schemas ]
+    
+
+For example, this is a non-exhaustive list of options that are all valid:
+
+| Import | Minified | Sub-module | With schemas |
+| --- | --- | --- | --- |
+| `import {...} from 'tinybase';` | no |  | no |
+| `import {...} from 'tinybase/with-schemas';` | no |  | yes |
+| `import {...} from 'tinybase/min';` | yes |  | no |
+| `import {...} from 'tinybase/store/with-schemas'` | no | [`store`](https://beta.tinybase.org/api/store/) | no |
+| `import {...} from 'tinybase/min/store/with-schemas'` | yes | [`store`](https://beta.tinybase.org/api/store/) | yes |
+| ... |  |  |  |
+
+If all else fails, take a look into the package folder and see what's what!
+
+### React Native
+
+If you are using [React Native](https://reactnative.dev/) - for example with [Expo](https://expo.dev/) - be aware that the [Metro](https://facebook.github.io/metro/) bundler does not currently support module resolution very well. You may have to add in the exact file path to be explicit about your imports:
+
+    import {createStore} from 'tinybase/index.js';
+    import {useCell} from 'tinybase/ui-react/index.js';
+    
+
+This situation is evolving however, so you may find these extra file names unnecessary as bundler support improves.
+
+Check out the [Expo TinyBase example](https://github.com/expo/examples/tree/master/with-tinybase) for a simple working template to get started with TinyBase and React Native.
+
+### ESlint Resolver Issues
+
+There is a [known issue](https://github.com/import-js/eslint-plugin-import/issues/1810) with the `no-unresolved` ESlint rule whereby it does not understand the `exports` section of the TinyBase `package.json`. You may wish to disable that rule if you are getting false positives using TinyBase submodules.
+
+### Enough!
+
+OK, we're done with the `import` shenanigans. Let's briefly look at how TinyBase benefits from using TypeScript to improve your developer experience in the TinyBase and TypeScript guide.
+
+---
+
+## Page: https://beta.tinybase.org/guides/the-basics/tinybase-and-typescript/
+
+This guide summarizes the two different levels of TypeScript coverage you can use with TinyBase.
+
+### 1\. Basic Type Support
+
+Out of the box, TinyBase has complete type coverage for all of its modules. So for example, setting and getting tabular and key-value data will obey the system's constraints. A [`Cell`](https://beta.tinybase.org/api/store/type-aliases/store/cell/) or a [`Value`](https://beta.tinybase.org/api/store/type-aliases/store/value/) can only be a number, string, or boolean, for example:
+
+    import {createStore} from 'tinybase';
+    
+    const store = createStore();
+    
+    store.setValues({employees: 3}); //                OK
+    store.setValues({employees: true}); //             OK
+    store.setValues({employees: ['Alice', 'Bob']}); // TypeScript error
+    
+
+This basic typing of the API is comprehensively described throughout in the API documentation.
+
+### 2\. Schema-based Typing
+
+The next step up is when you provide a schema for your TinyBase data. This more tightly constrains the types of [`Table`](https://beta.tinybase.org/api/store/type-aliases/store/table/), [`Cell`](https://beta.tinybase.org/api/store/type-aliases/store/cell/), and [`Value`](https://beta.tinybase.org/api/store/type-aliases/store/value/) that your [`Store`](https://beta.tinybase.org/api/store/interfaces/store/store/) can contain.
+
+Since v3.1, TinyBase can provide typing that adapts according to the schema when you import the `with-schemas` version of the library. For example:
+
+    import {createStore} from 'tinybase/with-schemas';
+    
+    // NB the 'with-schemas'
+    
+    const store = createStore().setValuesSchema({
+      employees: {type: 'number'},
+      open: {type: 'boolean', default: false},
+    });
+    
+    store.setValues({employees: 3}); //                      OK
+    store.setValues({employees: true}); //                   TypeScript error
+    store.setValues({employees: 3, website: 'pets.com'}); // TypeScript error
+    
+
+(The separate import is provided because the schema-based autocomplete and errors can be fairly verbose and confusing when you only need the basic type support.)
+
+Read more about this technique in the [Schema-Based Typing](https://beta.tinybase.org/guides/schemas/schema-based-typing/) guide.
+
+### Summary
+
+TinyBase provides different levels of typed support for your data, depending on how prescriptive you want it to be and your personal preferences.
+
+Next we will run through some of the many ways you can build your app around TinyBase in the [Architectural Options](https://beta.tinybase.org/guides/the-basics/architectural-options/) guide.
+
+---
+
+## Page: https://beta.tinybase.org/guides/the-basics/architectural-options/
+
+This guide discusses some of the ways in which you can use TinyBase, and how you can architect it into the bigger picture of how your app is built.
+
+Before we go any further, remember that TinyBase is an in-memory data store that runs within a JavaScript environment like a browser or a worker. Whilst it can theoretically stand alone in a simple app, you'll probably want to preserve, share, or sync the data between reloads and sessions.
+
+Here are the options we'll discuss in this guide:
+
+*   [Standalone TinyBase](#0-standalone-tinybase)
+*   [Read-Only Cloud Data](#1-read-only-cloud-data)
+*   [Browser Storage](#2-browser-storage)
+*   [Client Database Storage](#3-client-database-storage)
+*   [Client-Only Synchronization](#4-client-only-synchronization)
+*   [Client-Server Synchronization](#5-client-server-synchronization)
+*   [Third-Party Synchronization](#6-third-party-synchronization)
+
+As you can see lot of what we'll be discussing is how to integrate TinyBase with different persistence and synchronization techniques - whether on the client or the server, or both. Let's go!
+
+### 0\. Standalone TinyBase
+
+In this option, a TinyBase [`Store`](https://beta.tinybase.org/api/store/interfaces/store/store/) is instantiated when the app runs. During its use, data is added or updated, and rendered accordingly. When the app is reloaded or closed, the data is lost.
+
+*   **Pros**: This is very simple to set up, and good for prototyping small apps.
+*   **Cons**: It's a transient experience and your users' data won't show up again if they refresh their browser, revisit the app later.
+
+The [Todo App v1 (the basics)](https://beta.tinybase.org/demos/todo-app/todo-app-v1-the-basics/) demo is a good example of how to get started with an app like this.
+
+### 1\. Read-Only Cloud Data
+
+As one way to enhance the standalone app option, you can use the TinyBase persistence framework to load data from a server when the app starts, and then store it in a [`Store`](https://beta.tinybase.org/api/store/interfaces/store/store/). This might be appropriate for an app that uses read-only structured data which is small enough to fit into memory (and fast enough to load at start up).
+
+*   **Pros**: This is also relatively simple to set up, and good for data-centric or reference apps.
+*   **Cons**: The data is not interactive (or at least, changes made locally will not be saved). At some point, the size of the data needed might start to challenge the browser's memory - or the time you are prepared to let the startup spinner run for! - after which local persistence and pagination might be preferable.
+
+The [Movie Database](https://beta.tinybase.org/demos/movie-database/) demo, the [Word Frequencies](https://beta.tinybase.org/demos/word-frequencies/) demo, the [Car Analysis](https://beta.tinybase.org/demos/car-analysis/) demo, and the [City Database](https://beta.tinybase.org/demos/city-database/) demo are all good examples of this sort of 'read-only' app, each exercising different aspects of the TinyBase framework. The [Countries](https://beta.tinybase.org/demos/countries/) demo also loads one of its stores from a server.
+
+See the [`RemotePersister`](https://beta.tinybase.org/api/persister-remote/interfaces/persister/remotepersister/) interface for more details on how to pull data down from a server. Note that it _is_ possible to configure that [`Persister`](https://beta.tinybase.org/api/persisters/interfaces/persister/persister/) to 'save' data back to the server, but for anything other than the simplest use-cases, you may want to consider using a [`Synchronizer`](https://beta.tinybase.org/api/synchronizers/interfaces/synchronizer/synchronizer/) instead, so that multiple clients can edit data without conflict. We'll discuss that option later in this guide.
+
+### 2\. Browser Storage
+
+Another way to upgrade the standalone experience is to have TinyBase persist its data to the browser's storage. This way, the data or state can be preserved when the app is reloaded, or even when it is returned to in a later session. This is a basic 'local-only' approach.
+
+*   **Pros**: This approach provides persistence of data and state between reloads and sessions.
+*   **Cons**: Data is only stored in one particular browser on one particular device. The data may also get evicted (and its size limited) by the browser, depending on the storage used.
+
+The [Todo App v1 (the basics)](https://beta.tinybase.org/demos/todo-app/todo-app-v1-the-basics/) and the [Todo App v3 (persistence)](https://beta.tinybase.org/demos/todo-app/todo-app-v3-persistence/) demo are good examples of how to get started with an app like this. Also see the [`SessionPersister`](https://beta.tinybase.org/api/persister-browser/interfaces/persister/sessionpersister/) and [`LocalPersister`](https://beta.tinybase.org/api/persister-browser/interfaces/persister/localpersister/) documentation for more details.
+
+### 3\. Client Database Storage
+
+As well as its native storage techniques, there are now many options for running richer client-side databases, such as SQLite or PGLite, in the browser. These solutions typically rely on WASM packages to provide the database functionality and then store the underlying data in IndexedDB or OPFS. Similar database run times might also be provided natively in some client environments (like React Native or Node- or Bun-based solutions).
+
+TinyBase can persist its own data to a relational database like this, either serialized as JSON or in a more structured relational form, where TinyBase tables map directly to database tables.
+
+*   **Pros**: This approach provides more structured persistence of data with less likelihood of eviction. Relational data can also be queried or updated with SQL outside of TinyBase (though it will nevertheless react to those changes).
+*   **Cons**: A WASM payload is required to provide the database functionality in the browser, increasing asset size, and some of these client solutions are still young and experimental.
+
+See the [`SqliteWasmPersister`](https://beta.tinybase.org/api/persister-sqlite-wasm/interfaces/persister/sqlitewasmpersister/) and [`PglitePersister`](https://beta.tinybase.org/api/persister-pglite/interfaces/persister/pglitepersister/) documentation for two of the browser-based database solutions. [`ExpoSqlitePersister`](https://beta.tinybase.org/api/persister-expo-sqlite/interfaces/persister/exposqlitepersister/) is appropriate for Expo-based React Native projects.
+
+### 4\. Client-Only [Synchronization](https://beta.tinybase.org/guides/synchronization/)
+
+Regardless of the client storage solution you choose, you may want to synchronize data between clients, either because you're supporting single users with multiple devices, or multiple users sharing common data.
+
+This relies on you instantiating your data in a TinyBase [`MergeableStore`](https://beta.tinybase.org/api/mergeable-store/interfaces/mergeable/mergeablestore/), which captures metadata for deterministic synchronization. Each client then uses a [`Synchronizer`](https://beta.tinybase.org/api/synchronizers/interfaces/synchronizer/synchronizer/) (such as the WebSocket-based [`WsSynchronizer`](https://beta.tinybase.org/api/synchronizer-ws-client/interfaces/synchronizer/wssynchronizer/)) to negotiate changes with others. WebSockets require a lightweight server that can forward and broadcast messages between clients.
+
+*   **Pros**: This approach lets users share data between devices or with each other. Combined with client storage, this can also support offline usage with eventual reconciliation.
+*   **Cons**: There is technically no 'source of truth': each client negotiates to merge changes with each other. If all devices evict their client storage simultaneously, the data is lost.
+
+See the [`MergeableStore`](https://beta.tinybase.org/api/mergeable-store/interfaces/mergeable/mergeablestore/) documentation and the [Synchronization](https://beta.tinybase.org/guides/synchronization/) guide to understand how this works. The [Todo App v6 (collaboration)](https://beta.tinybase.org/demos/todo-app/todo-app-v6-collaboration/) demo shows client-to-client synchronization for a simple to-do list application. The server is created, in a simple Node- or Bun-style environment with the [`createWsServer`](https://beta.tinybase.org/api/synchronizer-ws-server/functions/creation/createwsserver/) function.
+
+### 5\. Client-Server [Synchronization](https://beta.tinybase.org/guides/synchronization/)
+
+From here it is only a simple step to add server storage into the mix, removing the risk of all client devices clearing their data simultaneously and it being lost.
+
+Here, the synchronizer server (which is coordinating messages between clients) _also_ acts as a 'client' with an instance of TinyBase itself. This is most usefully then persisted to a server storage solution, such as SQLite, PostgreSQL, the file system, or a Cloudflare Durable Object.
+
+*   **Pros**: The server can now be considered a more permanent 'source of truth' than clients. Authentication and data integrity can now be more easily enforced.
+*   **Cons**: The only minor downside of this approach is the need for the server to have a copy of the TinyBase store in memory, so the default solutions page it in and out from the persisted storage when clients connect or disconnect.
+
+See the [`createWsServer`](https://beta.tinybase.org/api/synchronizer-ws-server/functions/creation/createwsserver/) function for details of how to create a persister for the synchronization server, such as [`Sqlite3Persister`](https://beta.tinybase.org/api/persister-sqlite3/interfaces/persister/sqlite3persister/) or [`PostgresPersister`](https://beta.tinybase.org/api/persister-postgres/interfaces/persister/postgrespersister/).
+
+A reliable all-in-one solution is to run both synchronization and storage on Cloudflare. Check out the [Cloudflare Durable Objects](https://beta.tinybase.org/guides/integrations/cloudflare-durable-objects/) guide and the dedicated [Vite starter template](https://github.com/tinyplex/vite-tinybase-ts-react-sync-durable-object) to see how to set this up.
+
+### 6\. Third-Party [Synchronization](https://beta.tinybase.org/guides/synchronization/)
+
+For completeness, it's worth mentioning that TinyBase can also integrate with other database and synchronization platforms. In these cases, you simply persist data locally and the third-party service takes care of the synchronization to a server or cloud service.
+
+(It is also possible to persist your data via two other open-source CRDT solutions, namely Yjs and Automerge, using the [`YjsPersister`](https://beta.tinybase.org/api/persister-yjs/interfaces/persister/yjspersister/) and [`AutomergePersister`](https://beta.tinybase.org/api/persister-automerge/interfaces/persister/automergepersister/) interfaces respectively.)
+
+*   **Pros**: You can add TinyBase into applications that are already using a third-party synchronization platform. Conversely you can then abstract away your choice of synchronization platform behind a consistent TinyBase API, preventing vendor lock-in.
+*   **Cons**: This approach adds additional moving parts, other libraries, and possible fees for commercial services, based on usage.
+
+For more details on these interfaces, see the [`ElectricSqlPersister`](https://beta.tinybase.org/api/persister-electric-sql/interfaces/persister/electricsqlpersister/), [`PowerSyncPersister`](https://beta.tinybase.org/api/persister-powersync/interfaces/persister/powersyncpersister/), and [`LibSqlPersister`](https://beta.tinybase.org/api/persister-libsql/interfaces/persister/libsqlpersister/) (Turso) interfaces. The APIs, consistent with the other SQLite- and PostgreSQL-based persisters, are described in the [Database Persistence](https://beta.tinybase.org/guides/persistence/database-persistence/) guide.
+
+### Mix It Up!
+
+It should go without saying that very few of these options are mutually exclusive! You can mix and match them as you see fit, depending on the way you want your persistence and synchronization to work. Not only that, you can of course have multiple Stores in your app, each with its own persistence and synchronization strategy.
+
+For example, a complex app might have multiple TinyBase stores use in lots of different ways:
+
+*   Transient state that is stored just in memory and not preserved between sessions.
+*   Views, routes and settings that are stored in the browser's local storage.
+*   Reference data that is read in from a server at startup, perhaps then stored in a client database for faster future loads.
+*   User documents that are synchronized between clients and a server, with the server persisting them as an 'source of truth'.
+
+[TinyHub](https://tinyhub.org/#/) uses several of these techniques throughout its client app. Its [different stores](https://github.com/tinyplex/tinyhub/tree/main/client/src/stores) are each initialized with different persister strategies.
+
+### Summary
+
+TinyBase provides many different architectural choices, depending on the type of app you are building, and where you want the data to reside when not in use.
+
+Next we will show how you can quickly build user interfaces on top of a [`Store`](https://beta.tinybase.org/api/store/interfaces/store/store/), and for that, it's time to proceed to the [Building UIs](https://beta.tinybase.org/guides/building-uis/) guide.
