@@ -39,37 +39,38 @@ async function main() {
   const outputFile = argv.output;
   const contentSelector = argv.selector;
   const allCombinedMarkdown = [];
+  let totalScraped = 0;
+
+  console.log(`Output: ${outputFile}`);
+  console.log(`Selector: ${contentSelector}`);
 
   for (const startUrl of argv.url) {
-    console.log(`\n--- Processing Start URL: ${startUrl} ---`);
+    console.log(`\nStart: ${startUrl}`);
     try {
-      const markdownForUrl = await crawlAndScrape(startUrl, contentSelector);
+      const { markdown: markdownForUrl, count: scrapedCount } = await crawlAndScrape(startUrl, contentSelector);
       if (markdownForUrl.length > 0) {
         allCombinedMarkdown.push(...markdownForUrl); // Add content from this crawl
+        totalScraped += scrapedCount;
       }
     } catch (error) {
-      console.error(`Error processing start URL ${startUrl}:`, error);
-      // Decide if you want to continue with other URLs or exit
-      // continue; // Uncomment to continue with next URL on error
-      // process.exit(1); // Uncomment to exit on first error
+      // Error is logged within crawlAndScrape if it's an invalid URL
+      // Other errors might need logging here if needed
     }
   }
 
   // --- Combine and Write Final Output ---
-  console.log(`\n--- Writing final output to ${outputFile} ---`);
+  console.log(`\nWrite: ${outputFile}`);
   const finalMarkdown = allCombinedMarkdown.join("\n\n---\n\n"); // Separator between pages
 
   if (!finalMarkdown.trim()) {
-    console.log(
-      "No content was scraped across all URLs. Output file will be empty."
-    );
+    console.log("Info: No content scraped. Output file will be empty.");
   }
 
   try {
     await fs.writeFile(outputFile, finalMarkdown.trim());
-    console.log(`Successfully wrote merged content to ${outputFile}`);
+    console.log(`OK: Saved ${totalScraped} pages to ${outputFile}`);
   } catch (err) {
-    console.error(`Error writing final output to file ${outputFile}:`, err);
+    console.error(`ERROR: Writing to ${outputFile} failed: ${err.message}`);
     process.exit(1);
   }
 }
@@ -77,14 +78,12 @@ async function main() {
 // --- Crawling Logic for a single start URL ---
 async function crawlAndScrape(startUrl, contentSelector) {
   // Accept startUrl and selector
-  console.log(`Starting crawl at: ${startUrl}`);
-  console.log(`Content selector: ${contentSelector}`);
-
   // Validate URL
+  let startUrlParsed;
   try {
-    new URL(startUrl);
+    startUrlParsed = new URL(startUrl);
   } catch (error) {
-    console.error(`Error: Invalid start URL provided: ${startUrl}`);
+    console.error(`ERROR: Invalid start URL: ${startUrl}`);
     throw error; // Re-throw to be caught in main loop
   }
 
@@ -92,16 +91,16 @@ async function crawlAndScrape(startUrl, contentSelector) {
   const visitedUrls = new Set(); // Stores normalized URLs for THIS crawl
   const urlsToProcess = [startUrl]; // Stores URLs to fetch for THIS crawl
   const singleCrawlMarkdown = []; // Stores markdown for THIS crawl
-  const startUrlParsed = new URL(startUrl);
-  const baseOrigin = startUrlParsed.origin;
-  const basePathname = startUrlParsed.pathname.substring(
-    0,
-    startUrlParsed.pathname.lastIndexOf("/") + 1
-  );
+  let scrapedCount = 0;
+  // const baseOrigin = startUrlParsed.origin;
+  // const basePathname = startUrlParsed.pathname.substring(
+  //   0,
+  //   startUrlParsed.pathname.lastIndexOf("/") + 1
+  // );
 
-  console.log(
-    `Restricting crawl to origin: ${baseOrigin} and path starting with: ${basePathname}`
-  );
+  // console.log(
+  //   `Info: Restricting crawl to origin: ${baseOrigin} and path starting with: ${basePathname}`
+  // ); // Removed as per user feedback (implied by startswith check)
 
   while (urlsToProcess.length > 0) {
     const currentUrl = urlsToProcess.shift(); // Get the next URL (may have hash)
@@ -112,13 +111,11 @@ async function crawlAndScrape(startUrl, contentSelector) {
       currentUrlParsed.search; // Remove hash
 
     if (visitedUrls.has(normalizedUrl)) {
-      console.log(
-        `  -> Skipping already processed (normalized): ${normalizedUrl}`
-      );
+      // console.log(`Skip: ${normalizedUrl} (already processed)`); // Optional: uncomment for debugging
       continue; // Skip if base URL already visited
     }
 
-    console.log(`Processing: ${currentUrl}`); // Log the original URL being fetched
+    console.log(`Crawl: ${currentUrl}`); // Log the original URL being fetched
     visitedUrls.add(normalizedUrl); // Add the normalized URL to visited set
 
     try {
@@ -131,15 +128,16 @@ async function crawlAndScrape(startUrl, contentSelector) {
       if (contentHtml) {
         const markdown = turndownService.turndown(contentHtml);
         singleCrawlMarkdown.push(`## Page: ${currentUrl}\n\n${markdown}`); // Use singleCrawlMarkdown here
-        console.log(`  -> Scraped content.`);
+        scrapedCount++;
+        // console.log(`  -> Scraped content.`); // Removed for brevity
       } else {
-        console.log(`  -> No content found with selector "${contentSelector}"`);
+        console.log(`Info: No content found on ${currentUrl} with selector "${contentSelector}"`);
       }
 
       // --- Find Links ---
       $("a").each((i, link) => {
         const href = $(link).attr("href");
-        if (!href) return;
+        if (!href || href.startsWith('mailto:')) return; // Ignore empty or mailto links
 
         try {
           // Resolve relative URLs based on the *original* currentUrl
@@ -151,10 +149,6 @@ async function crawlAndScrape(startUrl, contentSelector) {
             absoluteUrlParsed.search; // Normalize found URL
 
           // --- Filter Links ---
-          // 1. URL string starts with the original startUrl string?
-          // 2. Not the startUrl itself?
-          // 3. Normalized version not already visited?
-          // 4. Original URL not already in the queue? (Avoid adding duplicates before normalization check)
           if (
             absoluteUrl.startsWith(startUrl) && // Stricter check based on feedback
             absoluteUrl !== startUrl && // Avoid re-adding start URL
@@ -162,20 +156,20 @@ async function crawlAndScrape(startUrl, contentSelector) {
             !urlsToProcess.includes(absoluteUrl) // Check original URL against queue
           ) {
             urlsToProcess.push(absoluteUrl); // Add the original URL (with hash if present) to the queue
-            console.log(
-              `  -> Found valid link (starts with startUrl): ${absoluteUrl}`
-            );
+            // console.log(`  -> Found: ${absoluteUrl}`); // Removed for brevity
           }
         } catch (urlError) {
-          // Ignore invalid URLs found in hrefs
-          // console.warn(`  -> Ignoring invalid URL in link: ${href}`);
+          // console.warn(`WARN: Ignoring invalid URL in link: ${href} on page ${currentUrl}`); // Optional: uncomment for debugging
         }
       });
     } catch (error) {
       if (axios.isAxiosError(error)) {
-        console.warn(`  -> Failed to fetch ${currentUrl}: ${error.message}`);
+        // Log specific Axios error messages (e.g., 404, timeout)
+        const status = error.response?.status ? ` (Status: ${error.response.status})` : '';
+        console.warn(`WARN: Fetch failed for ${currentUrl}: ${error.message}${status}`);
       } else {
-        console.error(`  -> Error processing ${currentUrl}:`, error);
+        // Log other processing errors
+        console.error(`ERROR: Processing ${currentUrl}: ${error.message}`);
       }
     }
 
@@ -185,14 +179,14 @@ async function crawlAndScrape(startUrl, contentSelector) {
     }
   }
 
-  console.log(
-    `\nFinished crawling for ${startUrl}. Found content from ${singleCrawlMarkdown.length} pages.`
-  );
-  return singleCrawlMarkdown; // Return collected markdown for this crawl
+  console.log(`Done: ${startUrl} (${scrapedCount} pages scraped)`);
+  return { markdown: singleCrawlMarkdown, count: scrapedCount }; // Return collected markdown and count
 }
 
 // --- Run the script ---
 main().catch((error) => {
-  console.error("An unexpected error occurred:", error);
+  // Errors during crawlAndScrape specific to a URL are handled in the main loop
+  // This catches broader unexpected errors in the main function itself
+  console.error(`FATAL: An unexpected error occurred: ${error.message}`);
   process.exit(1);
 });
