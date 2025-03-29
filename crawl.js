@@ -54,7 +54,7 @@ async function main() {
       type: "array", // Accept multiple patterns
       requiresArg: true,
       // Default excludes common non-HTML file extensions
-      default: ["\\.(pdf|zip|tar|gz|rar|docx?|xlsx?|pptx?|jpe?g|png|gif|svg|webp|mp[34])$"],
+      default: ["\\.(txt|pdf|zip|tar|gz|rar|docx?|xlsx?|pptx?|jpe?g|png|gif|svg|webp|mp[34])$"],
     })
     .help()
     .alias("help", "h")
@@ -291,7 +291,7 @@ async function crawlAndScrape(startUrl, contentSelector, crawlMode, limit, curre
                      return false; // Stop processing links if adding one would exceed limit
                 }
               } else {
-                  console.log(`Skip (exclude): ${absoluteUrl}`);
+                  console.log(`Skip: ${absoluteUrl}`);
               }
             }
           } catch (urlError) {

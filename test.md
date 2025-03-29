@@ -2,13 +2,18 @@
 rerun_command: >-
   node crawl.js -u
   "https://developer.mozilla.org/en-US/docs/Learn_web_development/Getting_started/Your_first_website"
-  --crawl-mode strict --limit 100 --output "test.md"
+  --crawl-mode strict --limit 100 -e
+  "\\.(txt|pdf|zip|tar|gz|rar|docx?|xlsx?|pptx?|jpe?g|png|gif|svg|webp|mp[34])$"
+  --output "test.md"
 command_args:
   url:
     - >-
       https://developer.mozilla.org/en-US/docs/Learn_web_development/Getting_started/Your_first_website
   crawl-mode: strict
   limit: 100
+  exclude:
+    - >-
+      \.(txt|pdf|zip|tar|gz|rar|docx?|xlsx?|pptx?|jpe?g|png|gif|svg|webp|mp[34])$
   output: test.md
 ---
 
@@ -1083,39 +1088,3 @@ Now let's examine how to publish your site via GitHub Pages.
 To learn more, see [GitHub Pages Help](https://docs.github.com/en/pages/getting-started-with-github-pages).
 
 ## [Further reading](#further_reading)
-
----
-
-## Page: https://developer.mozilla.org/en-US/docs/Learn_web_development/Getting_started/Your_first_website/contributors.txt
-
-\# Contributors by commit history https://github.com/mdn/content/commits/main/files/en-us/learn\_web\_development/getting\_started/your\_first\_website/index.md # Original Wiki contributors SphinxKnight mr.sithuaung burakizmirli252 marismiglans8 jessica.kolek chrisdavidmills SinEstres pe.minuta.78 iamadityashekhar Javi-21 K-D gamma.mahdii maeeel968 hakannakliyat kmavrikakis harpaljadon PatrickDGarvey johnsmith1554 kakwanisiddharth kenj115188 shilili burgess25 EvenC mfuji09 james-rhodus smoothie1998 fox-lucas stevedav SimDrifT CodeDotJS dartvaneri Jenna59 Alihoday Sibiraj-S hadleyel wh1msy kaiarifin Zh1hu1 Jom97 gleidiin aquddos Jeremie jswisher pheakvoin jam1985 EnriquePabloBarreraVega BychekRU rpettit686 jsx Trontin LeBasti arbatskiy pravinbudharap dileep.ch Sheppy Andrew\_Pfeiffer klez
-
----
-
-## Page: https://developer.mozilla.org/en-US/docs/Learn_web_development/Getting_started/Your_first_website/What_will_your_website_look_like/contributors.txt
-
-\# Contributors by commit history https://github.com/mdn/content/commits/main/files/en-us/learn\_web\_development/getting\_started/your\_first\_website/what\_will\_your\_website\_look\_like/index.md # Original Wiki contributors chrisdavidmills NavetsArev mfuji09 bduguma ezrinjaz IzaS jbrandes msobanjo aboagyed smoothie1998 RafeyIqbalRahman Xyde stephaniehobson Lilmisscrafty116 RichardsonVJohnson hadleyel Jeremie MashKao klez dvincent ifilin SphinxKnight xfq Andrew\_Pfeiffer
-
----
-
-## Page: https://developer.mozilla.org/en-US/docs/Learn_web_development/Getting_started/Your_first_website/Creating_the_content/contributors.txt
-
-\# Contributors by commit history https://github.com/mdn/content/commits/main/files/en-us/learn\_web\_development/getting\_started/your\_first\_website/creating\_the\_content/index.md # Original Wiki contributors SphinxKnight mpmadhubhashana8 chrisdavidmills advancel sideshowbarker thelovekesh dcompcoder adatapost donnal4 shilili P1xt a4anandsingh bminard Chomchaum rachelcarmena dwvisser maria-rubina thekosiguy smoothie1998 RafeyIqbalRahman thoughtbyte Sheppy arai DragMeToProgramming moslyke datdathcmutrans suterj rajasrijanakiraman Quantzilla q3229270 jswisher explosive1111 Maruti-Ram Sharoon\_Francis Mastermind9513 rishikant-sharma hahaf313 jwhitlock hadleyel Tanvir-rahman mishkadoma Jeremie Cameron-Riecan klez tcyyky MightyBranch Carmelina manderton jlin karyse NickPapayiannakis odsantos xfq jsx
-
----
-
-## Page: https://developer.mozilla.org/en-US/docs/Learn_web_development/Getting_started/Your_first_website/Styling_the_content/contributors.txt
-
-\# Contributors by commit history https://github.com/mdn/content/commits/main/files/en-us/learn\_web\_development/getting\_started/your\_first\_website/styling\_the\_content/index.md # Original Wiki contributors schalkneethling chrisdavidmills thelovekesh winst dcompcoder ohaver ngaydainuocmat304 Azzedine2020 LordZarano RicardsVeveris naser-baig forrest.lyu.it zzhhbyt1 rachelcarmena ezrinjaz edprince bhuvy2 smoothie1998 oyenirat jdblischak jswisher terevele 102 lui247 IMLERICH ry0id suterj q3229270 MohamedSalah1998 hadleyel thanhtran92 Looserof7 Jeremie MightyBranch SphinxKnight jackarmley odsantos Andrew\_Pfeiffer xfq
-
----
-
-## Page: https://developer.mozilla.org/en-US/docs/Learn_web_development/Getting_started/Your_first_website/Adding_interactivity/contributors.txt
-
-\# Contributors by commit history https://github.com/mdn/content/commits/main/files/en-us/learn\_web\_development/getting\_started/your\_first\_website/adding\_interactivity/index.md # Original Wiki contributors bershanskiy Arpitgoyalgg ekaradag14 bytensky SphinxKnight winst chrisdavidmills mrmowji Vjakupi blinkous biglyy ohaver Azzedine2020 jewellscott radiocane cogpark BusiPlay albanafmeti InfusOnWoW JonDevOps bukowski73 badcat saranshgupta1995 snehseel taoranz JawnMarc julianschacher gam271 rachelcarmena DhruvDh wrongsyntax zzhhbyt1 shilili pcuambe bittualam.in akashchy1705 ToshitaSingh mathieucaroff latinatsw28 Afzalafu sigoa trannguyenhb Juchuhsu lokesh-krishna fscholz stephaniehobson Pointy saud12 scuesta SHUBHAMTRIPATH dipu2013 Greedsy Master-Osaro hadleyel ku3nsting frankfang1990 prakashkmrchy suriyaa AprilMorone lol-russo mishkadoma Jeremie david\_ross dagolinuxoid klez Radi123 alexbaumgertner hrishikeshbarman mseyne stuart jswisher javabuddy garrettgrimsley verpixelt xfq Andrew\_Pfeiffer netbun pbschmid sunilchahal brnold sethmcknight nahero teoli michaelnetbiz chrisdavidmills-github
-
----
-
-## Page: https://developer.mozilla.org/en-US/docs/Learn_web_development/Getting_started/Your_first_website/Publishing_your_website/contributors.txt
-
-\# Contributors by commit history https://github.com/mdn/content/commits/main/files/en-us/learn\_web\_development/getting\_started/your\_first\_website/publishing\_your\_website/index.md # Original Wiki contributors Mori ohaver chrisdavidmills Iqbalh11 kakwanisiddharth naser-baig Rick-Manarauskis SphinxKnight 14122712 iamsamwilson Greedsy hadleyel jk777 Jeremie klez ifilin xfq samlaf markg Andrew\_Pfeiffer manasmahodaya
