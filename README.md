@@ -1,6 +1,6 @@
 # URL Content Crawler & Markdown Converter
 
-This script crawls a starting URL, scrapes content from it and its child pages (within the same path), converts the content to Markdown, and merges it into a single file.
+Crawls web pages starting from given URLs, scrapes main content, converts to Markdown, and merges into one file. Features automatic content detection, crawl scoping, page limits, exclusions, and GFM table conversion.
 
 ## Prerequisites
 
@@ -8,98 +8,44 @@ This script crawls a starting URL, scrapes content from it and its child pages (
 
 ## Installation
 
-1.  Clone or download the script files (`crawl.js`, `package.json`).
-2.  Navigate to the script's directory in your terminal.
-3.  Install dependencies:
-    ```bash
-    npm install
-    ```
+1.  Clone/download files (`crawl.js`, `package.json`).
+2.  In the script's directory, run: `npm install`
 
 ## Usage
 
-Run the script using `node crawl.js` followed by the required arguments:
-
 ```bash
-node crawl.js --url <STARTING_URL> [OPTIONS]
+node crawl.js -u <URL1> [-u <URL2>...] [OPTIONS]
 ```
 
-**Required Argument:**
+**Arguments:**
 
-*   `--url` or `-u`: One or more full starting URLs to crawl. Provide the flag multiple times for multiple URLs (e.g., `-u URL1 -u URL2`).
+*   `-u`, `--url` (Required): One or more starting URLs.
+*   `-o`, `--output`: Output file name (default: `output.md`).
+*   `-s`, `--selector`: CSS selector for content (overrides auto-detect). If omitted, uses Readability.js for auto-detection.
+*   `-m`, `--crawl-mode`: Crawl scope (default: `strict`). Choices:
+    *   `strict`: Follow links only if URL starts with the base URL.
+    *   `domain`: Follow links only if they are on the same domain (origin).
+    *   `disabled`: Do not follow links.
+*   `-l`, `--limit`: Max total pages to crawl (default: 100).
+*   `-e`, `--exclude`: Regex pattern(s) to exclude URLs. Overrides default non-HTML file exclusion. Provide multiple times for multiple patterns.
+*   `-h`, `--help`: Show help message.
 
-**Optional Arguments:**
+##  Examples
 
-*   `--output` or `-o`: The name of the output Markdown file (default: `output.md`).
-*   `--selector` or `-s`: (Optional) CSS selector for the main content element. If omitted, the script will attempt to automatically detect the main content using the Readability algorithm. Use this option to override auto-detection if it doesn't work well for a specific site (e.g., `--selector "#content"`).
-*   `--crawl-mode` or `-m`: Defines the crawling behavior (default: `strict`).
-    *   `strict`: Only follow links if the target URL string starts with the initial URL string.
-    *   `domain`: Follow any link that points to the same domain (origin) as the initial URL.
-    *   `disabled`: Do not follow any links; only scrape the initial URL(s).
-*   `--limit` or `-l`: Maximum total number of pages to crawl across all start URLs (default: 100).
-*   `--exclude` or `-e`: One or more **regular expression** patterns. URLs matching any of these patterns will not be crawled (even if they match the crawl mode criteria). Provide the flag multiple times for multiple patterns (e.g., `-e "pattern1" -e "pattern2"`). Remember to quote patterns containing shell metacharacters. By default, common non-HTML file extensions (pdf, zip, jpg, png, etc.) are excluded. Providing this argument overrides the default.
-*   `--help` or `-h`: Show help message.
+```bash
+# Crawl single site with auto-detection
+node crawl.js -u https://example.com/docs/
 
-**Examples:**
+# Crawl single site with specific selector
+node crawl.js -u https://example.com/docs/ -s "#content" -o custom.md
 
-1.  Crawl a single site using the default content selector (`main`) and output to `output.md`:
-    ```bash
-    node crawl.js --url https://example.com/docs/
-    ```
+# Crawl multiple sites, limit pages, exclude /api/ paths
+node crawl.js -u https://site1.com -u https://site2.com/ -l 50 -e "/api/" -o combined.md
 
-2.  Crawl a single site, overriding automatic content detection with a specific selector (`#content`), and output to a custom file (`my_docs.md`):
-    ```bash
-    node crawl.js --url https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide --selector "#content" --output my_docs.md
-    ```
-
-3.  Crawl multiple sites (using automatic detection for the first, specific selector for the second) and merge into `combined_output.md`:
-    ```bash
-    node crawl.js -u https://site1.com/docs -u https://site2.com/api --selector "#main-content" -o combined_output.md
-    ```
-    *(Note: The `--selector` override and `--crawl-mode` apply to all URLs in a single run. If different settings are needed per URL, run the script separately.)*
-
-4.  Crawl only the initial page (no following links), using automatic content detection:
-    ```bash
-    node crawl.js --url https://example.com/page --crawl-mode disabled
-    ```
-
-5.  Crawl all pages within the same domain:
-    ```bash
-    node crawl.js --url https://example.com/docs --crawl-mode domain
-    ```
-
-6.  Crawl strictly, but stop after visiting 10 pages total:
-    ```bash
-    node crawl.js --url https://example.com/docs --limit 10
-    ```
-
-7.  Crawl within the domain, but exclude URLs containing `/api/` or ending with `.pdf` (overrides the default file extension exclusion):
-    ```bash
-    node crawl.js --url https://example.com/ --crawl-mode domain -e "/api/" -e "\\.pdf$"
-    ```
-
-8.  Crawl strictly, including PDF files (by providing an exclusion that doesn't match anything, thus overriding the default):
-    ```bash
-    node crawl.js --url https://example.com/docs -e "a^" # Exclude pattern matches nothing
-    ```
-
+# Crawl only initial pages (no following links)
+node crawl.js -u https://page1.com -u https://page2.com -m disabled
+```
 
 ## How it Works
 
-*   Processes each `--url` provided in sequence according to the specified `--crawl-mode`.
-*   For each starting URL:
-    *   Finds links (`<a>` tags) on the page (unless `crawl-mode` is `disabled`).
-    *   Filters and follows links based on the `crawl-mode`:
-        *   `strict`: Target URL must start with the starting URL string.
-        *   `domain`: Target URL must have the same origin (protocol + hostname + port) as the starting URL.
-        *   `disabled`: No links are followed.
-    *   Skips following any link if its URL matches any of the provided `--exclude` regex patterns (or the default pattern if `--exclude` is not specified).
-*   Stops crawling additional pages (across all starting URLs) once the global `--limit` is reached.
-*   Ignores URL fragments (`#...`) when checking if a page has already been visited within a crawl sequence, preventing duplicate crawls of the same base page.
-*   For each unique page visited (up to the limit):
-    *   If `--selector` is provided, extracts the inner HTML of the element matching the selector.
-    *   If `--selector` is omitted, attempts to automatically extract the main content using the Readability algorithm.
-*   Converts the extracted HTML (if any) to Markdown, including GFM tables.
-*   Combines Markdown from all pages across all processed starting URLs into the single `--output` file, separated by `---`.
-*   Prepends a YAML frontmatter block to the output file containing:
-    *   `command_args`: The parsed arguments used for the run.
-    *   `rerun_command`: A reconstructed command string that can be copied and pasted to rerun the script with the same parameters (including exclusions).
+The script processes each starting URL. It fetches pages, attempts to extract the main content (using Readability by default, or a provided CSS selector), and converts it to Markdown (including GFM tables). It follows links based on the chosen `crawl-mode`, respecting the `limit` and `exclude` patterns. Visited URLs (ignoring `#fragments`) are tracked per crawl sequence to avoid duplicates. Finally, all collected Markdown is merged into the output file with YAML frontmatter containing the run arguments and a `rerun_command`.
