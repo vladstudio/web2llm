@@ -1,38 +1,38 @@
-import yargs from 'yargs';
-import { hideBin } from 'yargs/helpers';
-import axios from 'axios';
-import * as cheerio from 'cheerio'; // Use namespace import
-import TurndownService from 'turndown';
-import fs from 'fs/promises';
-import { URL } from 'url';
+import yargs from "yargs";
+import { hideBin } from "yargs/helpers";
+import axios from "axios";
+import * as cheerio from "cheerio"; // Use namespace import
+import TurndownService from "turndown";
+import fs from "fs/promises";
+import { URL } from "url";
 
 // Helper function for delay
-const delay = ms => new Promise(resolve => setTimeout(resolve, ms));
+const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
 async function main() {
   // --- Argument Parsing ---
   const argv = yargs(hideBin(process.argv))
-    .option('url', {
-      alias: 'u',
-      description: 'One or more starting URLs to crawl',
-      type: 'array', // Accept multiple URLs
+    .option("url", {
+      alias: "u",
+      description: "One or more starting URLs to crawl",
+      type: "array", // Accept multiple URLs
       demandOption: true,
       requiresArg: true,
-  })
-  .option('output', {
-    alias: 'o',
-    description: 'Output file name for the merged Markdown',
-    type: 'string',
-    default: 'output.md', // Default output filename
-  })
-  .option('selector', {
-    alias: 's',
-    description: 'CSS selector for the main content area',
-    type: 'string',
-    default: 'main', // Default content selector
-  })
+    })
+    .option("output", {
+      alias: "o",
+      description: "Output file name for the merged Markdown",
+      type: "string",
+      default: "output.md", // Default output filename
+    })
+    .option("selector", {
+      alias: "s",
+      description: "CSS selector for the main content area",
+      type: "string",
+      default: "main", // Default content selector
+    })
     .help()
-    .alias('help', 'h')
+    .alias("help", "h")
     .parse(); // Parse arguments inside main
 
   // --- Call Main Logic for each URL ---
@@ -48,19 +48,21 @@ async function main() {
         allCombinedMarkdown.push(...markdownForUrl); // Add content from this crawl
       }
     } catch (error) {
-        console.error(`Error processing start URL ${startUrl}:`, error);
-        // Decide if you want to continue with other URLs or exit
-        // continue; // Uncomment to continue with next URL on error
-        // process.exit(1); // Uncomment to exit on first error
+      console.error(`Error processing start URL ${startUrl}:`, error);
+      // Decide if you want to continue with other URLs or exit
+      // continue; // Uncomment to continue with next URL on error
+      // process.exit(1); // Uncomment to exit on first error
     }
   }
 
   // --- Combine and Write Final Output ---
   console.log(`\n--- Writing final output to ${outputFile} ---`);
-  const finalMarkdown = allCombinedMarkdown.join('\n\n---\n\n'); // Separator between pages
+  const finalMarkdown = allCombinedMarkdown.join("\n\n---\n\n"); // Separator between pages
 
   if (!finalMarkdown.trim()) {
-      console.log("No content was scraped across all URLs. Output file will be empty.");
+    console.log(
+      "No content was scraped across all URLs. Output file will be empty."
+    );
   }
 
   try {
@@ -72,9 +74,9 @@ async function main() {
   }
 }
 
-
 // --- Crawling Logic for a single start URL ---
-async function crawlAndScrape(startUrl, contentSelector) { // Accept startUrl and selector
+async function crawlAndScrape(startUrl, contentSelector) {
+  // Accept startUrl and selector
   console.log(`Starting crawl at: ${startUrl}`);
   console.log(`Content selector: ${contentSelector}`);
 
@@ -92,17 +94,27 @@ async function crawlAndScrape(startUrl, contentSelector) { // Accept startUrl an
   const singleCrawlMarkdown = []; // Stores markdown for THIS crawl
   const startUrlParsed = new URL(startUrl);
   const baseOrigin = startUrlParsed.origin;
-  const basePathname = startUrlParsed.pathname.substring(0, startUrlParsed.pathname.lastIndexOf('/') + 1);
+  const basePathname = startUrlParsed.pathname.substring(
+    0,
+    startUrlParsed.pathname.lastIndexOf("/") + 1
+  );
 
-  console.log(`Restricting crawl to origin: ${baseOrigin} and path starting with: ${basePathname}`);
+  console.log(
+    `Restricting crawl to origin: ${baseOrigin} and path starting with: ${basePathname}`
+  );
 
   while (urlsToProcess.length > 0) {
     const currentUrl = urlsToProcess.shift(); // Get the next URL (may have hash)
     const currentUrlParsed = new URL(currentUrl);
-    const normalizedUrl = currentUrlParsed.origin + currentUrlParsed.pathname + currentUrlParsed.search; // Remove hash
+    const normalizedUrl =
+      currentUrlParsed.origin +
+      currentUrlParsed.pathname +
+      currentUrlParsed.search; // Remove hash
 
     if (visitedUrls.has(normalizedUrl)) {
-      console.log(`  -> Skipping already processed (normalized): ${normalizedUrl}`);
+      console.log(
+        `  -> Skipping already processed (normalized): ${normalizedUrl}`
+      );
       continue; // Skip if base URL already visited
     }
 
@@ -125,15 +137,18 @@ async function crawlAndScrape(startUrl, contentSelector) { // Accept startUrl an
       }
 
       // --- Find Links ---
-      $('a').each((i, link) => {
-        const href = $(link).attr('href');
+      $("a").each((i, link) => {
+        const href = $(link).attr("href");
         if (!href) return;
 
         try {
           // Resolve relative URLs based on the *original* currentUrl
           const absoluteUrl = new URL(href, currentUrl).toString();
           const absoluteUrlParsed = new URL(absoluteUrl);
-          const normalizedFoundUrl = absoluteUrlParsed.origin + absoluteUrlParsed.pathname + absoluteUrlParsed.search; // Normalize found URL
+          const normalizedFoundUrl =
+            absoluteUrlParsed.origin +
+            absoluteUrlParsed.pathname +
+            absoluteUrlParsed.search; // Normalize found URL
 
           // --- Filter Links ---
           // 1. URL string starts with the original startUrl string?
@@ -142,19 +157,20 @@ async function crawlAndScrape(startUrl, contentSelector) { // Accept startUrl an
           // 4. Original URL not already in the queue? (Avoid adding duplicates before normalization check)
           if (
             absoluteUrl.startsWith(startUrl) && // Stricter check based on feedback
-            absoluteUrl !== startUrl &&        // Avoid re-adding start URL
+            absoluteUrl !== startUrl && // Avoid re-adding start URL
             !visitedUrls.has(normalizedFoundUrl) && // Check normalized URL against visited set
             !urlsToProcess.includes(absoluteUrl) // Check original URL against queue
           ) {
             urlsToProcess.push(absoluteUrl); // Add the original URL (with hash if present) to the queue
-            console.log(`  -> Found valid link (starts with startUrl): ${absoluteUrl}`);
+            console.log(
+              `  -> Found valid link (starts with startUrl): ${absoluteUrl}`
+            );
           }
         } catch (urlError) {
           // Ignore invalid URLs found in hrefs
           // console.warn(`  -> Ignoring invalid URL in link: ${href}`);
         }
       });
-
     } catch (error) {
       if (axios.isAxiosError(error)) {
         console.warn(`  -> Failed to fetch ${currentUrl}: ${error.message}`);
@@ -165,16 +181,18 @@ async function crawlAndScrape(startUrl, contentSelector) { // Accept startUrl an
 
     // Be polite - add a small delay
     if (urlsToProcess.length > 0) {
-        await delay(200); // 200ms delay
+      await delay(200); // 200ms delay
     }
   }
 
-  console.log(`\nFinished crawling for ${startUrl}. Found content from ${singleCrawlMarkdown.length} pages.`);
+  console.log(
+    `\nFinished crawling for ${startUrl}. Found content from ${singleCrawlMarkdown.length} pages.`
+  );
   return singleCrawlMarkdown; // Return collected markdown for this crawl
 }
 
 // --- Run the script ---
-main().catch(error => {
-  console.error('An unexpected error occurred:', error);
+main().catch((error) => {
+  console.error("An unexpected error occurred:", error);
   process.exit(1);
 });

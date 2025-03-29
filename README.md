@@ -17,10 +17,10 @@ This script crawls a starting URL, scrapes content from it and its child pages (
 
 ## Usage
 
-Run the script using `npm run crawl`, followed by `--` and the required arguments:
+Run the script using `node crawl.js` followed by the required arguments:
 
 ```bash
-npm run crawl -- --url <STARTING_URL> [OPTIONS]
+node crawl.js --url <STARTING_URL> [OPTIONS]
 ```
 
 **Required Argument:**
@@ -37,17 +37,17 @@ npm run crawl -- --url <STARTING_URL> [OPTIONS]
 
 1.  Crawl a single site using the default content selector (`main`) and output to `output.md`:
     ```bash
-    npm run crawl -- --url https://example.com/docs/
+    node crawl.js --url https://example.com/docs/
     ```
 
 2.  Crawl a single site using a specific content selector (`#content`) and output to a custom file (`my_docs.md`):
     ```bash
-    npm run crawl -- --url https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide --selector "#content" --output my_docs.md
+    node crawl.js --url https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide --selector "#content" --output my_docs.md
     ```
 
 3.  Crawl multiple sites (using default selector for the first, specific for the second) and merge into `combined_output.md`:
     ```bash
-    npm run crawl -- -u https://site1.com/docs -u https://site2.com/api --selector "#main-content" -o combined_output.md
+    node crawl.js -u https://site1.com/docs -u https://site2.com/api --selector "#main-content" -o combined_output.md
     ```
     *(Note: The `--selector` applies to all URLs in a single run. If different selectors are needed, run the script separately for each site and combine the output files manually.)*
 
