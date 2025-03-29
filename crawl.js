@@ -48,6 +48,14 @@ async function main() {
       type: "number",
       default: 100,
     })
+    .option("exclude", { // Added exclude option
+      alias: "e",
+      description: "Regex patterns for URLs to exclude from crawling",
+      type: "array", // Accept multiple patterns
+      requiresArg: true,
+      // Default excludes common non-HTML file extensions
+      default: ["\\.(pdf|zip|tar|gz|rar|docx?|xlsx?|pptx?|jpe?g|png|gif|svg|webp|mp[34])$"],
+    })
     .help()
     .alias("help", "h")
     .parse(); // Parse arguments inside main
@@ -57,13 +65,26 @@ async function main() {
   const contentSelector = argv.selector; // Will be undefined if not provided
   const crawlMode = argv.crawlMode;
   const limit = argv.limit;
+  const excludePatterns = argv.exclude; // Get exclude patterns
   const allCombinedMarkdown = [];
-  let totalVisitedCount = 0; // Track total pages visited across all crawls
+  let totalVisitedCount = 0;
+
+  // Compile exclude patterns into RegExp objects
+  let excludeRegexes = [];
+  try {
+    excludeRegexes = excludePatterns.map(pattern => new RegExp(pattern));
+  } catch (e) {
+    console.error(`ERROR: Invalid regex pattern provided in --exclude option: ${e.message}`);
+    process.exit(1);
+  }
 
   console.log(`Output: ${outputFile}`);
-  console.log(`Selector: ${contentSelector || '(auto-detect)'}`); // Indicate auto-detect
+  console.log(`Selector: ${contentSelector || '(auto-detect)'}`);
   console.log(`Crawl Mode: ${crawlMode}`);
   console.log(`Limit: ${limit}`);
+  if (excludeRegexes.length > 0) {
+    console.log(`Exclude Patterns: ${excludePatterns.join(', ')}`);
+  }
 
   for (const startUrl of argv.url) {
     if (totalVisitedCount >= limit) {
@@ -72,13 +93,14 @@ async function main() {
     }
     console.log(`\nStart: ${startUrl} (Visited: ${totalVisitedCount}/${limit})`);
     try {
-      // Pass crawlMode, limit and current visited count
+      // Pass compiled regexes as well
       const { markdown: markdownForUrl, visited: visitedInCrawl } = await crawlAndScrape(
         startUrl,
-        contentSelector, // Pass the selector (or undefined)
+        contentSelector,
         crawlMode,
         limit,
-        totalVisitedCount
+        totalVisitedCount,
+        excludeRegexes // Pass compiled regexes
       );
       if (markdownForUrl.length > 0) {
         allCombinedMarkdown.push(...markdownForUrl);
@@ -95,12 +117,13 @@ async function main() {
   // Reconstruct the command string for frontmatter
   let commandParts = ['node', 'crawl.js'];
   argv.url.forEach(url => commandParts.push('-u', JSON.stringify(url)));
-  // Only add selector to command if it was explicitly provided
   if (contentSelector) {
     commandParts.push('--selector', JSON.stringify(contentSelector));
   }
   commandParts.push('--crawl-mode', crawlMode);
   commandParts.push('--limit', limit.toString());
+  // Add exclude patterns to command
+  excludePatterns.forEach(pattern => commandParts.push('-e', JSON.stringify(pattern)));
   commandParts.push('--output', JSON.stringify(outputFile));
   const rerunCommand = commandParts.join(' ');
 
@@ -109,9 +132,9 @@ async function main() {
     url: argv.url,
     'crawl-mode': crawlMode,
     limit: limit,
+    exclude: excludePatterns, // Add exclude patterns
     output: outputFile
   };
-  // Only include selector in args if provided
   if (contentSelector) {
     frontmatterArgs.selector = contentSelector;
   }
@@ -142,7 +165,8 @@ async function main() {
 }
 
 // --- Crawling Logic for a single start URL ---
-async function crawlAndScrape(startUrl, contentSelector, crawlMode, limit, currentTotalVisited) {
+// Accept limit, current total visited count, and exclude regexes
+async function crawlAndScrape(startUrl, contentSelector, crawlMode, limit, currentTotalVisited, excludeRegexes) {
   // Validate URL
   let startUrlParsed;
   try {
@@ -168,6 +192,13 @@ async function crawlAndScrape(startUrl, contentSelector, crawlMode, limit, curre
       currentUrlParsed.pathname +
       currentUrlParsed.search;
 
+    // Check exclusion patterns *before* checking visited or processing
+    const isExcludedInitially = excludeRegexes.some(regex => regex.test(currentUrl));
+    if (isExcludedInitially) {
+        console.log(`Skip: ${currentUrl} (matches exclude pattern)`);
+        continue;
+    }
+
     if (visitedUrlsInThisCrawl.has(normalizedUrl)) {
       continue;
     }
@@ -177,7 +208,6 @@ async function crawlAndScrape(startUrl, contentSelector, crawlMode, limit, curre
         break;
     }
 
-    // Format: Crawl, X/Y: URL  <- Changed Line
     console.log(`Crawl, ${visitedCountOverall + 1}/${limit}: ${currentUrl}`);
     visitedUrlsInThisCrawl.add(normalizedUrl);
     visitedCountOverall++;
@@ -189,21 +219,17 @@ async function crawlAndScrape(startUrl, contentSelector, crawlMode, limit, curre
 
       // --- Scrape Content ---
       if (contentSelector) {
-        // User provided a selector - use Cheerio
-        console.log(`Info: Using provided selector "${contentSelector}" for ${currentUrl}`); // Keep this log for clarity when overriding
+        console.log(`Info: Using provided selector "${contentSelector}" for ${currentUrl}`);
         const $ = cheerio.load(html);
         contentHtml = $(contentSelector).html();
       } else {
-        // No selector provided - attempt auto-detection with Readability (no "Attempting" log)
         try {
           const doc = new JSDOM(html, { url: currentUrl });
           const reader = new Readability(doc.window.document);
           const article = reader.parse();
           if (article && article.content) {
             contentHtml = article.content;
-            // No success log here - assume success unless warned below
           } else {
-            // Only log Readability failure
             console.warn(`WARN: Readability could not extract content from ${currentUrl}.`);
           }
         } catch (readabilityError) {
@@ -211,12 +237,10 @@ async function crawlAndScrape(startUrl, contentSelector, crawlMode, limit, curre
         }
       }
 
-      // Convert extracted HTML (if any) to Markdown
       if (contentHtml) {
         const markdown = turndownService.turndown(contentHtml);
         singleCrawlMarkdown.push(`## Page: ${currentUrl}\n\n${markdown}`);
       } else {
-         // Log if manual selector failed (Readability failure logged above)
          if(contentSelector && !contentHtml) {
              console.log(`Info: No content found on ${currentUrl} with selector "${contentSelector}"`);
          }
@@ -224,7 +248,6 @@ async function crawlAndScrape(startUrl, contentSelector, crawlMode, limit, curre
 
       // --- Find Links (only if crawlMode is not 'disabled') ---
       if (crawlMode !== 'disabled' && visitedCountOverall < limit) {
-        // Use Cheerio to find links even if Readability was used for content
         const $ = cheerio.load(html);
         $("a").each((i, link) => {
           if (visitedCountOverall + urlsToProcess.length >= limit) {
@@ -255,10 +278,20 @@ async function crawlAndScrape(startUrl, contentSelector, crawlMode, limit, curre
               !visitedUrlsInThisCrawl.has(normalizedFoundUrl) &&
               !urlsToProcess.includes(absoluteUrl)
             ) {
-              if (visitedCountOverall + urlsToProcess.length < limit) {
-                   urlsToProcess.push(absoluteUrl);
+              // Check exclusion patterns *before* queueing
+              const isExcluded = excludeRegexes.some(regex => regex.test(absoluteUrl));
+
+              if (!isExcluded) {
+                // Check limit *before* adding to queue
+                if (visitedCountOverall + urlsToProcess.length < limit) {
+                     urlsToProcess.push(absoluteUrl);
+                     // console.log(`  -> Queued (${crawlMode}): ${absoluteUrl}`); // Optional debug log
+                } else {
+                     // console.log(`Info: Limit reached, not queueing ${absoluteUrl}`); // Optional debug log
+                     return false; // Stop processing links if adding one would exceed limit
+                }
               } else {
-                   return false;
+                  console.log(`Skip (exclude): ${absoluteUrl}`);
               }
             }
           } catch (urlError) {

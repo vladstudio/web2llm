@@ -36,6 +36,7 @@ node crawl.js --url <STARTING_URL> [OPTIONS]
     *   `domain`: Follow any link that points to the same domain (origin) as the initial URL.
     *   `disabled`: Do not follow any links; only scrape the initial URL(s).
 *   `--limit` or `-l`: Maximum total number of pages to crawl across all start URLs (default: 100).
+*   `--exclude` or `-e`: One or more **regular expression** patterns. URLs matching any of these patterns will not be crawled (even if they match the crawl mode criteria). Provide the flag multiple times for multiple patterns (e.g., `-e "pattern1" -e "pattern2"`). Remember to quote patterns containing shell metacharacters. By default, common non-HTML file extensions (pdf, zip, jpg, png, etc.) are excluded. Providing this argument overrides the default.
 *   `--help` or `-h`: Show help message.
 
 **Examples:**
@@ -71,6 +72,17 @@ node crawl.js --url <STARTING_URL> [OPTIONS]
     node crawl.js --url https://example.com/docs --limit 10
     ```
 
+7.  Crawl within the domain, but exclude URLs containing `/api/` or ending with `.pdf` (overrides the default file extension exclusion):
+    ```bash
+    node crawl.js --url https://example.com/ --crawl-mode domain -e "/api/" -e "\\.pdf$"
+    ```
+
+8.  Crawl strictly, including PDF files (by providing an exclusion that doesn't match anything, thus overriding the default):
+    ```bash
+    node crawl.js --url https://example.com/docs -e "a^" # Exclude pattern matches nothing
+    ```
+
+
 ## How it Works
 
 *   Processes each `--url` provided in sequence according to the specified `--crawl-mode`.
@@ -80,6 +92,7 @@ node crawl.js --url <STARTING_URL> [OPTIONS]
         *   `strict`: Target URL must start with the starting URL string.
         *   `domain`: Target URL must have the same origin (protocol + hostname + port) as the starting URL.
         *   `disabled`: No links are followed.
+    *   Skips following any link if its URL matches any of the provided `--exclude` regex patterns (or the default pattern if `--exclude` is not specified).
 *   Stops crawling additional pages (across all starting URLs) once the global `--limit` is reached.
 *   Ignores URL fragments (`#...`) when checking if a page has already been visited within a crawl sequence, preventing duplicate crawls of the same base page.
 *   For each unique page visited (up to the limit):
@@ -89,4 +102,4 @@ node crawl.js --url <STARTING_URL> [OPTIONS]
 *   Combines Markdown from all pages across all processed starting URLs into the single `--output` file, separated by `---`.
 *   Prepends a YAML frontmatter block to the output file containing:
     *   `command_args`: The parsed arguments used for the run.
-    *   `rerun_command`: A reconstructed command string that can be copied and pasted to rerun the script with the same parameters.
+    *   `rerun_command`: A reconstructed command string that can be copied and pasted to rerun the script with the same parameters (including exclusions).

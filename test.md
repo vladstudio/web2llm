@@ -1,978 +1,1121 @@
 ---
 rerun_command: >-
-  node crawl.js -u "https://beta.tinybase.org/guides/the-basics/" --crawl-mode
-  strict --limit 100 --output "test.md"
+  node crawl.js -u
+  "https://developer.mozilla.org/en-US/docs/Learn_web_development/Getting_started/Your_first_website"
+  --crawl-mode strict --limit 100 --output "test.md"
 command_args:
   url:
-    - https://beta.tinybase.org/guides/the-basics/
+    - >-
+      https://developer.mozilla.org/en-US/docs/Learn_web_development/Getting_started/Your_first_website
   crawl-mode: strict
   limit: 100
   output: test.md
 ---
 
-## Page: https://beta.tinybase.org/guides/the-basics/
+## Page: https://developer.mozilla.org/en-US/docs/Learn_web_development/Getting_started/Your_first_website
 
-These guides cover the very basics of TinyBase.
+*   [Previous](https://developer.mozilla.org/en-US/docs/Learn_web_development/Getting_started/Environment_setup/Command_line)
+*   [Overview: Getting started modules](https://developer.mozilla.org/en-US/docs/Learn_web_development/Getting_started)
+*   [Next](https://developer.mozilla.org/en-US/docs/Learn_web_development/Getting_started/Your_first_website/What_will_your_website_look_like)
 
-We start with common ways to install the modules and then learn about how to interact with [`Store`](https://beta.tinybase.org/api/store/interfaces/store/store/) objects including creation, reading data, writing data, and listening for changes.
+This module introduces you to the practicalities of web development. You'll gather the assets and write the code to construct a simple webpage, then publish it for the world to see.
 
-See also the [Hello World](https://beta.tinybase.org/demos/hello-world/) demos, and the [Todo App](https://beta.tinybase.org/demos/todo-app/) demos.
+It's a lot of work to create a professional website, so if you're new to web development, we encourage you to start small. You won't build another Facebook right away, but it's not hard to make your own simple website online, so we'll start there.
 
-Let's get started!
+## [Prerequisites](#prerequisites)
 
-## Getting Started
+This module assumes no prior knowledge of web technologies, but you should already be comfortable with using your operating system, including using the file system and browsing the web. You should have a code editor and multiple web browsers installed.
 
-This guide gets you up and running quickly with TinyBase. [Read more](https://beta.tinybase.org/guides/the-basics/getting-started/).
+If this is not the case, we'd suggest that you run through the [Environment setup](https://developer.mozilla.org/en-US/docs/Learn_web_development/Getting_started/Environment_setup) module first.
 
-## Creating A Store
+## [Tutorials](#tutorials)
 
-This guide shows you how to create a new [`Store`](https://beta.tinybase.org/api/store/interfaces/store/store/). [Read more](https://beta.tinybase.org/guides/the-basics/creating-a-store/).
+[What will your website look like?](https://developer.mozilla.org/en-US/docs/Learn_web_development/Getting_started/Your_first_website/What_will_your_website_look_like)
 
-## Writing To Stores
+Before you start writing the code for your website, you should plan it first. What information are you showcasing? What fonts and colors are you using? Here we'll outline a simple method that you can follow to plan out your site's content and design.
 
-This guide shows you how to write data to a [`Store`](https://beta.tinybase.org/api/store/interfaces/store/store/). [Read more](https://beta.tinybase.org/guides/the-basics/writing-to-stores/).
+[Creating the content](https://developer.mozilla.org/en-US/docs/Learn_web_development/Getting_started/Your_first_website/Creating_the_content)
 
-## Reading From Stores
+HTML (**H**yper**T**ext **M**arkup **L**anguage) is the code that is used to structure a web page and its content. For example, content could be structured within a set of paragraphs, a list of bulleted points, or using images and data tables. This article provides a basic understanding of HTML and its functions, and shows you how to create the basic content for your first website.
 
-This guide shows you how to read data from a [`Store`](https://beta.tinybase.org/api/store/interfaces/store/store/). [Read more](https://beta.tinybase.org/guides/the-basics/reading-from-stores/).
+[Styling the content](https://developer.mozilla.org/en-US/docs/Learn_web_development/Getting_started/Your_first_website/Styling_the_content)
 
-## Listening To Stores
+CSS (Cascading Style Sheets) is the code that styles web content. _Styling the content_ walks through what you need to get started. We'll answer questions like: How do I make text red? How do I make content display at a certain location in the (webpage) layout? How do I decorate my webpage with background images and colors?
 
-This guide shows you how to listen to changes in the data in a [`Store`](https://beta.tinybase.org/api/store/interfaces/store/store/). [Read more](https://beta.tinybase.org/guides/the-basics/listening-to-stores/).
+[Adding interactivity](https://developer.mozilla.org/en-US/docs/Learn_web_development/Getting_started/Your_first_website/Adding_interactivity)
 
-## Transactions
+JavaScript is a programming language that adds interactivity to websites. This happens in games, in the behavior of responses when buttons are pressed or with data entry on forms, with dynamic styling, with animation, etc. This article helps you get started with JavaScript and furthers your understanding of what is possible.
 
-This guide shows you how to wrap multiple changes to the data in a [`Store`](https://beta.tinybase.org/api/store/interfaces/store/store/). [Read more](https://beta.tinybase.org/guides/the-basics/transactions/).
+[Publishing your website](https://developer.mozilla.org/en-US/docs/Learn_web_development/Getting_started/Your_first_website/Publishing_your_website)
 
-## Importing TinyBase
+Once you finish writing the code and organizing the files that make up your website, you need to put it all online so people can find it. This article explains how to get your sample website online with little effort.
 
-This guide provides an aside about importing TinyBase into your application. [Read more](https://beta.tinybase.org/guides/the-basics/importing-tinybase/).
+*   [Previous](https://developer.mozilla.org/en-US/docs/Learn_web_development/Getting_started/Environment_setup/Command_line)
+*   [Overview: Getting started modules](https://developer.mozilla.org/en-US/docs/Learn_web_development/Getting_started)
+*   [Next](https://developer.mozilla.org/en-US/docs/Learn_web_development/Getting_started/Your_first_website/What_will_your_website_look_like)
 
-## TinyBase And TypeScript
+## [See also](#see_also)
 
-This guide summarizes the two different levels of TypeScript coverage you can use with TinyBase. [Read more](https://beta.tinybase.org/guides/the-basics/tinybase-and-typescript/).
+[The Frontend Developer Career Path](https://v2.scrimba.com/the-frontend-developer-career-path-c0j?via=mdn) _MDN learning partner_
 
-## Architectural Options
-
-This guide discusses some of the ways in which you can use TinyBase, and how you can architect it into the bigger picture of how your app is built. [Read more](https://beta.tinybase.org/guides/the-basics/architectural-options/).
+[Scrimba's](https://scrimba.com/?via=mdn) _Frontend Developer Career Path_ teaches all you need to know to be a competent front-end web developer, with fun interactive lessons and challenges, knowledgeable teachers, and a supportive community. Go from zero to landing your first front-end job! Many of the course components are available as standalone free versions.
 
 ---
 
-## Page: https://beta.tinybase.org/guides/the-basics/getting-started/
+## Page: https://developer.mozilla.org/en-US/docs/Learn_web_development/Getting_started/Your_first_website/What_will_your_website_look_like
 
-This guide gets you up and running quickly with TinyBase.
+*   [Overview: Your first website](https://developer.mozilla.org/en-US/docs/Learn_web_development/Getting_started/Your_first_website)
+*   [Next](https://developer.mozilla.org/en-US/docs/Learn_web_development/Getting_started/Your_first_website/Creating_the_content)
 
-It is not intended to be a detailed introduction to installing JavaScript build- and run-time environments! It assumes that you have (or know how to have) a browser or Node-based development environment.
+_What will your website look like?_ discusses the planning and design work you have to do for your website before writing code, including "What information does my website offer?", "What fonts and colors do I want?", and "What does my site do?"
 
-Note that TinyBase requires a reasonably modern environment, as it makes extensive use of contemporary JavaScript features. A regularly-updated browser and Node 16 (or above) are recommended. If you find you need older compatibility, there are additional transpilations in the `es6` folder of the distribution.
+<table><tbody><tr><th scope="row">Prerequisites:</th><td>Basic familiarity with your computer operating system, the basic software you will use to build a website, and file systems.</td></tr><tr><th scope="row">Learning outcomes:</th><td><ul><li>Plan a basic website.</li><li>Use a basic design process.</li><li>Gather assets.</li></ul></td></tr></tbody></table>
 
-Let's go!
+## [First things first: planning](#first_things_first_planning)
 
-### TinyBase from a template
+Before doing anything, you need some ideas. What should your website actually do? A website can do basically anything, but, for your first try, you should keep things simple. We'll start by creating a simple webpage with a heading, an image, and a few paragraphs.
 
-[Vite](https://vitejs.dev/) is a build tool that makes it easy to get started with modern web projects based on application templates. To use the TinyBase template, firstly make a copy of it:
+To begin, you'll need to answer these questions:
 
-    npx tiged tinyplex/vite-tinybase my-tinybase-app
+1.  **What is your website about?** Do you like dogs, New York, or Pac-Man?
+2.  **What information are you presenting on the subject?** Write a title and a few paragraphs and think of an image you'd like to show on your page.
+3.  **What does your website look like,** in simple high-level terms? What's the background color? What kind of font is appropriate: formal, cartoony, bold and loud, subtle?
+
+**Note:** Complex projects need detailed guidelines that go into all the details of colors, fonts, spacing between items on a page, appropriate writing style, and so on. This is sometimes called a design guide, design system, or brand book, and you can see an example at the [Firefox Acorn Design System](https://acorn.firefox.com/latest).
+
+## [Sketching out your design](#sketching_out_your_design)
+
+Next, grab pen and paper and sketch out roughly how you want your site to look. For your first simple webpage, there's not much to sketch out, but you should get in the habit of doing this now. It really helps — you don't have to be Van Gogh!
+
+![A rough drawing and sketch of a website on paper](https://developer.mozilla.org/en-US/docs/Learn_web_development/Getting_started/Your_first_website/What_will_your_website_look_like/website-drawing-scan.png)
+
+**Note:** Even on real, complex websites, the design teams usually start out with rough sketches on paper and later on build digital mockups using a graphics editor or web technologies.
+
+Web teams often include both a graphic designer and a [user experience](https://developer.mozilla.org/en-US/docs/Glossary/UX) (UX) designer. Graphic designers put together the visuals of the website. UX designers have a somewhat more abstract role in addressing how users will experience and interact with the website.
+
+At this point, it's good to start putting together the content that will eventually appear on your webpage. You should still have your paragraphs and title from earlier. Keep these close by.
+
+## [Choosing a theme color](#choosing_a_theme_color)
+
+To choose a color, go to [the Color Picker](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_colors/Color_picker_tool) and find a color you like. When you click on a color, you'll see a strange six-character code like `#660066`. That's called a _hex code_ (short for hexadecimal), and represents your color. Copy the code down somewhere safe for now.
+
+![Color-Picker-Tool on MDN Docs website with RGB, HSL, and HEX colors ](https://developer.mozilla.org/en-US/docs/Learn_web_development/Getting_started/Your_first_website/What_will_your_website_look_like/color-picker.png)
+
+## [Choosing an image](#choosing_an_image)
+
+To choose an image, go to [Google Images](https://www.google.com/imghp) and search for something suitable.
+
+1.  When you find the image you want, click on the image to get an enlarged view of it.
+2.  Right-click the image (Ctrl + click on a Mac), choose _Save Image As…_, and choose a safe place to save your image.
+
+![Search results for a search term on Google Images](https://developer.mozilla.org/en-US/docs/Learn_web_development/Getting_started/Your_first_website/What_will_your_website_look_like/updated-google-images.png)
+
+Note that most images on the web, including in Google Images, are copyrighted. To reduce your likelihood of violating copyright, you can use Google's license filter. Click on the _Tools_ button, then on the resulting _Usage rights_ option that appears below. You should choose the option _Creative Commons licenses_.
+
+![Filtered search results to get images of Creative Commons Licenses on Google Images](https://developer.mozilla.org/en-US/docs/Learn_web_development/Getting_started/Your_first_website/What_will_your_website_look_like/updated-google-images-licensing.png)
+
+## [Choosing a font](#choosing_a_font)
+
+As with images, many fonts are protected by licenses, meaning you cannot freely use them in your site. [Google Fonts](https://developers.google.com/fonts) is a web service owned by Google that provides access to many fonts.
+
+Once you have found a font, there are two main ways of using it:
+
+1.  Add a reference in your code to load the font from Google's servers.
+2.  Download the font file to your own system, host the font yourself, and use your hosted copy in your website's code.
+
+**Note:** Serving fonts hosted on Google Fonts may be incompatible with the European Union's data privacy regulation [GDPR](https://gdpr.eu/) as the font service exposes the user's IP address. If this is a potential problem for you, then either choose the second option or choose a font provider that is GDPR compliant, such as [Bunny Fonts](https://fonts.bunny.net/about).
+
+Alternatively you can use [safe web fonts](https://web.mit.edu/jmorzins/www/fonts.html) such as Arial, Times New Roman, or Courier New.
+
+*   [Overview: Your first website](https://developer.mozilla.org/en-US/docs/Learn_web_development/Getting_started/Your_first_website)
+*   [Next](https://developer.mozilla.org/en-US/docs/Learn_web_development/Getting_started/Your_first_website/Creating_the_content)
+
+---
+
+## Page: https://developer.mozilla.org/en-US/docs/Learn_web_development/Getting_started/Your_first_website/Creating_the_content
+
+*   [Previous](https://developer.mozilla.org/en-US/docs/Learn_web_development/Getting_started/Your_first_website/What_will_your_website_look_like)
+*   [Overview: Your first website](https://developer.mozilla.org/en-US/docs/Learn_web_development/Getting_started/Your_first_website)
+*   [Next](https://developer.mozilla.org/en-US/docs/Learn_web_development/Getting_started/Your_first_website/Styling_the_content)
+
+HTML (**H**yper**T**ext **M**arkup **L**anguage) is the code that is used to structure a web page and its content. For example, content could be structured within a set of paragraphs, a list of bulleted points, or using images and data tables. This article provides a basic understanding of HTML and its functions, and shows you how to create the basic content for your first website.
+
+<table><tbody><tr><th scope="row">Prerequisites:</th><td>Basic familiarity with your computer operating system, the basic software you will use to build a website, and file systems.</td></tr><tr><th scope="row">Learning outcomes:</th><td><ul><li>The purpose and function of HTML.</li><li>The basic parts of HTML syntax — opening and closing tags, elements, attributes, head, body.</li><li>Common HTML elements including paragraphs, headings, images, lists, and links.</li></ul></td></tr></tbody></table>
+
+## [So what is HTML?](#so_what_is_html)
+
+HTML is a _markup language_ that defines the structure of your content. HTML consists of a series of **[elements](https://developer.mozilla.org/en-US/docs/Glossary/Element)**, which you use to enclose, or wrap, different parts of the content to make it appear a certain way, or act a certain way. The enclosing [tags](https://developer.mozilla.org/en-US/docs/Glossary/Tag) can make a word or image hyperlink to somewhere else, can italicize words, can make the font bigger or smaller, and so on. For example, take the following line of content:
+
+My cat is very grumpy
+
+If we wanted the line to stand by itself, we could specify that it is a paragraph by enclosing it in paragraph tags:
+
+    <p>My cat is very grumpy</p>
     
 
-Then go into the directory, install the dependencies, and run the application:
+### [Anatomy of an HTML element](#anatomy_of_an_html_element)
 
-    cd my-tinybase-app
-    npm install
-    npm run dev
+Let's explore this paragraph element a bit further.
+
+![paragraph element including opening tag, content reading 'my cat is very grumpy', and a closing tag](https://developer.mozilla.org/en-US/docs/Learn_web_development/Getting_started/Your_first_website/Creating_the_content/grumpy-cat-small.png)
+
+The main parts of our element are as follows:
+
+1.  **The opening tag:** This consists of the name of the element (in this case, p), wrapped in opening and closing **angle brackets**. This states where the element begins or starts to take effect — in this case where the paragraph begins.
+2.  **The closing tag:** This is the same as the opening tag, except that it includes a _forward slash_ before the element name. This states where the element ends — in this case where the paragraph ends. Failing to add a closing tag is one of the standard beginner errors and can lead to strange results.
+3.  **The content:** This is the content of the element, which in this case, is just text.
+4.  **The element:** The opening tag, the closing tag, and the content together comprise the element.
+
+Elements can also have attributes that look like the following:
+
+![Paragraph opening tag with a class attribute highlighted: class=editor-note](https://developer.mozilla.org/en-US/docs/Learn_web_development/Getting_started/Your_first_website/Creating_the_content/grumpy-cat-attribute-small.png)
+
+Attributes contain extra information about the element that you don't want to appear in the actual content. Here, `class` is the attribute _name_ and `editor-note` is the attribute _value_. The `class` attribute allows you to give the element a non-unique identifier that can be used to target it (and any other elements with the same `class` value) with style information and other things. Some attributes have no value, such as [`required`](https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes/required).
+
+Attributes that set a value always have:
+
+1.  A space between it and the element name (or the previous attribute, if the element already has one or more attributes).
+2.  The attribute name followed by an equal sign.
+3.  The attribute value wrapped by opening and closing quotation marks.
+
+**Note:** Simple attribute values that don't contain [ASCII](https://developer.mozilla.org/en-US/docs/Glossary/ASCII) whitespace (or any of the characters `"` `'` `` ` `` `=` `<` `>`) can remain unquoted, but it is recommended that you quote all attribute values, as it makes the code more consistent and understandable.
+
+### [Nesting elements](#nesting_elements)
+
+You can put elements inside other elements too — this is called **nesting**. If we wanted to state that our cat is **very** grumpy, we could wrap the word "very" in a [`<strong>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/strong) element, which means that the word is to be strongly emphasized:
+
+    <p>My cat is <strong>very</strong> grumpy.</p>
     
 
-The final step will display a local URL, which should serve up a basic TinyBase application for you:
+You do however need to make sure that your elements are properly nested. In the example above, we opened the [`<p>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/p) element first, then the [`<strong>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/strong) element; therefore, we have to close the [`<strong>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/strong) element first, then the [`<p>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/p) element. The following is incorrect:
 
-![Thumbnail of Vite app](https://beta.tinybase.org/vite-tinybase.png "Thumbnail of Vite app")
+    <p>My cat is <strong>very grumpy.</p></strong>
+    
 
-In fact, there are eleven templates for TinyBase, depending on whether you want to use TypeScript or React, and the integrations you want to target. Instructions are available in the README of each:
+The elements have to open and close correctly so that they are clearly inside or outside one another. If they overlap as shown above, then your web browser will try to make the best guess at what you were trying to say, which can lead to unexpected results. So don't do it!
 
-| Template | Language | React | Plus |
-| --- | --- | --- | --- |
-| [vite-tinybase](https://github.com/tinyplex/vite-tinybase) | JavaScript | No |  |
-| [vite-tinybase-ts](https://github.com/tinyplex/vite-tinybase-ts) | TypeScript | No |  |
-| [vite-tinybase-react](https://github.com/tinyplex/vite-tinybase-react) | JavaScript | Yes |  |
-| [vite-tinybase-ts-react](https://github.com/tinyplex/vite-tinybase-ts-react) | TypeScript | Yes |  |
-| [vite-tinybase-ts-react-sync](https://github.com/tinyplex/vite-tinybase-ts-react-sync) | TypeScript | Yes | [Synchronization](https://beta.tinybase.org/guides/synchronization/) |
-| [vite-tinybase-ts-react-sync-durable-object](https://github.com/tinyplex/vite-tinybase-ts-react-sync-durable-object) | TypeScript | Yes | Sync & Durable Objects |
-| [vite-tinybase-ts-react-pglite](https://github.com/tinyplex/vite-tinybase-ts-react-pglite) | TypeScript | Yes | PGlite |
-| [vite-tinybase-ts-react-crsqlite](https://github.com/tinyplex/vite-tinybase-ts-react-crsqlite) | TypeScript | Yes | CR-SQLite |
-| [tinybase-ts-react-partykit](https://github.com/tinyplex/tinybase-ts-react-partykit) | TypeScript | Yes | PartyKit |
-| [tinybase-ts-react-electricsql](https://github.com/tinyplex/tinybase-ts-react-electricsql) | TypeScript | Yes | ElectricSQL |
-| [expo/examples/with-tinybase](https://github.com/expo/examples/tree/master/with-tinybase) | JavaScript | Yes | React Native & Expo |
+### [Void elements](#void_elements)
 
-### TinyBase in a browser
+Some elements have no content and are called **[void elements](https://developer.mozilla.org/en-US/docs/Glossary/Void_element)**. Take the [`<img>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/img) element that we already have in our HTML page:
 
-Another simple way to get started with TinyBase is to include it from a CDN in a web page. Create a file called `index.html`, for example:
+    <img src="images/firefox-icon.png" alt="My test image" />
+    
 
-    <html>
+This contains two attributes, but there is no closing `</img>` tag and no inner content. This is because an image element doesn't wrap content to affect it. Its purpose is to embed an image in the HTML page in the place it appears.
+
+## [Creating your first HTML document](#creating_your_first_html_document)
+
+That wraps up the basics of individual HTML elements, but they aren't very useful on their own. Now we'll look at how individual elements are combined to form an entire HTML page. Let's create a basic HTML file, and have a look at what it is made up of:
+
+1.  Inside your `web-projects` folder, create another new folder called `first-website`.
+2.  Inside `first-website`, Create a new file called `index.html`, and insert the following code into the file exactly as shown:
+
+    <!doctype html>
+    <html lang="en-US">
       <head>
-        <title>My First TinyBase App</title>
-        <script type="importmap">
-          {"imports": {"tinybase": "https://esm.sh/tinybase@6.0.0"}}
-        </script>
-        <script type="module">
-          import {createStore} from 'tinybase';
-    
-          addEventListener('load', () => {
-            const store = createStore();
-            store.setValue('v1', 'Hello');
-            store.setCell('t1', 'r1', 'c1', 'World');
-    
-            document.body.innerHTML =
-              store.getValue('v1') + ' ' + store.getCell('t1', 'r1', 'c1');
-          });
-        </script>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width" />
+        <title>My test page</title>
       </head>
-      <body />
+      <body>
+        <img src="" alt="My test image" />
+      </body>
     </html>
     
 
-Open this file in your browser and you should see the words '[Hello World](https://beta.tinybase.org/demos/hello-world/)' on the screen, each having been written to, and read from, a [`Store`](https://beta.tinybase.org/api/store/interfaces/store/store/).
+Here, we have the following:
 
-Note that the TinyBase module is pulled in from esm.sh, and the `importmap` allows you to use a regular import statement in the main script section.
+*   `<!doctype html>` — The [doctype](https://developer.mozilla.org/en-US/docs/Glossary/Doctype) is a required preamble. In the mists of time, when HTML was young (around 1991/92), doctypes were meant to act as links to a set of rules that the HTML page had to follow to be considered good HTML, which could mean automatic error checking and other useful things. However, these days, they don't do much and are basically just needed to make sure your document behaves correctly. That's all you need to know for now.
+*   `<html></html>` — the [`<html>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/html) element. This element wraps all the content on the entire page and is sometimes known as the root element. It also includes the `lang` attribute, setting the primary language of the document.
+*   `<head></head>` — the [`<head>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/head) element. This element acts as a container for all the stuff you want to include on the HTML page that _isn't_ the content you are showing to your page's viewers. This includes things like [keywords](https://developer.mozilla.org/en-US/docs/Glossary/Keyword) and a page description that you want to appear in search results, CSS to style our content, character set declarations, and more.
+*   `<meta charset="utf-8">` — This element sets the character set your document should use to UTF-8 which includes most characters from the vast majority of written languages. Essentially, it can now handle any textual content you might put on it. There is no reason not to set this, and it can help avoid some problems later on.
+*   `<meta name="viewport" content="width=device-width">` — This [viewport element](https://developer.mozilla.org/en-US/docs/Web/CSS/CSSOM_view/Viewport_concepts#mobile_viewports) ensures the page renders at the width of viewport, preventing mobile browsers from rendering pages wider than the viewport and then shrinking them down.
+*   `<title></title>` — the [`<title>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/title) element. This sets the title of your page, which is the title that appears in the browser tab the page is loaded in. It is also used to describe the page when you bookmark/favorite it.
+*   `<body></body>` — the [`<body>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/body) element. This contains _all_ the content that you want to show to web users when they visit your page, whether that's text, images, videos, games, playable audio tracks, or whatever else.
 
-### TinyBase in a Node application
+## [Images](#images)
 
-TinyBase is packaged on NPM, so you can easily install it as a dependency for your application.
+Let's turn our attention to the [`<img>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/img) element:
 
-    mkdir MyFirstTinyBaseApp
-    cd MyFirstTinyBaseApp
-    npm init -y
-    npm install tinybase
+    <img src="" alt="My test image" />
     
 
-Create a file in this directory called `index.mjs`:
+This embeds an image into our page in the position it appears. It does this via the `src` (source) attribute, which contains the path to our image file.
 
-    import {createStore} from 'tinybase';
-    
-    const store = createStore();
-    store.setValue('v1', 'Hello');
-    store.setCell('t1', 'r1', 'c1', 'World');
-    console.log(store.getValue('v1') + ' ' + store.getCell('t1', 'r1', 'c1'));
-    
+We have also included an `alt` (alternative) attribute. In the [`alt` attribute](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/img#authoring_meaningful_alternate_descriptions), you specify descriptive text for users who cannot see the image, possibly because of the following reasons:
 
-Run this module script with:
+1.  They are visually impaired. Users with significant visual impairments often use tools called screen readers to read out the alt text to them.
+2.  Something has gone wrong causing the image not to display. If the `src` attribute does not contain a valid path to an image, the alt text will be displayed instead:
 
-    node index.mjs
-    
+![The words: my test image](https://developer.mozilla.org/en-US/docs/Learn_web_development/Getting_started/Your_first_website/Creating_the_content/alt-text-example.png)
 
-Again, you will see the words '[Hello World](https://beta.tinybase.org/demos/hello-world/)' on the screen, having each been written to, and read from, a [`Store`](https://beta.tinybase.org/api/store/interfaces/store/store/).
+The keywords for alt text are "descriptive text". The alt text you write should provide the reader with enough information to have a good idea of what the image conveys. In this example, our current text of "My test image" is no good at all. A much better alternative for our Firefox logo would be "The Firefox logo: a flaming fox surrounding the Earth."
 
-If that all worked, you are set up and ready to learn more about TinyBase! From here on, we will mostly show Node-based code snippets, but most should be easily translatable to run in a browser too.
+Let's get your image displaying now.
 
-Before we move on, you should be aware that the overall package includes a number of different versions of TinyBase, transpiled for different targets and formats. You may want to take a look at the [Importing TinyBase](https://beta.tinybase.org/guides/the-basics/importing-tinybase/) guide if the code above isn't working in your environment - React Native in particular.
+1.  Inside the `first-website` folder, Create a new folder called `images`, and put the image you chose in the previous example inside this folder.
+2.  Inside the `<img>` tag's `src` attribute value, enter the path to your image. It is inside a folder called `images`, which is inside the same directory as your `index.html` file, therefore the path will be `images/` plus the name of your image. For example, if your image was called `firefox-icon.png`, your `src` attribute would look like this: `src="images/firefox-icon.png"`.
+3.  replace the `alt` attribute value — `My test image` — with some text that better describes your image.
+4.  Open your `index.html` file inside a web browser. You should see your image displayed. If not, check your `<img>` element against our code above; make sure it is not missing any of the syntax, such as the quote marks. Make sure the image filename is correct.
 
-Let's move onto the [Creating A Store](https://beta.tinybase.org/guides/the-basics/creating-a-store/) guide.
+**Note:** If the image is really large and therefore doesn't fit on the screen, don't worry about this. We'll fix this issue in the next article. Find out more about using an `alt` attribute for images in various situations in our [accessible multimedia tutorial](https://developer.mozilla.org/en-US/docs/Learn_web_development/Core/Accessibility/Multimedia) and [An alt Decision Tree](https://www.w3.org/WAI/tutorials/images/decision-tree/).
 
----
+## [Marking up text](#marking_up_text)
 
-## Page: https://beta.tinybase.org/guides/the-basics/creating-a-store/
+This section will cover some essential HTML elements you'll use for marking up the text.
 
-This guide shows you how to create a new [`Store`](https://beta.tinybase.org/api/store/interfaces/store/store/).
+### [Headings](#headings)
 
-Creating a [`Store`](https://beta.tinybase.org/api/store/interfaces/store/store/) requires just a simple call to the [`createStore`](https://beta.tinybase.org/api/store/functions/creation/createstore/) function from the [`store`](https://beta.tinybase.org/api/store/) module.
+Heading elements allow you to specify that certain parts of your content are headings — or subheadings. In the same way that a book has the main title, chapter titles, and subtitles, an HTML document can too. HTML contains 6 heading levels, [<h1> - <h6>](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/Heading_Elements), although you'll commonly only use 3 to 4 at most:
 
-    import {createStore} from 'tinybase';
-    
-    const store = createStore();
-    
-
-Easy enough! The returned [`Store`](https://beta.tinybase.org/api/store/interfaces/store/store/) starts off empty of course:
-
-    console.log(store.getValues());
-    // -> {}
-    
-    console.log(store.getTables());
-    // -> {}
+    <!-- 4 heading levels: -->
+    <h1>My main title</h1>
+    <h2>My top level heading</h2>
+    <h3>My subheading</h3>
+    <h4>My sub-subheading</h4>
     
 
-To fix that, let's move onto the [Writing To Stores](https://beta.tinybase.org/guides/the-basics/writing-to-stores/) guide.
+**Note:** Anything in HTML between `<!--` and `-->` is an **HTML comment**. The browser ignores comments as it renders the code. In other words, they are not visible on the page - just in the code. HTML comments are a way for you to write helpful notes about your code or logic.
 
----
+Now try adding a suitable main title to your HTML page just above your [`<img>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/img) element. Save the file and view it in a browser to see the effect.
 
-## Page: https://beta.tinybase.org/guides/the-basics/writing-to-stores/
+**Note:** You'll see that your heading level 1 has an implicit style. Don't use heading elements to make text bigger or bold, because they are used for [accessibility](https://developer.mozilla.org/en-US/docs/Learn_web_development/Core/Accessibility/HTML#text_content) and [other reasons such as SEO](https://developer.mozilla.org/en-US/docs/Learn_web_development/Core/Structuring_content/Headings_and_paragraphs#why_do_we_need_structure). Try to create a meaningful sequence of headings on your pages, without skipping levels.
 
-This guide shows you how to write data to a [`Store`](https://beta.tinybase.org/api/store/interfaces/store/store/).
+### [Paragraphs](#paragraphs)
 
-A [`Store`](https://beta.tinybase.org/api/store/interfaces/store/store/) has two types of data in it: keyed values ('[`Values`](https://beta.tinybase.org/api/store/type-aliases/store/values/)'), and tabular data ('[`Tables`](https://beta.tinybase.org/api/store/type-aliases/store/tables/)').
+As explained above, [`<p>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/p) elements are for containing paragraphs of text; you'll use these frequently when marking up regular text content:
 
-[`Values`](https://beta.tinybase.org/api/store/type-aliases/store/values/) are just [`Id`](https://beta.tinybase.org/api/common/type-aliases/identity/id/)/[`Value`](https://beta.tinybase.org/api/store/type-aliases/store/value/) pairs. [`Tables`](https://beta.tinybase.org/api/store/type-aliases/store/tables/) on the other hand, have a simple hierarchical structure:
-
-*   The [`Store`](https://beta.tinybase.org/api/store/interfaces/store/store/)'s [`Tables`](https://beta.tinybase.org/api/store/type-aliases/store/tables/) object contains a number of [`Table`](https://beta.tinybase.org/api/store/type-aliases/store/table/) objects.
-*   Each [`Table`](https://beta.tinybase.org/api/store/type-aliases/store/table/) contains a number of [`Row`](https://beta.tinybase.org/api/store/type-aliases/store/row/) objects.
-*   Each [`Row`](https://beta.tinybase.org/api/store/type-aliases/store/row/) contains a number of [`Cell`](https://beta.tinybase.org/api/store/type-aliases/store/cell/) objects.
-
-Once you have created a [`Store`](https://beta.tinybase.org/api/store/interfaces/store/store/), you can write data to it with one of its setter methods, according to the level of the hierarchy that you want to set.
-
-For example, you can set the data for the keyed value structure of [`Store`](https://beta.tinybase.org/api/store/interfaces/store/store/) with the [`setValues`](https://beta.tinybase.org/api/store/interfaces/store/store/methods/setter/setvalues/) method:
-
-    import {createStore} from 'tinybase';
-    
-    const store = createStore();
-    store.setValues({employees: 3, open: true});
+    <p>This is a single paragraph</p>
     
 
-Similarly, you can set the data for the tabular structure of [`Store`](https://beta.tinybase.org/api/store/interfaces/store/store/) with the [`setTables`](https://beta.tinybase.org/api/store/interfaces/store/store/methods/setter/settables/) method:
+Add your sample text from the previous article into one or a few paragraphs, placed directly below your [`<img>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/img) element. Save it and look at your page in a browser.
 
-    store.setTables({pets: {fido: {species: 'dog'}}});
+### [Lists](#lists)
+
+A lot of the web's content is lists and HTML has special elements for these. Marking up lists always consists of at least 2 elements. The most common list types are ordered and unordered lists:
+
+1.  **Unordered lists** are for lists where the order of the items doesn't matter, such as a shopping list. These are wrapped in a [`<ul>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/ul) element.
+2.  **Ordered lists** are for lists where the order of the items does matter, such as a list of cooking instructions in a recipe. These are wrapped in an [`<ol>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/ol) element.
+
+Each item inside the lists is put inside an [`<li>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/li) (list item) element.
+
+For example, if we wanted to turn the part of the following paragraph fragment into a list
+
+    <p>
+      At Mozilla, we're a global community of technologists, thinkers, and builders
+      working together…
+    </p>
     
 
-Hopefully self-evidently, this sets the [`Store`](https://beta.tinybase.org/api/store/interfaces/store/store/) to have two [`Values`](https://beta.tinybase.org/api/store/type-aliases/store/values/) (`employees` and `open`, which are `3` and `true` respectively). It also has one [`Table`](https://beta.tinybase.org/api/store/type-aliases/store/table/) object (called `pets`), containing one [`Row`](https://beta.tinybase.org/api/store/type-aliases/store/row/) object (called `fido`), containing one [`Cell`](https://beta.tinybase.org/api/store/type-aliases/store/cell/) object (called `species` and with the string value `dog`):
+We could modify the markup to this
 
-    console.log(store.getValues());
-    // -> {employees: 3, open: true}
+    <p>At Mozilla, we're a global community of</p>
     
-    console.log(store.getTables());
-    // -> {pets: {fido: {species: 'dog'}}}
+    <ul>
+      <li>technologists</li>
+      <li>thinkers</li>
+      <li>builders</li>
+    </ul>
     
-
-You can also alter [`Store`](https://beta.tinybase.org/api/store/interfaces/store/store/) data at different granularities with the [`setValue`](https://beta.tinybase.org/api/store/interfaces/store/store/methods/setter/setvalue/) method, the [`setTable`](https://beta.tinybase.org/api/store/interfaces/store/store/methods/setter/settable/) method, the [`setRow`](https://beta.tinybase.org/api/store/interfaces/store/store/methods/setter/setrow/) method, and the [`setCell`](https://beta.tinybase.org/api/store/interfaces/store/store/methods/setter/setcell/) method:
-
-    store.setValue('employees', 4);
-    console.log(store.getValues());
-    // -> {employees: 4, open: true}
-    
-    store.setTable('species', {dog: {price: 5}});
-    console.log(store.getTables());
-    // -> {pets: {fido: {species: 'dog'}}, species: {dog: {price: 5}}}
-    
-    store.setRow('species', 'cat', {price: 4});
-    console.log(store.getTables());
-    // -> {pets: {fido: {species: 'dog'}}, species: {dog: {price: 5}, cat: {price: 4}}}
-    
-    store.setCell('pets', 'fido', 'color', 'brown');
-    console.log(store.getTables());
-    // -> {pets: {fido: {species: 'dog', color: 'brown'}}, species: {dog: {price: 5}, cat: {price: 4}}}
+    <p>working together…</p>
     
 
-The data in a [`Value`](https://beta.tinybase.org/api/store/type-aliases/store/value/) or a [`Cell`](https://beta.tinybase.org/api/store/type-aliases/store/cell/) can be a string, a number, or a boolean type.
+Try adding an ordered or unordered list to your example page, and view the result in a browser.
 
-It's worth mentioning here that there are two extra methods to manipulate [`Row`](https://beta.tinybase.org/api/store/type-aliases/store/row/) objects. The [`addRow`](https://beta.tinybase.org/api/store/interfaces/store/store/methods/setter/addrow/) method is like the [`setRow`](https://beta.tinybase.org/api/store/interfaces/store/store/methods/setter/setrow/) method but automatically assigns it a new unique [`Id`](https://beta.tinybase.org/api/common/type-aliases/identity/id/). And the [`setPartialRow`](https://beta.tinybase.org/api/store/interfaces/store/store/methods/setter/setpartialrow/) method lets you update multiple [`Cell`](https://beta.tinybase.org/api/store/type-aliases/store/cell/) values in a [`Row`](https://beta.tinybase.org/api/store/type-aliases/store/row/) without affecting the others. (setPartialValues does the same for [`Values`](https://beta.tinybase.org/api/store/type-aliases/store/values/).)
+## [Links](#links)
 
-### Deleting Data
+Links are very important — they are what makes the web a web! To add a link, we need to use a specific element — [`<a>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/a) — "a" being the short form for "anchor". To make text within your paragraph into a link, follow these steps:
 
-There are dedicated deletion methods (again, for each level of granularity), such as the [`delValue`](https://beta.tinybase.org/api/store/interfaces/store/store/methods/deleter/delvalue/) method, the [`delTable`](https://beta.tinybase.org/api/store/interfaces/store/store/methods/deleter/deltable/) method, the [`delRow`](https://beta.tinybase.org/api/store/interfaces/store/store/methods/deleter/delrow/) method, and the [`delCell`](https://beta.tinybase.org/api/store/interfaces/store/store/methods/deleter/delcell/) method. For example:
-
-    store.delValue('employees');
-    console.log(store.getValues());
-    // -> {open: true}
+1.  Choose some text. We chose the text "Mozilla Manifesto".
     
-    store.delTable('species');
-    console.log(store.getTables());
-    // -> {pets: {fido: {species: 'dog', color: 'brown'}}}
+2.  Wrap the text in an [`<a>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/a) element, as shown below:
     
-
-Deletions are also implied when you set an object that omits something that existed before:
-
-    console.log(store.getTables());
-    // -> {pets: {fido: {species: 'dog', color: 'brown'}}}
+        <a>Mozilla Manifesto</a>
+        
     
-    store.setRow('pets', 'fido', {species: 'dog'});
-    console.log(store.getTables());
-    // -> {pets: {fido: {species: 'dog'}}}
-    // The `color` Cell has been deleted.
+3.  Give the [`<a>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/a) element an `href` attribute, as shown below:
+    
+        <a href="">Mozilla Manifesto</a>
+        
+    
+4.  Fill in the value of this attribute with the web address that you want the link to point to:
+    
+        <a href="https://www.mozilla.org/en-US/about/manifesto/">
+          Mozilla Manifesto
+        </a>
+        
     
 
-[`Table`](https://beta.tinybase.org/api/store/type-aliases/store/table/) and [`Row`](https://beta.tinybase.org/api/store/type-aliases/store/row/) objects cannot be empty - if they are, they are removed - which leads to a cascading effect when you remove the final child of a parent object:
+You might get unexpected results if you omit the `https://` or `http://` part, called the _protocol_, at the beginning of the web address. After making a link, click it to make sure it is sending you where you wanted it to.
 
-    store.delCell('pets', 'fido', 'species');
-    console.log(store.getTables());
-    // -> {}
-    // The `fido` Row and `pets` Table have been recursively deleted.
-    
+**Note:** `href` might appear like a rather obscure choice for an attribute name at first. If you are having trouble remembering it, remember that it stands for _**h**ypertext **ref**erence_.
 
-### Summary
+Add a link to your page now, if you haven't already done so.
 
-That's a quick overview on how to write data to a [`Store`](https://beta.tinybase.org/api/store/interfaces/store/store/). But of course you want to get it out again too!
+## [Conclusion](#conclusion)
 
-In the examples above, we've used the [`getValues`](https://beta.tinybase.org/api/store/interfaces/store/store/methods/getter/getvalues/) method and the [`getTables`](https://beta.tinybase.org/api/store/interfaces/store/store/methods/getter/gettables/) method to get a view into the data in the [`Store`](https://beta.tinybase.org/api/store/interfaces/store/store/). Unsurprisingly, you can also use more granular methods to get data out - for which we proceed to the [Reading From Stores](https://beta.tinybase.org/guides/the-basics/reading-from-stores/) guide.
+If you have followed all the instructions in this article, you should end up with a page that looks like the one below (you can also [view it here](https://mdn.github.io/beginner-html-site/)):
+
+![A web page screenshot showing a Firefox logo, a heading saying Mozilla is cool, and two paragraphs of filler text](https://developer.mozilla.org/en-US/docs/Learn_web_development/Getting_started/Your_first_website/Creating_the_content/finished-test-page-small.png)
+
+If you get stuck, you can always compare your work with our [finished example code](https://github.com/mdn/beginner-html-site/blob/main/index.html) on GitHub.
+
+Here, we have only really scratched the surface of HTML. You'll learn a lot more in our [Structuring content with HTML](https://developer.mozilla.org/en-US/docs/Learn_web_development/Core/Structuring_content) Core module.
+
+*   [Previous](https://developer.mozilla.org/en-US/docs/Learn_web_development/Getting_started/Your_first_website/What_will_your_website_look_like)
+*   [Overview: Your first website](https://developer.mozilla.org/en-US/docs/Learn_web_development/Getting_started/Your_first_website)
+*   [Next](https://developer.mozilla.org/en-US/docs/Learn_web_development/Getting_started/Your_first_website/Styling_the_content)
 
 ---
 
-## Page: https://beta.tinybase.org/guides/the-basics/reading-from-stores/
+## Page: https://developer.mozilla.org/en-US/docs/Learn_web_development/Getting_started/Your_first_website/Styling_the_content
 
-This guide shows you how to read data from a [`Store`](https://beta.tinybase.org/api/store/interfaces/store/store/).
+*   [Previous](https://developer.mozilla.org/en-US/docs/Learn_web_development/Getting_started/Your_first_website/Creating_the_content)
+*   [Overview: Your first website](https://developer.mozilla.org/en-US/docs/Learn_web_development/Getting_started/Your_first_website)
+*   [Next](https://developer.mozilla.org/en-US/docs/Learn_web_development/Getting_started/Your_first_website/Adding_interactivity)
 
-While we're here, notice how the the [`createStore`](https://beta.tinybase.org/api/store/functions/creation/createstore/) function and setter methods return the [`Store`](https://beta.tinybase.org/api/store/interfaces/store/store/) again, so we can easily instantiate it by chaining methods together:
+CSS (Cascading Style Sheets) is the code that styles web content. _Styling the content_ walks through what you need to get started. We'll answer questions like: How do I make text red? How do I make content display at a certain location in the (webpage) layout? How do I decorate my webpage with background images and colors?
 
-    import {createStore} from 'tinybase';
-    
-    const store = createStore()
-      .setValues({employees: 3, open: true})
-      .setTables({
-        pets: {fido: {species: 'dog'}},
-        species: {dog: {price: 5}},
-      });
-    
+<table><tbody><tr><th scope="row">Prerequisites:</th><td>Basic familiarity with your computer operating system, the basic software you will use to build a website, and file systems.</td></tr><tr><th scope="row">Learning outcomes:</th><td><ul><li>The purpose and function of CSS.</li><li>The basic parts of CSS syntax — rulesets, selectors, declarations, properties, property values.</li><li>Common CSS functionality including box model, changing colors and fonts, and positioning HTML elements.</li></ul></td></tr></tbody></table>
 
-To get the data out again, according to the level of the hierarchy that you want to get data for, you can use the [`getValues`](https://beta.tinybase.org/api/store/interfaces/store/store/methods/getter/getvalues/) method, the [`getValue`](https://beta.tinybase.org/api/store/interfaces/store/store/methods/getter/getvalue/) method, the [`getTables`](https://beta.tinybase.org/api/store/interfaces/store/store/methods/getter/gettables/) method, the [`getTable`](https://beta.tinybase.org/api/store/interfaces/store/store/methods/getter/gettable/) method, the [`getRow`](https://beta.tinybase.org/api/store/interfaces/store/store/methods/getter/getrow/) method, or the [`getCell`](https://beta.tinybase.org/api/store/interfaces/store/store/methods/getter/getcell/) method.
+## [What is CSS?](#what_is_css)
 
-By now, this should be starting to look intuitive. (I hope so! If not, let me know!)
+Like HTML, CSS is not a programming language. It's not a markup language either. **CSS is a style sheet language.** CSS is what you use to selectively style HTML elements. For example, this CSS selects paragraph text, setting the color to red:
 
-    console.log(store.getValues());
-    // -> {employees: 3, open: true}
-    
-    console.log(store.getValue('employees'));
-    // -> 3
-    
-    console.log(store.getTables());
-    // -> {pets: {fido: {species: 'dog'}}, species: {dog: {price: 5}}}
-    
-    console.log(store.getTable('pets'));
-    // -> {fido: {species: 'dog'}}
-    
-    console.log(store.getRow('pets', 'fido'));
-    // -> {species: 'dog'}
-    
-    console.log(store.getCell('pets', 'fido', 'species'));
-    // -> 'dog'
+    p {
+      color: red;
+    }
     
 
-It is worth noting that the return types of these methods are by value, not by reference. So if you manipulate the returned object, the [`Store`](https://beta.tinybase.org/api/store/interfaces/store/store/) is not updated:
+Let's try it out!
 
-    const fido = store.getRow('pets', 'fido');
-    fido.color = 'brown';
-    console.log(fido);
-    // -> {species: 'dog', color: 'brown'}
-    
-    console.log(store.getRow('pets', 'fido'));
-    // -> {species: 'dog'}
-    
+1.  Inside your `first-website` folder, create another new folder called `styles`.
+2.  Using a text editor, paste the three lines of CSS shown above into a new file.
+3.  Save the file inside your `styles` folder with a filename of `style.css`.
 
-### Handling Non-Existent Data
+To make the code work, we still need to apply this CSS (above) to your HTML document. Otherwise, the styling won't change the appearance of the HTML.
 
-The [`hasValue`](https://beta.tinybase.org/api/store/interfaces/store/store/methods/getter/hasvalue/) method, the [`hasTable`](https://beta.tinybase.org/api/store/interfaces/store/store/methods/getter/hastable/) method, the [`hasRow`](https://beta.tinybase.org/api/store/interfaces/store/store/methods/getter/hasrow/) method, and the [`hasCell`](https://beta.tinybase.org/api/store/interfaces/store/store/methods/getter/hascell/) method can be used to see whether a given object exists, without having to read it:
-
-    console.log(store.hasValue('website'));
-    // -> false
+1.  Open your `index.html` file. Paste the following line inside the HTML head (between the [`<head>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/head) and `</head>` tags):
     
-    console.log(store.hasTable('customers'));
-    // -> false
+        <link href="styles/style.css" rel="stylesheet" />
+        
     
-    console.log(store.hasRow('pets', 'fido'));
-    // -> true
+2.  Save `index.html` and load it in your browser. You should see something like this:
     
 
-When you try to access something that doesn't exist, you'll receive an `undefined` value for a [`Value`](https://beta.tinybase.org/api/store/type-aliases/store/value/) or [`Cell`](https://beta.tinybase.org/api/store/type-aliases/store/cell/), or an empty object:
+![A Mozilla logo and some paragraphs. The paragraph text has been styled red by our css.](https://developer.mozilla.org/en-US/docs/Learn_web_development/Getting_started/Your_first_website/Styling_the_content/website-screenshot-styled.png)
 
-    console.log(store.getValue('website'));
-    // -> undefined
-    
-    console.log(store.getTable('customers'));
-    // -> {}
-    
-    console.log(store.getRow('pets', 'felix'));
-    // -> {}
-    
-    console.log(store.getCell('pets', 'fido', 'color'));
-    // -> undefined
-    
+If your paragraph text is red, congratulations! Your CSS is working.
 
-### Enumerating [`Ids`](https://beta.tinybase.org/api/common/type-aliases/identity/ids/)
+## [Anatomy of a CSS ruleset](#anatomy_of_a_css_ruleset)
 
-A [`Store`](https://beta.tinybase.org/api/store/interfaces/store/store/) contains [`Value`](https://beta.tinybase.org/api/store/type-aliases/store/value/) and [`Table`](https://beta.tinybase.org/api/store/type-aliases/store/table/) objects, keyed by [`Id`](https://beta.tinybase.org/api/common/type-aliases/identity/id/). A [`Table`](https://beta.tinybase.org/api/store/type-aliases/store/table/) contains [`Row`](https://beta.tinybase.org/api/store/type-aliases/store/row/) objects, keyed by [`Id`](https://beta.tinybase.org/api/common/type-aliases/identity/id/). And a [`Row`](https://beta.tinybase.org/api/store/type-aliases/store/row/) contains [`Cell`](https://beta.tinybase.org/api/store/type-aliases/store/cell/) objects, keyed by [`Id`](https://beta.tinybase.org/api/common/type-aliases/identity/id/).
+Let's dissect the CSS code for red paragraph text to understand how it works:
 
-You can enumerate the [`Id`](https://beta.tinybase.org/api/common/type-aliases/identity/id/) keys for each with the [`getValueIds`](https://beta.tinybase.org/api/store/interfaces/store/store/methods/getter/getvalueids/) method, the [`getTableIds`](https://beta.tinybase.org/api/store/interfaces/store/store/methods/getter/gettableids/) method, the [`getRowIds`](https://beta.tinybase.org/api/store/interfaces/store/store/methods/getter/getrowids/) method, or the [`getCellIds`](https://beta.tinybase.org/api/store/interfaces/store/store/methods/getter/getcellids/) method - each of which return arrays:
+![CSS p declaration color red](https://developer.mozilla.org/en-US/docs/Learn_web_development/Getting_started/Your_first_website/Styling_the_content/css-declaration-small.png)
 
-    console.log(store.getValueIds());
-    // -> ['employees', 'open']
-    
-    console.log(store.getTableIds());
-    // -> ['pets', 'species']
-    
-    console.log(store.getRowIds('pets'));
-    // -> ['fido']
-    
-    console.log(store.getCellIds('pets', 'fido'));
-    // -> ['species']
-    
+The whole structure is called a **ruleset**. (The term _ruleset_ is often referred to as just _rule_.) Note the names of the individual parts:
 
-There is also the [`getSortedRowIds`](https://beta.tinybase.org/api/store/interfaces/store/store/methods/getter/getsortedrowids/) method that lets you get the [`Ids`](https://beta.tinybase.org/api/common/type-aliases/identity/ids/) sorted by a specific [`Cell`](https://beta.tinybase.org/api/store/type-aliases/store/cell/) [`Id`](https://beta.tinybase.org/api/common/type-aliases/identity/id/), and the [`getTableCellIds`](https://beta.tinybase.org/api/store/interfaces/store/store/methods/getter/gettablecellids/) method that lets you get all the [`Ids`](https://beta.tinybase.org/api/common/type-aliases/identity/ids/) used across a whole [`Table`](https://beta.tinybase.org/api/store/type-aliases/store/table/).
+[Selector](#selector)
 
-Again, the return types of these methods are by value, not by reference. So if you manipulate the returned array, the [`Store`](https://beta.tinybase.org/api/store/interfaces/store/store/) is not updated:
+This is the HTML element name at the start of the ruleset. It defines the element(s) to be styled (in this example, [`<p>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/p) elements). To style a different element, change the selector.
 
-    const tableIds = store.getTableIds();
-    tableIds.pop();
-    console.log(tableIds);
-    // -> ['pets']
-    
-    console.log(store.getTableIds());
-    // -> ['pets', 'species']
+[Declaration](#declaration)
+
+This is a single rule like `color: red;`. It specifies which of the element's **properties** you want to style.
+
+[Properties](#properties)
+
+These are features of an HTML element that you can change the values of, to make it styled differently. (In this example, `color` is a property of the [`<p>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/p) elements.) In CSS, you choose which properties you want to affect in the rule.
+
+[Property value](#property_value)
+
+To the right of the property—after the colon—there is the **property value**. This chooses one out of many possible appearances for a given property. (For example, there are many `color` values in addition to `red`.)
+
+Note the other important parts of the syntax:
+
+*   Apart from the selector, each ruleset must be wrapped in curly braces. (`{}`)
+*   Within each declaration, you must use a colon (`:`) to separate the property from its value or values.
+*   Within each ruleset, you must use a semicolon (`;`) to separate each declaration from the next one.
+
+To modify multiple property values in one ruleset, write them separated by semicolons, like this:
+
+    p {
+      color: red;
+      width: 500px;
+      border: 1px solid black;
+    }
     
 
-Finally, the [`forEachValue`](https://beta.tinybase.org/api/store/interfaces/store/store/methods/iterator/foreachvalue/) method, the [`forEachTable`](https://beta.tinybase.org/api/store/interfaces/store/store/methods/iterator/foreachtable/) method, the [`forEachRow`](https://beta.tinybase.org/api/store/interfaces/store/store/methods/iterator/foreachrow/) method, and the [`forEachCell`](https://beta.tinybase.org/api/store/interfaces/store/store/methods/iterator/foreachcell/) method each provide a convenient way to iterate over these objects and their children in turn:
+### [Selecting multiple elements](#selecting_multiple_elements)
 
-    store.forEachTable((tableId, forEachRow) => {
-      console.log(tableId);
-      forEachRow((rowId) => console.log(`- ${rowId}`));
-    });
-    // -> 'pets'
-    // -> '- fido'
-    // -> 'species'
-    // -> '- dog'
+You can also select multiple elements and apply a single ruleset to all of them. Separate multiple selectors by commas. For example:
+
+    p,
+    li,
+    h1 {
+      color: red;
+    }
     
 
-### Summary
+### [Different types of selectors](#different_types_of_selectors)
 
-So far, this should seem relatively straightforward. For more information on all of these methods, you'll find a lot more in the [`Store`](https://beta.tinybase.org/api/store/interfaces/store/store/) documentation.
+There are many different types of selectors. The examples above use **element selectors**, which select all elements of a given type. But we can make more specific selections as well. Here are some of the more common types of selectors:
 
-The reactive TinyBase magic starts to happen when we register listeners on the [`Store`](https://beta.tinybase.org/api/store/interfaces/store/store/) so we don't have to keep explicitly fetching data.
+| Selector name | What does it select | Example |
+| --- | --- | --- |
+| Element selector (sometimes called a tag or type selector) | All HTML elements of the specified type. | `p`  
+selects `<p>` |
+| ID selector | The element on the page with the specified ID. On a given HTML page, each id value should be unique. | `#my-id`  
+selects `<p id="my-id">` or `<a id="my-id">` |
+| Class selector | The element(s) on the page with the specified class. Multiple instances of the same class can appear on a page. | `.my-class`  
+selects `<p class="my-class">` and `<a class="my-class">` |
+| Attribute selector | The element(s) on the page with the specified attribute. | `img[src]`  
+selects `<img src="my-image.png">` but not `<img>` |
+| Pseudo-class selector | The specified element(s), but only when in the specified state. (For example, when a cursor hovers over a link.) | `a:hover`  
+selects `<a>`, but only when the mouse pointer is hovering over the link. |
 
-For that, we proceed to the [Listening To Stores](https://beta.tinybase.org/guides/the-basics/listening-to-stores/) guide.
+There are many more selectors to discover. To learn more, see our selectors tutorials, starting with [Basic selectors](https://developer.mozilla.org/en-US/docs/Learn_web_development/Core/Styling_basics/Basic_selectors).
+
+## [Fonts and text](#fonts_and_text)
+
+Now that we've explored some CSS fundamentals, let's improve the appearance of the example by adding more rules and information to the `style.css` file.
+
+1.  First, find the [output from Google Fonts](https://developer.mozilla.org/en-US/docs/Learn_web_development/Getting_started/Your_first_website/What_will_your_website_look_like#choosing_a_font) that you previously saved from [What will your website look like?](https://developer.mozilla.org/en-US/docs/Learn_web_development/Getting_started/Your_first_website/What_will_your_website_look_like). Add the [`<link>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/link) element somewhere inside your `index.html`'s head (anywhere between the [`<head>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/head) and `</head>` tags). It looks something like this:
+    
+        <link
+          href="https://fonts.googleapis.com/css?family=Open+Sans"
+          rel="stylesheet" />
+        
+    
+    This code links your page to a style sheet that loads the Open Sans font family with your webpage.
+    
+2.  Next, delete the existing rule you have in your `style.css` file. It was a good test, but let's not continue with lots of red text.
+    
+3.  Add the following lines (shown below), replacing the `font-family` assignment with your `font-family` selection from [What will your website look like?](https://developer.mozilla.org/en-US/docs/Learn_web_development/Getting_started/Your_first_website/What_will_your_website_look_like#choosing_a_font). The property `font-family` refers to the font(s) you want to use for text. This rule defines a global base font and font size for the whole page. Since [`<html>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/html) is the parent element of the whole page, all elements inside it inherit the same `font-size` and `font-family`.
+    
+        html {
+          font-size: 10px; /* px means "pixels": the base font size is now 10 pixels high */
+          font-family:
+            "Open Sans", sans-serif; /* this should be the rest of the output you got from Google Fonts */
+        }
+        
+    
+    **Note:** Anything in CSS between `/*` and `*/` is a **CSS comment**. The browser ignores comments as it renders the code. CSS comments are a way for you to write helpful notes about your code or logic.
+    
+4.  Now let's set font sizes for elements that will have text inside the HTML body ([<h1>](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/Heading_Elements), [`<li>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/li), and [`<p>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/p)). We'll also center the heading. Finally, let's expand the second ruleset (below) with settings for line height and letter spacing to make body content more readable.
+    
+        h1 {
+          font-size: 60px;
+          text-align: center;
+        }
+        
+        p,
+        li {
+          font-size: 16px;
+          line-height: 2;
+          letter-spacing: 1px;
+        }
+        
+    
+
+Adjust the `px` values as you like. Your work-in-progress should look similar to this:
+
+![A Mozilla logo and some paragraphs. A sans-serif font has been set, the font sizes, line height and letter spacing are adjusted, and the main page heading has been centered](https://developer.mozilla.org/en-US/docs/Learn_web_development/Getting_started/Your_first_website/Styling_the_content/website-screenshot-font-small.png)
+
+## [CSS: all about boxes](#css_all_about_boxes)
+
+Something you'll notice about CSS as you use it more: a lot of it is about boxes. This includes setting size, color, and position. Most HTML elements on your page can be thought of as boxes sitting on top of other boxes.
+
+![A big stack of boxes or crates sat on top of one another](https://developer.mozilla.org/en-US/docs/Learn_web_development/Getting_started/Your_first_website/Styling_the_content/boxes.jpg)
+
+Photo from [https://www.geograph.org.uk/photo/3418115](https://www.geograph.org.uk/photo/3418115) Copyright © [Jim Barton](https://www.geograph.org.uk/profile/26362) [cc-by-sa/2.0](https://creativecommons.org/licenses/by-sa/2.0/)
+
+CSS layout is mostly based on the _box model._ Each box taking up space on your page has properties like:
+
+*   `padding`, the space around the content. In the example below, it is the space around the paragraph text.
+*   `border`, the solid line that is just outside the padding.
+*   `margin`, the space around the outside of the border.
+
+![Three boxes sat inside one another. From outside to in they are labelled margin, border and padding](https://developer.mozilla.org/en-US/docs/Learn_web_development/Getting_started/Your_first_website/Styling_the_content/box-model.png)
+
+In this section we also use:
+
+*   `width` (of an element).
+*   `background-color`, the color behind an element's content and padding.
+*   `color`, the color of an element's content (usually text).
+*   `text-shadow` sets a drop shadow on the text inside an element.
+*   `display` sets the display mode of an element. (keep reading to learn more)
+
+To continue, let's add more CSS. Keep adding these new rules at the bottom of `style.css`. Experiment with changing values to see what happens.
+
+### [Changing the page color](#changing_the_page_color)
+
+    html {
+      background-color: #00539f;
+    }
+    
+
+This rule sets a background color for the entire page. Change the color code to [the color you chose in What will my website look like?](https://developer.mozilla.org/en-US/docs/Learn_web_development/Getting_started/Your_first_website/What_will_your_website_look_like#choosing_a_theme_color).
+
+### [Styling the body](#styling_the_body)
+
+    body {
+      width: 600px;
+      margin: 0 auto;
+      background-color: #ff9500;
+      padding: 0 20px 20px 20px;
+      border: 5px solid black;
+    }
+    
+
+The above code sets new values for several properties of the [`<body>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/body) element. Let's go through these line-by-line:
+
+*   `width: 600px;` This forces the body to always be 600 pixels wide.
+*   `margin: 0 auto;` When you set two values on a property like `margin` or `padding`, the first value affects the element's top _and_ bottom side (setting it to `0` in this case); the second value affects the left _and_ right side. (Here, `auto` is a special value that divides the available horizontal space evenly between left and right). You can also use one, two, three, or four values, as documented in [Margin Syntax](https://developer.mozilla.org/en-US/docs/Web/CSS/margin#syntax).
+*   `background-color: #FF9500;` This sets the element's background color. This project uses a reddish orange for the body background color, as opposed to dark blue for the [`<html>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/html) element. (Feel free to experiment.)
+*   `padding: 0 20px 20px 20px;` This sets four values for padding. The goal is to put some space around the content. In this example, there is no padding on the top of the body, and 20 pixels on the right, bottom and left. The values set top, right, bottom, left, in that order. As with `margin`, you can use one, two, three, or four values, as documented in [Padding Syntax](https://developer.mozilla.org/en-US/docs/Web/CSS/padding#syntax).
+*   `border: 5px solid black;` This sets values for the width, style and color of the border. In this case, it's a five-pixel–wide, solid black border, on all sides of the body.
+
+### [Positioning and styling the main page title](#positioning_and_styling_the_main_page_title)
+
+    h1 {
+      margin: 0;
+      padding: 20px 0;
+      color: #00539f;
+      text-shadow: 3px 3px 1px black;
+    }
+    
+
+You may have noticed there's a horrible gap at the top of the body. That happens because browsers apply default styling to the [h1](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/Heading_Elements) element (among others). That might seem like a bad idea, but the intent is to provide basic readability for unstyled pages. To eliminate the gap, we overwrite the browser's default styling with the setting `margin: 0;`.
+
+Next, we set the heading's top and bottom padding to 20 pixels.
+
+Following that, we set the heading text to be the same color as the HTML background color.
+
+Finally, `text-shadow` applies a shadow to the text content of the element. Its four values are:
+
+*   The first pixel value sets the **horizontal offset** of the shadow from the text: how far it moves across.
+*   The second pixel value sets the **vertical offset** of the shadow from the text: how far it moves down.
+*   The third pixel value sets the **blur radius** of the shadow. A larger value produces a more fuzzy-looking shadow.
+*   The fourth value sets the base color of the shadow.
+
+Try experimenting with different values to see how it changes the appearance.
+
+### [Centering the image](#centering_the_image)
+
+    img {
+      display: block;
+      margin: 0 auto;
+      max-width: 100%;
+    }
+    
+
+Next, we center the image to make it look better. We could use the same `margin: 0 auto` trick as we did for the body. But there are differences that require an additional setting to make the CSS work.
+
+The [`<body>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/body) is a **block** element, meaning it takes up space on the page. The margin applied to a block element will be respected by other elements on the page. In contrast, images are **inline** elements; for the auto margin trick to work on this image, we must give it block-level behavior using `display: block;`.
+
+Finally, we include `max-width: 100%;` to make sure that, if the image is larger than the `width` set on the body (600 pixels), it will be displayed at this width, and no bigger.
+
+**Note:** Don't be too concerned if you don't completely understand `display: block;` and the differences between a block element and an inline element, or `max-width: 100%;`. They will make more sense as you continue your study of CSS. You can find more information about these properties on MDN's [`display`](https://developer.mozilla.org/en-US/docs/Web/CSS/display) and [`max-width`](https://developer.mozilla.org/en-US/docs/Web/CSS/max-width) reference pages.
+
+## [Conclusion](#conclusion)
+
+If you followed all the instructions in this article, you should have a page that looks similar to this one:
+
+![A Mozilla logo, centered, and a header and paragraphs. It now looks nicely styled, with a blue background for the whole page and orange background for the centered main content strip.](https://developer.mozilla.org/en-US/docs/Learn_web_development/Getting_started/Your_first_website/Styling_the_content/website-screenshot-final.png)
+
+(You can [view our version here](https://mdn.github.io/beginner-html-site-styled/).) If you get stuck, you can always compare your work with our [finished example code on GitHub](https://github.com/mdn/beginner-html-site-styled/blob/gh-pages/styles/style.css).
+
+In this article, we have just scratched the surface of CSS. Our [Core modules](https://developer.mozilla.org/en-US/docs/Learn_web_development/Core), starting with the [CSS styling basics module](https://developer.mozilla.org/en-US/docs/Learn_web_development/Core/Styling_basics), will cover it in a lot more detail.
+
+*   [Previous](https://developer.mozilla.org/en-US/docs/Learn_web_development/Getting_started/Your_first_website/Creating_the_content)
+*   [Overview: Your first website](https://developer.mozilla.org/en-US/docs/Learn_web_development/Getting_started/Your_first_website)
+*   [Next](https://developer.mozilla.org/en-US/docs/Learn_web_development/Getting_started/Your_first_website/Adding_interactivity)
 
 ---
 
-## Page: https://beta.tinybase.org/guides/the-basics/listening-to-stores/
+## Page: https://developer.mozilla.org/en-US/docs/Learn_web_development/Getting_started/Your_first_website/Adding_interactivity
 
-This guide shows you how to listen to changes in the data in a [`Store`](https://beta.tinybase.org/api/store/interfaces/store/store/).
+*   [Previous](https://developer.mozilla.org/en-US/docs/Learn_web_development/Getting_started/Your_first_website/Styling_the_content)
+*   [Overview: Your first website](https://developer.mozilla.org/en-US/docs/Learn_web_development/Getting_started/Your_first_website)
+*   [Next](https://developer.mozilla.org/en-US/docs/Learn_web_development/Getting_started/Your_first_website/Publishing_your_website)
 
-By now, you'll have noticed that there are always consistent methods for each level of the [`Store`](https://beta.tinybase.org/api/store/interfaces/store/store/) hierarchy, and the way you register listeners is no exception:
+JavaScript is a programming language that adds interactivity to websites. This happens in games, in the behavior of responses when buttons are pressed or with data entry on forms, with dynamic styling, with animation, etc. This article helps you get started with JavaScript and furthers your understanding of what is possible.
 
-*   Listen to [`Values`](https://beta.tinybase.org/api/store/type-aliases/store/values/) with the [`addValuesListener`](https://beta.tinybase.org/api/store/interfaces/store/store/methods/listener/addvalueslistener/) method.
-*   Listen to [`Value`](https://beta.tinybase.org/api/store/type-aliases/store/value/) [`Ids`](https://beta.tinybase.org/api/common/type-aliases/identity/ids/) with the [`addValueIdsListener`](https://beta.tinybase.org/api/store/interfaces/store/store/methods/listener/addvalueidslistener/) method.
-*   Listen to a [`Value`](https://beta.tinybase.org/api/store/type-aliases/store/value/) with the [`addValueListener`](https://beta.tinybase.org/api/store/interfaces/store/store/methods/listener/addvaluelistener/) method.
+<table><tbody><tr><th scope="row">Prerequisites:</th><td>Basic familiarity with your computer operating system, the basic software you will use to build a website, and file systems.</td></tr><tr><th scope="row">Learning outcomes:</th><td><ul><li>The purpose and function of JavaScript.</li><li>JavaScript language fundamentals such as variables, operators, conditionals, functions, and events.</li></ul></td></tr></tbody></table>
 
-And for tabular data:
+## [What is JavaScript?](#what_is_javascript)
 
-*   Listen to [`Tables`](https://beta.tinybase.org/api/store/type-aliases/store/tables/) with the [`addTablesListener`](https://beta.tinybase.org/api/store/interfaces/store/store/methods/listener/addtableslistener/) method.
-*   Listen to [`Table`](https://beta.tinybase.org/api/store/type-aliases/store/table/) [`Ids`](https://beta.tinybase.org/api/common/type-aliases/identity/ids/) with the [`addTableIdsListener`](https://beta.tinybase.org/api/store/interfaces/store/store/methods/listener/addtableidslistener/) method.
-*   Listen to a [`Table`](https://beta.tinybase.org/api/store/type-aliases/store/table/) with the [`addTableListener`](https://beta.tinybase.org/api/store/interfaces/store/store/methods/listener/addtablelistener/) method.
-*   Listen to Cells [`Ids`](https://beta.tinybase.org/api/common/type-aliases/identity/ids/) across a [`Table`](https://beta.tinybase.org/api/store/type-aliases/store/table/) with the [`addTableCellIdsListener`](https://beta.tinybase.org/api/store/interfaces/store/store/methods/listener/addtablecellidslistener/) method.
-*   Listen to [`Row`](https://beta.tinybase.org/api/store/type-aliases/store/row/) [`Ids`](https://beta.tinybase.org/api/common/type-aliases/identity/ids/) with the [`addRowIdsListener`](https://beta.tinybase.org/api/store/interfaces/store/store/methods/listener/addrowidslistener/) method.
-*   Listen to sorted [`Row`](https://beta.tinybase.org/api/store/type-aliases/store/row/) [`Ids`](https://beta.tinybase.org/api/common/type-aliases/identity/ids/) with the [`addSortedRowIdsListener`](https://beta.tinybase.org/api/store/interfaces/store/store/methods/listener/addsortedrowidslistener/) method.
-*   Listen to a [`Row`](https://beta.tinybase.org/api/store/type-aliases/store/row/) with the [`addRowListener`](https://beta.tinybase.org/api/store/interfaces/store/store/methods/listener/addrowlistener/) method.
-*   Listen to [`Cell`](https://beta.tinybase.org/api/store/type-aliases/store/cell/) [`Ids`](https://beta.tinybase.org/api/common/type-aliases/identity/ids/) with the [`addCellIdsListener`](https://beta.tinybase.org/api/store/interfaces/store/store/methods/listener/addcellidslistener/) method.
-*   Listen to a [`Cell`](https://beta.tinybase.org/api/store/type-aliases/store/cell/) with the [`addCellListener`](https://beta.tinybase.org/api/store/interfaces/store/store/methods/listener/addcelllistener/) method.
+[JavaScript](https://developer.mozilla.org/en-US/docs/Glossary/JavaScript) is a powerful programming language that can add interactivity to a website. It was invented by Brendan Eich.
 
-You can also listen to attempts to write invalid data to a [`Value`](https://beta.tinybase.org/api/store/type-aliases/store/value/) with the [`addInvalidValueListener`](https://beta.tinybase.org/api/store/interfaces/store/store/methods/listener/addinvalidvaluelistener/) method, and to a [`Cell`](https://beta.tinybase.org/api/store/type-aliases/store/cell/) with the [`addInvalidCellListener`](https://beta.tinybase.org/api/store/interfaces/store/store/methods/listener/addinvalidcelllistener/) method.
+JavaScript is versatile and beginner-friendly. With more experience, you'll be able to create games, animated 2D and 3D graphics, comprehensive database-driven apps, and much more!
 
-Let's start with the simplest type of listener, addTablesListener, which listens to changes to any tabular data in the [`Store`](https://beta.tinybase.org/api/store/interfaces/store/store/). Firstly, let's set up some simple data:
+JavaScript itself is relatively compact, yet very flexible. Developers have written a variety of tools on top of the core JavaScript language, unlocking a vast amount of functionality with minimum effort. These include:
 
-    import {createStore} from 'tinybase';
+*   Browser Application Programming Interfaces ([APIs](https://developer.mozilla.org/en-US/docs/Glossary/API)) built into web browsers, providing functionality such as dynamically creating HTML and setting CSS styles, collecting and manipulating a video stream from a user's webcam, or generating 3D graphics and audio samples.
+*   Third-party APIs that allow developers to incorporate functionality in sites from other content providers, such as YouTube or Facebook.
+*   Third-party frameworks and libraries that you can apply to HTML to accelerate the work of building sites and applications.
+
+It's outside the scope of this article—as a light introduction to JavaScript—to present the details of how the core JavaScript language is different from the tools listed above. You can learn more in our [Core modules](https://developer.mozilla.org/en-US/docs/Learn_web_development/Core), as well as in other parts of MDN.
+
+The section below introduces some aspects of the core language and offers an opportunity to play with a few browser API features too. Have fun!
+
+## [A "Hello world!" example](#a_hello_world!_example)
+
+JavaScript is one of the most popular modern web technologies! As your JavaScript skills grow, your websites will enter a new dimension of power and creativity.
+
+However, getting comfortable with JavaScript is more challenging than getting comfortable with HTML and CSS. You should start small, and progress gradually. To begin, let's examine how to add JavaScript to your page for creating a _Hello world!_ example. (_Hello world!_ is [the standard for introductory programming examples](https://en.wikipedia.org/wiki/%22Hello,_World!%22_program).)
+
+**Warning:** If you haven't been following along with the rest of our course, [download this example code](https://codeload.github.com/mdn/beginner-html-site-styled/zip/refs/heads/gh-pages) and use it as a starting point.
+
+1.  Inside your `first-website` folder, create a new folder named `scripts`.
     
-    const store = createStore().setTables({
-      pets: {fido: {species: 'dog'}},
-      species: {dog: {price: 5}},
-    });
+2.  Within the `scripts` folder, create a new text document called `main.js`, and save it.
     
-
-We can then use the [`addTablesListener`](https://beta.tinybase.org/api/store/interfaces/store/store/methods/listener/addtableslistener/) method to register a function on the [`Store`](https://beta.tinybase.org/api/store/interfaces/store/store/) that will be called whenever the data in the [`Store`](https://beta.tinybase.org/api/store/interfaces/store/store/) changes:
-
-    const listenerId = store.addTablesListener(() =>
-      console.log('Tables changed!'),
-    );
+3.  Go to your `index.html` file and enter this code on a new line, just before the closing `</body>` tag:
     
-
-Let's test it out by updating a [`Cell`](https://beta.tinybase.org/api/store/type-aliases/store/cell/) in the [`Store`](https://beta.tinybase.org/api/store/interfaces/store/store/):
-
-    store.setCell('species', 'dog', 'price', 6);
-    // -> 'Tables changed!'
+        <script src="scripts/main.js"></script>
+        
     
-
-The listener will be called, regardless of which type of setter method was used to make the change. But a change needs to have been made! If a setter method was used to no effect, the listener is not called:
-
-    store.setCell('pets', 'fido', 'species', 'dog');
-    // Since the data didn't actually change, the listener was not called.
+    This is doing the same job as the [`<link>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/link) element for CSS. It applies the JavaScript to the page, so it can have an effect on the HTML (along with the CSS, and anything else on the page).
     
-
-It is important to note that by default, you can't mutate the [`Store`](https://beta.tinybase.org/api/store/interfaces/store/store/) with code inside a listener, and attempting to do so will fail silently. We cover how to mutate the [`Store`](https://beta.tinybase.org/api/store/interfaces/store/store/) from with in a listener (in order to adhere to a [`TablesSchema`](https://beta.tinybase.org/api/store/type-aliases/schema/tablesschema/), for example) in the [Mutating Data With Listeners](https://beta.tinybase.org/guides/schemas/mutating-data-with-listeners/) guide.
-
-### Cleaning Up Listeners
-
-You will have noticed that the [`addTablesListener`](https://beta.tinybase.org/api/store/interfaces/store/store/methods/listener/addtableslistener/) method didn't return a reference to the [`Store`](https://beta.tinybase.org/api/store/interfaces/store/store/) object (so you can't chain other methods after it), but an [`Id`](https://beta.tinybase.org/api/common/type-aliases/identity/id/) representing the registration of that listener.
-
-You can use that [`Id`](https://beta.tinybase.org/api/common/type-aliases/identity/id/) to remove the listener at a later stage with the [`delListener`](https://beta.tinybase.org/api/store/interfaces/store/store/methods/listener/dellistener/) method:
-
-    store.delListener(listenerId);
-    store.setCell('species', 'dog', 'price', 7);
-    // Listener has been unregistered and so is not called.
+4.  Add this code to your `scripts/main.js` file:
+    
+        const myHeading = document.querySelector("h1");
+        myHeading.textContent = "Hello world!";
+        
+    
+5.  Make sure the HTML and JavaScript files are saved, then load `index.html` in your browser. You should see something like this:
     
 
-It's good habit to remove the listeners you are no longer using. Note that listener [`Ids`](https://beta.tinybase.org/api/common/type-aliases/identity/ids/) are commonly re-used, so you have removed a listener with a given [`Id`](https://beta.tinybase.org/api/common/type-aliases/identity/id/), don't try to use that [`Id`](https://beta.tinybase.org/api/common/type-aliases/identity/id/) again.
+![Heading "hello world" above a firefox logo](https://developer.mozilla.org/en-US/docs/Learn_web_development/Getting_started/Your_first_website/Adding_interactivity/hello-world.png)
 
-### Listener Parameters
+**Note:** The reason the above instructions place the [`<script>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/script) element near the bottom of the HTML file is that **the browser reads code in the order it appears in the file**.
 
-In the example above, we registered a listener that didn't take any parameters. However, all [`Store`](https://beta.tinybase.org/api/store/interfaces/store/store/) listeners are called with at least a reference to the [`Store`](https://beta.tinybase.org/api/store/interfaces/store/store/), and often a convenient `getCellChange` function that lets you inspect changes that might have happened:
+If the JavaScript loads first and it is supposed to affect the HTML that hasn't loaded yet, there could be problems. Placing JavaScript near the bottom of an HTML page is one way to accommodate this dependency.
 
-    const listenerId2 = store.addTablesListener((store, getCellChange) =>
-      console.log(getCellChange('species', 'dog', 'price')),
-    );
-    
-    store.setCell('species', 'dog', 'price', 8);
-    // -> [true, 7, 8]
-    
-    store.delListener(listenerId2);
-    
+### [What happened?](#what_happened)
 
-See the [`addTablesListener`](https://beta.tinybase.org/api/store/interfaces/store/store/methods/listener/addtableslistener/) method documentation for more information on these parameters.
+We have used JavaScript to change the heading text to _Hello world!_. We did this by using a function called [`querySelector()`](https://developer.mozilla.org/en-US/docs/Web/API/Document/querySelector "querySelector()") to grab a reference to your heading, and then store it in a variable called `myHeading`. This is similar to what we did using CSS selectors. When you want to do something to an element, you need to select it first.
 
-When you listen to changes down inside a [`Store`](https://beta.tinybase.org/api/store/interfaces/store/store/) (with more granular listeners), you will also be passed [`Id`](https://beta.tinybase.org/api/common/type-aliases/identity/id/) parameters reflecting what changed.
+Following that, the code set the value of the `myHeading` variable's [`textContent`](https://developer.mozilla.org/en-US/docs/Web/API/Node/textContent "textContent") property (which represents the content of the heading) to _Hello world!_.
 
-For example, here we register a listener on the `fido` [`Row`](https://beta.tinybase.org/api/store/type-aliases/store/row/) in the `pets` [`Table`](https://beta.tinybase.org/api/store/type-aliases/store/table/):
+**Note:** Both of the features you used in this exercise are parts of the [Document Object Model (DOM) API](https://developer.mozilla.org/en-US/docs/Web/API/Document_Object_Model), which has the capability to manipulate documents.
 
-    const listenerId3 = store.addRowListener(
-      'pets',
-      'fido',
-      (store, tableId, rowId) =>
-        console.log(`${rowId} row in ${tableId} table changed`),
-    );
-    
-    store.setCell('pets', 'fido', 'color', 'brown');
-    // -> 'fido row in pets table changed'
-    
-    store.delListener(listenerId3);
+## [Language basics crash course](#language_basics_crash_course)
+
+To give you a better understanding of how JavaScript works, let's explain some of the core features of the language. It's worth noting that these features are common to all programming languages. If you master these fundamentals, you have a head start on coding in other languages too!
+
+**Warning:** In this article, try entering the example code lines into your JavaScript console to see what happens. For more details on JavaScript consoles, see [Discover browser developer tools](https://developer.mozilla.org/en-US/docs/Learn_web_development/Howto/Tools_and_setup/What_are_browser_developer_tools).
+
+### [Variables](#variables)
+
+[Variables](https://developer.mozilla.org/en-US/docs/Glossary/Variable) are containers that store values. You start by declaring a variable with the [`let`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/let) keyword, followed by the name you give to the variable:
+
+    let myVariable;
     
 
-When you register a [`CellListener`](https://beta.tinybase.org/api/store/type-aliases/listener/celllistener/) listener with the [`addCellListener`](https://beta.tinybase.org/api/store/interfaces/store/store/methods/listener/addcelllistener/) method, that also receives parameters containing the old and new [`Cell`](https://beta.tinybase.org/api/store/type-aliases/store/cell/) values.
+A semicolon at the end of a line indicates where a statement ends. It is only required when you need to separate statements on a single line. However, some people believe it's good practice to have semicolons at the end of each statement. There are other rules for when you should and shouldn't use semicolons. For more details, see [Your Guide to Semicolons in JavaScript](https://www.codecademy.com/resources/blog/your-guide-to-semicolons-in-javascript/).
 
-### Wildcard Listeners
+You can name a variable nearly anything, but there are some restrictions. (See [this section about naming rules](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Grammar_and_types#variables).) If you are unsure, you can [check your variable name](https://mothereff.in/js-variables) to see if it's valid.
 
-The fact that the listeners are passed parameters for what changed becomes very useful when you register wildcard listeners. These listen to changes at a particular part of the [`Store`](https://beta.tinybase.org/api/store/interfaces/store/store/) hierarchy but not necessarily to a specific object.
+JavaScript is case sensitive. This means `myVariable` is not the same as `myvariable`. If you have problems in your code, check the case!
 
-So for example, you can listen to changes to any [`Row`](https://beta.tinybase.org/api/store/type-aliases/store/row/) in a given [`Table`](https://beta.tinybase.org/api/store/type-aliases/store/table/). To wildcard what you want to listen to, simply use `null` in place of an [`Id`](https://beta.tinybase.org/api/common/type-aliases/identity/id/) argument when you add a listener:
+After declaring a variable, you can give it a value:
 
-    const listenerId4 = store.addRowListener(null, null, (store, tableId, rowId) =>
-      console.log(`${rowId} row in ${tableId} table changed`),
-    );
-    
-    store.setCell('pets', 'fido', 'color', 'walnut');
-    // -> 'fido row in pets table changed'
-    
-    store.setCell('species', 'dog', 'price', '9');
-    // -> 'dog row in species table changed'
-    
-    store.delListener(listenerId4);
+    myVariable = "Bob";
     
 
-You can intermingle wildcards and actual [`Id`](https://beta.tinybase.org/api/common/type-aliases/identity/id/) values for any of the parameters. So, for example, you could listen to the [`Cell`](https://beta.tinybase.org/api/store/type-aliases/store/cell/) values with a given [`Id`](https://beta.tinybase.org/api/common/type-aliases/identity/id/) in any [`Row`](https://beta.tinybase.org/api/store/type-aliases/store/row/) in a given [`Table`](https://beta.tinybase.org/api/store/type-aliases/store/table/), and so on.
+Also, you can do both these operations on the same line:
 
-Note that you can't use the wildcard technique with the [`addSortedRowIdsListener`](https://beta.tinybase.org/api/store/interfaces/store/store/methods/listener/addsortedrowidslistener/) method. You must explicitly specify just one [`Table`](https://beta.tinybase.org/api/store/type-aliases/store/table/), for performance reasons.
-
-### Summary
-
-We've now seen how to create a [`Store`](https://beta.tinybase.org/api/store/interfaces/store/store/), set data in it, read it back out, and set up listeners to detect whenever it changes. Finally we'll cover how to wrap multiple changes together, in the [Transactions](https://beta.tinybase.org/guides/the-basics/transactions/) guide.
-
----
-
-## Page: https://beta.tinybase.org/guides/the-basics/transactions/
-
-*   [TinyBase](https://beta.tinybase.org/)
-*   [Guides](https://beta.tinybase.org/guides/)
-*   [The Basics](https://beta.tinybase.org/guides/the-basics/)
-*   [Transactions](https://beta.tinybase.org/guides/the-basics/transactions/)
-
-This guide shows you how to wrap multiple changes to the data in a [`Store`](https://beta.tinybase.org/api/store/interfaces/store/store/).
-
-A transaction is a sequence of changes made to a [`Store`](https://beta.tinybase.org/api/store/interfaces/store/store/). No listeners will be fired until the full transaction is complete. This is a useful way to debounce listener side-effects and ensure that you are only responding to net changes. [`Changes`](https://beta.tinybase.org/api/store/type-aliases/transaction/changes/) are made silently during the transaction, and listeners relevant to the changes you have made will instead only be called when the whole transaction is complete.
-
-A transaction can also be rolled back and the original state of the [`Store`](https://beta.tinybase.org/api/store/interfaces/store/store/) will be restored.
-
-### Creating Transactions
-
-The [`transaction`](https://beta.tinybase.org/api/store/interfaces/store/store/methods/transaction/transaction/) method takes a function that makes multiple mutations to the store, buffering all calls to the relevant listeners until it completes.
-
-    import {createStore} from 'tinybase';
-    
-    const store = createStore().setTables({pets: {fido: {species: 'dog'}}});
-    const listenerId = store.addRowListener('pets', 'fido', () =>
-      console.log('Fido changed'),
-    );
-    
-    // Multiple changes, not in a transaction
-    store.setCell('pets', 'fido', 'color', 'brown');
-    store.setCell('pets', 'fido', 'sold', false);
-    // -> 'Fido changed'
-    // -> 'Fido changed'
-    
-    // Multiple changes in a transaction
-    store.transaction(() => {
-      store.setCell('pets', 'fido', 'color', 'walnut');
-      store.setCell('pets', 'fido', 'sold', true);
-    });
-    // -> 'Fido changed'
-    
-    store.delListener(listenerId);
+    let myVariable = "Bob";
     
 
-If multiple changes are made to a piece of [`Store`](https://beta.tinybase.org/api/store/interfaces/store/store/) data throughout the transaction, a relevant listener will only be called with the final value (assuming it is different to the value at the start of the transaction), regardless of the changes that happened in between. For example, if a [`Cell`](https://beta.tinybase.org/api/store/type-aliases/store/cell/) had a value `'a'` and then, within a transaction, it was changed to `'b'` and then `'c'`, any [`CellListener`](https://beta.tinybase.org/api/store/type-aliases/listener/celllistener/) registered for that cell would be called once as if there had been a single change from `'a'` to `'c'`:
+You retrieve the value by calling the variable name:
 
-    const listenerId2 = store.addCellListener(
-      'pets',
-      'fido',
-      'color',
-      (store, tableId, rowId, cellId, newCell) =>
-        console.log(`Fido color changed to ${newCell}`),
-    );
-    
-    store.transaction(() => {
-      store.setCell('pets', 'fido', 'color', 'black');
-      store.setCell('pets', 'fido', 'color', 'brown');
-    });
-    // -> 'Fido color changed to brown'
-    
-    store.delListener(listenerId2);
+    myVariable;
     
 
-Note that transactions can be nested. Relevant listeners will be called only when the outermost one completes.
+After assigning a value to a variable, you can change it later in the code:
 
-### Rolling Back Transactions
-
-The [`transaction`](https://beta.tinybase.org/api/store/interfaces/store/store/methods/transaction/transaction/) method takes a second optional parameter, `doRollback`. This is a callback that you can use to rollback the transaction if it did not complete to your satisfaction.
-
-This example makes multiple changes to the [`Store`](https://beta.tinybase.org/api/store/interfaces/store/store/), including some attempts to update a [`Cell`](https://beta.tinybase.org/api/store/type-aliases/store/cell/) with invalid values. The `doRollback` callback fetches information about the changes and invalid attempts, and then judges that the transaction should be rolled back to its original state.
-
-    store.transaction(
-      () => {
-        store.setCell('pets', 'fido', 'color', 'black');
-        store.setCell('pets', 'fido', 'eyes', ['left', 'right']);
-        store.setCell('pets', 'fido', 'buyer', {name: 'Bob'});
-      },
-      () => {
-        const [, , changedCells, invalidCells] = store.getTransactionLog();
-        console.log(store.getTables());
-        // -> {pets: {fido: {species: 'dog', color: 'black', sold: true}}}
-        console.log(changedCells);
-        // -> {pets: {fido: {color: ['brown', 'black']}}}
-        console.log(invalidCells);
-        // -> {pets: {fido: {eyes: [['left', 'right']], buyer: [{name: 'Bob'}]}}}
-        return invalidCells['pets'] != null;
-      },
-    );
-    
-    console.log(store.getTables());
-    // -> {pets: {fido: {species: 'dog', color: 'brown', sold: true}}}
+    let myVariable = "Bob";
+    myVariable = "Steve";
     
 
-### Listening to transactions
+Note that variables may hold values that have different [data types](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Data_structures):
 
-You can register listeners to the start and finish of a transaction. There are three points in its lifecycle:
+| Variable | Explanation | Example |
+| --- | --- | --- |
+| [String](https://developer.mozilla.org/en-US/docs/Glossary/String) | This is a sequence of text known as a string. To signify that the value is a string, enclose it in single or double quote marks. | `let myVariable = 'Bob';` or  
+`let myVariable = "Bob";` |
+| [Number](https://developer.mozilla.org/en-US/docs/Glossary/Number) | This is a number. Numbers don't have quotes around them. | `let myVariable = 10;` |
+| [Boolean](https://developer.mozilla.org/en-US/docs/Glossary/Boolean) | This is a True/False value. The words `true` and `false` are special keywords that don't need quote marks. | `let myVariable = true;` |
+| [Array](https://developer.mozilla.org/en-US/docs/Glossary/Array) | This is a structure that allows you to store multiple values in a single reference. | `let myVariable = [1,'Bob','Steve',10];`  
+Refer to each member of the array like this:  
+`myVariable[0]`, `myVariable[1]`, etc. |
+| [Object](https://developer.mozilla.org/en-US/docs/Glossary/Object) | This can be anything. Everything in JavaScript is an object and can be stored in a variable. Keep this in mind as you learn. | `let myVariable = document.querySelector('h1');`  
+All of the above examples too. |
 
-| Event | Add a listener with | When | Can mutate data |
+So why do we need variables? Variables are necessary to do anything interesting in programming. If values couldn't change, then you couldn't do anything dynamic, like personalize a greeting message or change an image displayed in an image gallery.
+
+Comments are snippets of text that can be added along with code. The browser ignores text marked as comments. You can write comments in JavaScript just as you can in CSS:
+
+    /*
+    Everything in between is a comment.
+    */
+    
+
+If your comment contains no line breaks, you can put it behind two slashes like this:
+
+    // This is a comment
+    
+
+### [Operators](#operators)
+
+An `[operator](https://developer.mozilla.org/en-US/docs/Glossary/Operator)` is a mathematical symbol that produces a result based on two values (or variables). In the following table, you can see some of the simplest operators, along with some examples to try in the JavaScript console.
+
+| Operator | Explanation | Symbol(s) | Example |
 | --- | --- | --- | --- |
-| Start | [`addStartTransactionListener`](https://beta.tinybase.org/api/store/interfaces/store/store/methods/listener/addstarttransactionlistener/) | Before changes | Yes |
-| WillFinish | [`addWillFinishTransactionListener`](https://beta.tinybase.org/api/store/interfaces/store/store/methods/listener/addwillfinishtransactionlistener/) | After changes and other mutator listeners | Yes |
-| DidFinish | [`addDidFinishTransactionListener`](https://beta.tinybase.org/api/store/interfaces/store/store/methods/listener/adddidfinishtransactionlistener/) | After non-mutator listeners | No |
+| Addition | Add two numbers together or combine two strings. | `+` | `6 + 9;   'Hello ' + 'world!';` |
+| Subtraction, Multiplication, Division | These do what you'd expect them to do in basic math. | `-`, `*`, `/` | `9 - 3;   8 * 2; // multiply in JS is an asterisk   9 / 3;` |
+| Assignment | As you've seen already: this assigns a value to a variable. | `=` | `let myVariable = 'Bob';` |
+| Strict equality | This performs a test to see if two values are equal and of the same data type. It returns a `true`/`false` (Boolean) result. | [`===`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Strict_equality) | `let myVariable = 3;   myVariable === 4;` |
+| Not, Does-not-equal | This returns the logically opposite value of what it precedes. It turns a `true` into a `false`, etc.. When it is used alongside the Equality operator, the negation operator tests whether two values are _not_ equal. | `!`, `!==` | 
+For "Not", the basic expression is `true`, but the comparison returns `false` because we negate it:
 
-For example:
+`let myVariable = 3;   !(myVariable === 3);`
 
-    store.delTables();
+"Does-not-equal" gives basically the same result with different syntax. Here we are testing "is `myVariable` NOT equal to 3". This returns `false` because `myVariable` IS equal to 3:
+
+`let myVariable = 3;   myVariable !== 3;`
+
+ |
+
+There are a lot more operators to explore, but this is enough for now. See [Expressions and operators](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators) for a complete list.
+
+**Note:** Mixing data types can lead to some strange results when performing calculations. Be careful that you are referring to your variables correctly, and getting the results you expect. For example, enter `'35' + '25'` into your console. Why don't you get the result you expected? Because the quote marks turn the numbers into strings, so you've ended up concatenating strings rather than adding numbers. If you enter `35 + 25` you'll get the total of the two numbers.
+
+### [Conditionals](#conditionals)
+
+Conditionals are code structures used to test if an expression returns true or not. A very common form of conditionals is the `if...else` statement. For example:
+
+    let iceCream = "chocolate";
+    if (iceCream === "chocolate") {
+      alert("Yay, I love chocolate ice cream!");
+    } else {
+      alert("Awwww, but chocolate is my favorite…");
+    }
     
-    const startListenerId = store.addStartTransactionListener(() => {
-      console.log('Start transaction');
-      console.log(store.getTables());
-      // Can mutate data
+
+The expression inside the `if ()` is the test. This uses the strict equality operator (as described above) to compare the variable `iceCream` with the string `chocolate` to see if the two are equal. If this comparison returns `true`, the first block of code runs. If the comparison is not true, the second block of code—after the `else` keyword—runs instead.
+
+### [Functions](#functions)
+
+[Functions](https://developer.mozilla.org/en-US/docs/Glossary/Function) are a way of packaging functionality that you wish to reuse. It's possible to define a body of code as a function that executes when you call the function name in your code. This is a good alternative to repeatedly writing the same code. You have already seen some uses of functions. For example:
+
+    let myVariable = document.querySelector("h1");
+    
+
+    alert("hello!");
+    
+
+The `document.querySelector()` and `alert()` functions are built into the browser.
+
+If you see something which looks like a variable name, but it's followed by parentheses — `()` — it is likely to be a function. Functions often take [arguments](https://developer.mozilla.org/en-US/docs/Glossary/Argument): bits of data they need to do their job. Arguments go inside the parentheses, separated by commas if there is more than one argument.
+
+For example, the `alert()` function makes a pop-up box appear inside the browser window, but we need to give it a string as an argument to tell the function what message to display.
+
+You can also define your own functions. In the next example, we create a simple function which takes two numbers as arguments and multiplies them:
+
+    function multiply(num1, num2) {
+      let result = num1 * num2;
+      return result;
+    }
+    
+
+Try running this in the console; then test with several arguments. For example:
+
+    multiply(4, 7);
+    multiply(20, 20);
+    multiply(0.5, 3);
+    
+
+**Note:** The [`return`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/return) statement tells the browser to return the `result` variable out of the function so it is available to use. This is necessary because variables defined inside functions are only available inside those functions. This is called variable [scoping](https://developer.mozilla.org/en-US/docs/Glossary/Scope). (Read more about [variable scoping](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Grammar_and_types#variable_scope).)
+
+### [Events](#events)
+
+Real interactivity on a website requires event handlers. These are code structures that listen for activity in the browser, and run code in response. The most obvious example is handling the [click event](https://developer.mozilla.org/en-US/docs/Web/API/Element/click_event), which is fired by the browser when you click on something with your mouse. To demonstrate this, enter the following into your console, then click on the current webpage:
+
+    document.querySelector("html").addEventListener("click", function () {
+      alert("Ouch! Stop poking me!");
     });
     
-    const willFinishListenerId = store.addWillFinishTransactionListener(() => {
-      console.log('Will finish transaction');
-      console.log(store.getTables());
-      // Can mutate data
+
+There are a number of ways to attach an event handler to an element. Here we select the [`<html>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/html) element. We then call its [`addEventListener()`](https://developer.mozilla.org/en-US/docs/Web/API/EventTarget/addEventListener) function, passing in the name of the event to listen for (`'click'`) and a function to run when the event happens.
+
+The function we just passed to `addEventListener()` here is called an _anonymous function_, because it doesn't have a name. There's an alternative way of writing anonymous functions, which we call an _arrow function_. An arrow function uses `() =>` instead of `function ()`:
+
+    document.querySelector("html").addEventListener("click", () => {
+      alert("Ouch! Stop poking me!");
     });
     
-    const didFinishListenerId = store.addDidFinishTransactionListener(() => {
-      console.log('Did finish transaction');
-      console.log(store.getTables());
-      // Cannot mutate data
-    });
+
+## [Supercharging our example website](#supercharging_our_example_website)
+
+With our review of JavaScript basics completed, let's add some new features to our example site.
+
+Before going any further, delete the current contents of your `main.js` file — the bit you added earlier during the "Hello world!" example — and save the empty file. If you don't, the existing code will clash with the new code you are about to add.
+
+### [Adding an image changer](#adding_an_image_changer)
+
+In this section, you will learn how to use JavaScript and DOM API features to alternate the display between two images. This change will happen as a user clicks the displayed image.
+
+1.  Choose another image to feature on your example site. Ideally, the image will be the same size as the image you added previously, or as close as possible.
     
-    store.setTable('pets', {fido: {species: 'dog'}});
-    // -> 'Start transaction'
-    // -> {}
-    // -> 'Will finish transaction'
-    // -> {pets: {fido: {species: 'dog'}}}
-    // -> 'Did finish transaction'
-    // -> {pets: {fido: {species: 'dog'}}}
+2.  Save this image in your `images` folder.
     
-    store
-      .delListener(startListenerId)
-      .delListener(willFinishListenerId)
-      .delListener(didFinishListenerId);
+3.  Add the following JavaScript code to your `main.js` file, making sure to replace `firefox2.png` and both instances of `firefox-icon.png` with your second and first image names, respectively.
+    
+        const myImage = document.querySelector("img");
+        
+        myImage.addEventListener("click", () => {
+          const mySrc = myImage.getAttribute("src");
+          if (mySrc === "images/firefox-icon.png") {
+            myImage.setAttribute("src", "images/firefox2.png");
+          } else {
+            myImage.setAttribute("src", "images/firefox-icon.png");
+          }
+        });
+        
+    
+4.  Save all files and load `index.html` in the browser. Now when you click the image, it should change to the other one.
     
 
-### Summary
+In the above code, you stored a reference to your [`<img>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/img) element in `myImage`. Next, you gave it a `click` event handler function with no name (an "anonymous" function). Every time this element is clicked, the function:
 
-We've covered all of the essential basics of working with a TinyBase [`Store`](https://beta.tinybase.org/api/store/interfaces/store/store/), but that's still just the start!
+1.  Retrieves the value of the image's `src` attribute.
+    
+2.  Uses a conditional to check if the `src` value is equal to the path of the original image:
+    
+    1.  If it is, the code changes the `src` value to the path of the second image, forcing the other image to be loaded inside the [`<img>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/img) element.
+    2.  If it isn't (meaning it must already have changed), the `src` value swaps back to the original image path.
 
-Before we move on, we have a quick aside about how to use various flavors of TinyBase in your app, in the [Importing TinyBase](https://beta.tinybase.org/guides/the-basics/importing-tinybase/) guide.
+### [Adding a personalized welcome message](#adding_a_personalized_welcome_message)
+
+Next, let's change the page heading to a personalized welcome message when the user first visits the site. This welcome message will persist. Should the user leave the site and return later, we will save the message using the [Web Storage API](https://developer.mozilla.org/en-US/docs/Web/API/Web_Storage_API). We will also include an option to change the username, and therefore, the welcome message.
+
+1.  In `index.html`, add the following line just before the [`<script>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/script) element:
+    
+        <button>Change user</button>
+        
+    
+2.  In `main.js`, place the following code at the bottom of the file, exactly as it is written. This creates references to the new button and the heading, storing each inside variables:
+    
+        let myButton = document.querySelector("button");
+        let myHeading = document.querySelector("h1");
+        
+    
+3.  Add the following function to set the personalized greeting. This won't do anything yet; we will call the function later on.
+    
+        function setUserName() {
+          const myName = prompt("Please enter your name.");
+          localStorage.setItem("name", myName);
+          myHeading.textContent = `Mozilla is cool, ${myName}`;
+        }
+        
+    
+    The `setUserName()` function contains a [`prompt()`](https://developer.mozilla.org/en-US/docs/Web/API/Window/prompt) function, which displays a dialog box, similar to `alert()`. This `prompt()` function does more than `alert()`, asking the user to enter data, and storing it in a variable after the user clicks _OK_. In this case, we are asking the user to enter a name. Next, the code calls on the `localStorage` API, which allows us to store data in the browser and retrieve it later. We use localStorage's `setItem()` function to create and store a data item called `"name"`, setting its value to the `myName` variable which contains the user's entry for the name. Finally, we set the `textContent` of the heading to a string, plus the user's newly stored name.
+    
+4.  Add the following condition block after the function declaration. We could call this initialization code, as it structures the app when it first loads.
+    
+        if (!localStorage.getItem("name")) {
+          setUserName();
+        } else {
+          const storedName = localStorage.getItem("name");
+          myHeading.textContent = `Mozilla is cool, ${storedName}`;
+        }
+        
+    
+    This first line of this block uses the negation operator (logical NOT, represented by the `!`) to check whether the `name` data item is already stored in in localStorage. If not, the `setUserName()` function runs to create it. If it exists (that is, the user set a user name during a previous visit), we retrieve the stored name using `getItem()` and set the `textContent` of the heading to a string, plus the user's name, as we did inside `setUserName()`.
+    
+5.  Add a `click` event handler function to the button, as shown below. When clicked, `setUserName()` runs. This allows the user to enter a different name by pressing the button.
+    
+        myButton.addEventListener("click", () => {
+          setUserName();
+        });
+        
+    
+
+### [A user name of null?](#a_user_name_of_null)
+
+When you run the example and get the dialog box that prompts you to enter your user name, try pressing the _Cancel_ button. You should end up with a title that reads _Mozilla is cool, null_. This happens because the value is set as [`null`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/null) when you cancel the prompt. _null_ is a special value in JavaScript that refers to the absence of a value.
+
+Also, try clicking _OK_ without entering a name. You should end up with a title that reads _Mozilla is cool,_ because you've set `myName` to an empty string.
+
+To avoid these problems, you could check that the user hasn't entered a blank name. Update your `setUserName()` function to this:
+
+    function setUserName() {
+      const myName = prompt("Please enter your name.");
+      if (!myName) {
+        setUserName();
+      } else {
+        localStorage.setItem("name", myName);
+        myHeading.textContent = `Mozilla is cool, ${myName}`;
+      }
+    }
+    
+
+In human language, this means: If `myName` has no value, run `setUserName()` again from the start. If it does have a value (if the above statement is not true), then store the value in `localStorage` and set it as the heading's text.
+
+## [Conclusion](#conclusion)
+
+If you have followed all the instructions in this article, you should end up with a page that looks something like the image below. You can also [view our version](https://mdn.github.io/beginner-html-site-scripted/).
+
+![Final look of HTML page after creating elements: a header, large centered logo, content, and a button](https://developer.mozilla.org/en-US/docs/Learn_web_development/Getting_started/Your_first_website/Adding_interactivity/website-screen-scripted.png)
+
+If you get stuck, you can compare your work with our [finished example code on GitHub](https://github.com/mdn/beginner-html-site-scripted/blob/main/scripts/main.js).
+
+Now that you've finished creating your website, the next step is to get it online so that others can check it out. We'll show you how to do so in our next article — [Publishing your website](https://developer.mozilla.org/en-US/docs/Learn_web_development/Getting_started/Your_first_website/Publishing_your_website).
+
+## [See also](#see_also)
+
+[Dynamic scripting with JavaScript](https://developer.mozilla.org/en-US/docs/Learn_web_development/Core/Scripting)
+
+We have just scratched the surface of JavaScript in this article. You'll find a lot more JavaScript later on in our learning pathway, starting with our _Dynamic scripting with JavaScript_ module.
+
+[Learn JavaScript](https://learnjavascript.online/)
+
+This is an excellent resource for aspiring web developers! Learn JavaScript in an interactive environment, with short lessons and interactive tests, guided by an automated assessment. The first 40 lessons are free. The complete course is available for a small one-time payment.
+
+*   [Previous](https://developer.mozilla.org/en-US/docs/Learn_web_development/Getting_started/Your_first_website/Styling_the_content)
+*   [Overview: Your first website](https://developer.mozilla.org/en-US/docs/Learn_web_development/Getting_started/Your_first_website)
+*   [Next](https://developer.mozilla.org/en-US/docs/Learn_web_development/Getting_started/Your_first_website/Publishing_your_website)
 
 ---
 
-## Page: https://beta.tinybase.org/guides/the-basics/importing-tinybase/
+## Page: https://developer.mozilla.org/en-US/docs/Learn_web_development/Getting_started/Your_first_website/Publishing_your_website
 
-This guide provides an aside about importing TinyBase into your application.
+*   [Previous](https://developer.mozilla.org/en-US/docs/Learn_web_development/Getting_started/Your_first_website/Adding_interactivity)
+*   [Overview: Your first website](https://developer.mozilla.org/en-US/docs/Learn_web_development/Getting_started/Your_first_website)
+*   [Next](https://developer.mozilla.org/en-US/docs/Learn_web_development/Getting_started/Web_standards)
 
-### The Simplest Imports
+Once you finish writing the code and organizing the files that make up your website, you need to put it all online so people can find it. This article explains how to get your sample website online with little effort.
 
-The simplest import of TinyBase is:
+**Note:** You'll need a sample website available on your local computer to follow along with this article. It should contain at least a valid `index.html` file. If you've not done so already, we'd advise you to build one by working through the previous articles in this module, starting with [What will your website look like?](https://developer.mozilla.org/en-US/docs/Learn_web_development/Getting_started/Your_first_website/What_will_your_website_look_like).
 
-    import {createMetrics, createStore} from 'tinybase';
+<table><tbody><tr><th scope="row">Prerequisites:</th><td>Basic familiarity with your computer operating system, the basic software you will use to build a website, and file systems.</td></tr><tr><th scope="row">Learning outcomes:</th><td><ul><li>The basic tools and concepts involved in publishing a website — hosting, domains, FTP programs.</li><li>What alternative hosting options are available, for example Google App Engine, GitHub, and CodePen.</li><li>Publishing a website using GitHub Pages.</li><li>Hosting, how to purchase it, and how to put a website online.</li><li>How to register a domain.</li></ul></td></tr></tbody></table>
+
+## [What are the options?](#what_are_the_options)
+
+Publishing a website is a complex topic because there are many ways to go about it. This article doesn't attempt to document all the possible methods. Instead, it explains the advantages and disadvantages of three approaches that are practical for beginners. Then it steps through one method that can work right away for many readers.
+
+### [Getting hosting and a domain name](#getting_hosting_and_a_domain_name)
+
+To have more control over content and website appearance, most professionals/businesses choose to buy web hosting and a domain name:
+
+*   Web hosting is rented file space on a hosting company's [web server](https://developer.mozilla.org/en-US/docs/Learn_web_development/Howto/Web_mechanics/What_is_a_web_server). You put website files on the web server. The web server provides website content to website visitors.
+*   A [domain name](https://developer.mozilla.org/en-US/docs/Learn_web_development/Howto/Web_mechanics/What_is_a_domain_name) is the unique web address where people find your website, such as `https://www.mozilla.org` or `https://www.bbc.co.uk`. You can rent your domain name for as many years as you want from a **domain registrar**.
+
+If you get your web hosting _and_ domain name from the same company, they tend to be configured automatically to talk to one another. However, If you get them from separate companies, or want to change your hosting to a different company, you need to do a bit of setup to point the domain name to the correct server. This is so that people will see your website when they navigate to that web address. This is usually done by logging into your domain registrar's website, and setting your domain's [nameservers](https://kinsta.com/knowledgebase/what-is-a-nameserver/) to the ones provided by your hosting company.
+
+Companies use various mechanisms to transfer files to their web servers. Many will have more than one option; typical options include:
+
+*   A drag and drop interface (you'll see an example of this in [Publishing via GitHub](#publishing_via_github), later on).
+*   An [File Transfer Protocol (FTP)](https://developer.mozilla.org/en-US/docs/Glossary/FTP) program. FTP programs vary widely, but generally, you have to connect to your web server using details provided by your hosting company (typically username, password, hostname). Then the program shows you your local files and the web server's files in two windows, and provides a way for you to transfer files back and forth.
+*   Keeping website source code in a GitHub repo (see below) and granting the hosting company access so they can fetch the source, build it if necessary, and publish it.
+*   Some companies will provide [command line tools](https://developer.mozilla.org/en-US/docs/Learn_web_development/Getting_started/Environment_setup/Command_line) for you to use to transfer your files.
+
+#### Tips for finding hosting and domains
+
+*   MDN does not promote specific commercial hosting companies or domain name registrars. To find hosting companies and registrars, just search for "web hosting" and "domain names". All registrars will have a feature to allow you to check if the domain name you want is available.
+*   Your home or office [internet service provider](https://developer.mozilla.org/en-US/docs/Glossary/ISP) may provide some limited hosting for a small website. The available feature set will be limited, but it might be perfect for your first experiments.
+*   There are also free services available like [Neocities](https://neocities.org/), [Google Sites](https://sites.google.com/), and [WordPress](https://wordpress.com/). Such services can be limited in scope, but they are good enough for initial experiments.
+
+### [Using an online tool like GitHub or Google App Engine](#using_an_online_tool_like_github_or_google_app_engine)
+
+Some tools let you publish your website online:
+
+*   [GitHub](https://github.com/) is a "social coding" site. It allows you to upload code repositories for storage in the [Git](https://git-scm.com/) **version control system.** You can then collaborate on code projects, and the system is open-source by default, meaning that anyone in the world can find your GitHub code, use it, learn from it, and improve on it. GitHub has a very useful feature called [GitHub Pages](https://pages.github.com/), which allows you to expose website code live on the web.
+*   [Google App Engine](https://cloud.google.com/appengine) is a powerful platform that lets you build and run applications on Google's infrastructure — whether you need to build a multi-tiered web application from scratch or host a static website. See [How do you host your website on Google App Engine?](https://developer.mozilla.org/en-US/docs/Learn_web_development/Howto/Tools_and_setup/How_do_you_host_your_website_on_Google_App_Engine) for more information.
+
+These options are generally free, with a limited feature-set.
+
+### [Using a web-based IDE such as CodePen](#using_a_web-based_ide_such_as_codepen)
+
+There are a number of web apps that emulate a website development environment, allowing you to write HTML, CSS and JavaScript, which is then rendered and displayed in an output pane. Generally speaking, these tools are easy to use, great for learning, good for sharing code (for example, if you want to share a technique with or ask for debugging help from colleagues in a different office), and free (for basic features). They host your rendered page at a unique web address. However, the features are limited, and these apps often don't provide hosting space for assets (like images).
+
+Try playing with some of these examples to find out which one works best for you:
+
+*   [JSFiddle](https://jsfiddle.net/)
+*   [Glitch](https://glitch.com/)
+*   [JS Bin](https://jsbin.com/)
+*   [CodePen](https://codepen.io/)
+
+## [Publishing via GitHub](#publishing_via_github)
+
+Now let's examine how to publish your site via GitHub Pages.
+
+1.  First of all, [sign up for GitHub](https://github.com/) and verify your email address.
+    
+2.  Next, you need to [create a repository](https://github.com/new) to store files. On this page:
+    
+    1.  in the _Repository name_ box, enter _username_.github.io, where _username_ is your username. For example, our friend Bob Smith would enter _bobsmith.github.io_.
+    2.  Click the _Create repository_ button at the bottom of the page.
+3.  On the next page, find the _uploading an existing file_ link, and click on it. This should bring you to the file upload page.
+    
+4.  At this point, you should be able to drag and drop files from your local file system onto the web page to upload them to the GitHub repository. To do so:
+    
+    1.  Open a file explorer/finder window on your computer.
+    2.  Make sure you can see the file explorer _and_ the web browser windows — position them next to one another on your screen.
+    3.  Navigate the file explorer window to the folder containing your sample website.
+        
+        **Note:** Make sure your folder has an `index.html` file.
+        
+    4.  Select all of your sample website's files (for example using the Ctrl + A keyboard shortcut, or Cmd + A on macOS).
+    5.  Drag the files from your file explorer over the "Drag files here to add them to your repository" section of the GitHub page.
+    6.  The section's border and text changes to indicate a drop is possible. Drop the files at this point.
+    7.  Click the _Commit changes_ button at the bottom of the page.
+5.  Navigate your browser to _username_.github.io to see your website online. For example, for the username _chrisdavidmills_, go to [_chrisdavidmills_.github.io](https://chrisdavidmills.github.io/).
+    
+    **Note:** It may take a few minutes for your website to go live. If your website does not display immediately, wait a few minutes and try again.
     
 
-This will get you an ESNext, ESM, non-minified import of the main `tinybase` module, (which contains most of the core functionality), and should be enough to get started. You may also want to import specific persister, synchronizer, or UI modules:
+To learn more, see [GitHub Pages Help](https://docs.github.com/en/pages/getting-started-with-github-pages).
 
-    import {createSessionPersister} from 'tinybase/persisters/persister-browser';
-    import {createWsSynchronizer} from 'tinybase/synchronizers/synchronizer-ws-client';
-    import {useCell} from 'tinybase/ui-react';
-    import {TableInHtmlTable} from 'tinybase/ui-react-dom';
-    
-    // ... etc
-    
-
-All the example code throughout these guides and the API documentation are shown with the correct imports so that you can be clear about which functions and types come from which modules.
-
-### Using TinyBase Submodules
-
-The `tinybase` module is the master package of most of the core functionality. It includes the following submodules:
-
-*   The [`store`](https://beta.tinybase.org/api/store/) module
-*   The [`metrics`](https://beta.tinybase.org/api/metrics/) module
-*   The [`indexes`](https://beta.tinybase.org/api/indexes/) module
-*   The [`relationships`](https://beta.tinybase.org/api/relationships/) module
-*   The [`queries`](https://beta.tinybase.org/api/queries/) module
-*   The [`checkpoints`](https://beta.tinybase.org/api/checkpoints/) module
-*   The [`mergeable-store`](https://beta.tinybase.org/api/mergeable-store/) module
-*   The [`common`](https://beta.tinybase.org/api/common/) module
-
-Since many of the submodules above share compiled-in dependencies, the master package is smaller to include than including all of the submodules separately.
-
-However, for a very minimal set of submodules, you may save size by including them piecemeal. If you only wanted a [`Store`](https://beta.tinybase.org/api/store/interfaces/store/store/) and a [`Metrics`](https://beta.tinybase.org/api/metrics/interfaces/metrics/metrics/) object, for example, you could import them alone like this:
-
-    import {createMetrics} from 'tinybase/metrics';
-    import {createStore} from 'tinybase/store';
-    
-    // ...
-    
-
-With a good minifier in your application bundler, however, you may find that this level of granularity is unnecessary, and that you can just stick with the overall `tinybase` module for most things.
-
-The submodules for various [`Persister`](https://beta.tinybase.org/api/persisters/interfaces/persister/persister/) and [`Synchronizer`](https://beta.tinybase.org/api/synchronizers/interfaces/synchronizer/synchronizer/) types are _not_ included in the main tinybase module, but should be imported separately from inside the `persisters` and `synchronizers` folders. See the [Persistence](https://beta.tinybase.org/guides/persistence/) and [Synchronization](https://beta.tinybase.org/guides/synchronization/) guides, respectively, for more details.
-
-### Targets And Formats
-
-Prior to TinyBase v6.0, the NPM package included a number of different versions of each module, transpiled for different targets and formats. From v6.0 onwards, only ESNext, ESM modules are included in the main package.
-
-However, both non-minified and minified versions are available: the default is non-minified code, but minified versions are available in the top-level `min` folder:
-
-    import {createStore} from 'tinybase'; // non-minified
-    // or
-    import {createStore} from 'tinybase/min'; // minified
-    
-
-### Indicating Schema-based Typing
-
-As we will see in more details in the following [TinyBase And TypeScript](https://beta.tinybase.org/guides/the-basics/tinybase-and-typescript/) guide, it is possible to use schema-aware type definitions by appending `with-schemas` to the very end of the path like this:
-
-    import {createStore} from 'tinybase/with-schemas';
-    
-    // NB the 'with-schemas'
-    
-
-### Putting It All Together
-
-As long as you put the optional parts of the path in the right order, you can access all the valid combinations of minification, sub-module and schema support. The syntax for the import (split onto different lines for clarity) is:
-
-    tinybase
-      [ /min ]
-        [ /store | /metrics | /queries | ... ]
-          [ /with-schemas ]
-    
-
-For example, this is a non-exhaustive list of options that are all valid:
-
-| Import | Minified | Sub-module | With schemas |
-| --- | --- | --- | --- |
-| `import {...} from 'tinybase';` | no |  | no |
-| `import {...} from 'tinybase/with-schemas';` | no |  | yes |
-| `import {...} from 'tinybase/min';` | yes |  | no |
-| `import {...} from 'tinybase/store/with-schemas'` | no | [`store`](https://beta.tinybase.org/api/store/) | no |
-| `import {...} from 'tinybase/min/store/with-schemas'` | yes | [`store`](https://beta.tinybase.org/api/store/) | yes |
-| ... |  |  |  |
-
-If all else fails, take a look into the package folder and see what's what!
-
-### React Native
-
-If you are using [React Native](https://reactnative.dev/) - for example with [Expo](https://expo.dev/) - be aware that the [Metro](https://facebook.github.io/metro/) bundler does not currently support module resolution very well. You may have to add in the exact file path to be explicit about your imports:
-
-    import {createStore} from 'tinybase/index.js';
-    import {useCell} from 'tinybase/ui-react/index.js';
-    
-
-This situation is evolving however, so you may find these extra file names unnecessary as bundler support improves.
-
-Check out the [Expo TinyBase example](https://github.com/expo/examples/tree/master/with-tinybase) for a simple working template to get started with TinyBase and React Native.
-
-### ESlint Resolver Issues
-
-There is a [known issue](https://github.com/import-js/eslint-plugin-import/issues/1810) with the `no-unresolved` ESlint rule whereby it does not understand the `exports` section of the TinyBase `package.json`. You may wish to disable that rule if you are getting false positives using TinyBase submodules.
-
-### Enough!
-
-OK, we're done with the `import` shenanigans. Let's briefly look at how TinyBase benefits from using TypeScript to improve your developer experience in the TinyBase and TypeScript guide.
+## [Further reading](#further_reading)
 
 ---
 
-## Page: https://beta.tinybase.org/guides/the-basics/tinybase-and-typescript/
+## Page: https://developer.mozilla.org/en-US/docs/Learn_web_development/Getting_started/Your_first_website/contributors.txt
 
-This guide summarizes the two different levels of TypeScript coverage you can use with TinyBase.
-
-### 1\. Basic Type Support
-
-Out of the box, TinyBase has complete type coverage for all of its modules. So for example, setting and getting tabular and key-value data will obey the system's constraints. A [`Cell`](https://beta.tinybase.org/api/store/type-aliases/store/cell/) or a [`Value`](https://beta.tinybase.org/api/store/type-aliases/store/value/) can only be a number, string, or boolean, for example:
-
-    import {createStore} from 'tinybase';
-    
-    const store = createStore();
-    
-    store.setValues({employees: 3}); //                OK
-    store.setValues({employees: true}); //             OK
-    store.setValues({employees: ['Alice', 'Bob']}); // TypeScript error
-    
-
-This basic typing of the API is comprehensively described throughout in the API documentation.
-
-### 2\. Schema-based Typing
-
-The next step up is when you provide a schema for your TinyBase data. This more tightly constrains the types of [`Table`](https://beta.tinybase.org/api/store/type-aliases/store/table/), [`Cell`](https://beta.tinybase.org/api/store/type-aliases/store/cell/), and [`Value`](https://beta.tinybase.org/api/store/type-aliases/store/value/) that your [`Store`](https://beta.tinybase.org/api/store/interfaces/store/store/) can contain.
-
-Since v3.1, TinyBase can provide typing that adapts according to the schema when you import the `with-schemas` version of the library. For example:
-
-    import {createStore} from 'tinybase/with-schemas';
-    
-    // NB the 'with-schemas'
-    
-    const store = createStore().setValuesSchema({
-      employees: {type: 'number'},
-      open: {type: 'boolean', default: false},
-    });
-    
-    store.setValues({employees: 3}); //                      OK
-    store.setValues({employees: true}); //                   TypeScript error
-    store.setValues({employees: 3, website: 'pets.com'}); // TypeScript error
-    
-
-(The separate import is provided because the schema-based autocomplete and errors can be fairly verbose and confusing when you only need the basic type support.)
-
-Read more about this technique in the [Schema-Based Typing](https://beta.tinybase.org/guides/schemas/schema-based-typing/) guide.
-
-### Summary
-
-TinyBase provides different levels of typed support for your data, depending on how prescriptive you want it to be and your personal preferences.
-
-Next we will run through some of the many ways you can build your app around TinyBase in the [Architectural Options](https://beta.tinybase.org/guides/the-basics/architectural-options/) guide.
+\# Contributors by commit history https://github.com/mdn/content/commits/main/files/en-us/learn\_web\_development/getting\_started/your\_first\_website/index.md # Original Wiki contributors SphinxKnight mr.sithuaung burakizmirli252 marismiglans8 jessica.kolek chrisdavidmills SinEstres pe.minuta.78 iamadityashekhar Javi-21 K-D gamma.mahdii maeeel968 hakannakliyat kmavrikakis harpaljadon PatrickDGarvey johnsmith1554 kakwanisiddharth kenj115188 shilili burgess25 EvenC mfuji09 james-rhodus smoothie1998 fox-lucas stevedav SimDrifT CodeDotJS dartvaneri Jenna59 Alihoday Sibiraj-S hadleyel wh1msy kaiarifin Zh1hu1 Jom97 gleidiin aquddos Jeremie jswisher pheakvoin jam1985 EnriquePabloBarreraVega BychekRU rpettit686 jsx Trontin LeBasti arbatskiy pravinbudharap dileep.ch Sheppy Andrew\_Pfeiffer klez
 
 ---
 
-## Page: https://beta.tinybase.org/guides/the-basics/architectural-options/
+## Page: https://developer.mozilla.org/en-US/docs/Learn_web_development/Getting_started/Your_first_website/What_will_your_website_look_like/contributors.txt
 
-This guide discusses some of the ways in which you can use TinyBase, and how you can architect it into the bigger picture of how your app is built.
+\# Contributors by commit history https://github.com/mdn/content/commits/main/files/en-us/learn\_web\_development/getting\_started/your\_first\_website/what\_will\_your\_website\_look\_like/index.md # Original Wiki contributors chrisdavidmills NavetsArev mfuji09 bduguma ezrinjaz IzaS jbrandes msobanjo aboagyed smoothie1998 RafeyIqbalRahman Xyde stephaniehobson Lilmisscrafty116 RichardsonVJohnson hadleyel Jeremie MashKao klez dvincent ifilin SphinxKnight xfq Andrew\_Pfeiffer
 
-Before we go any further, remember that TinyBase is an in-memory data store that runs within a JavaScript environment like a browser or a worker. Whilst it can theoretically stand alone in a simple app, you'll probably want to preserve, share, or sync the data between reloads and sessions.
+---
 
-Here are the options we'll discuss in this guide:
+## Page: https://developer.mozilla.org/en-US/docs/Learn_web_development/Getting_started/Your_first_website/Creating_the_content/contributors.txt
 
-*   [Standalone TinyBase](#0-standalone-tinybase)
-*   [Read-Only Cloud Data](#1-read-only-cloud-data)
-*   [Browser Storage](#2-browser-storage)
-*   [Client Database Storage](#3-client-database-storage)
-*   [Client-Only Synchronization](#4-client-only-synchronization)
-*   [Client-Server Synchronization](#5-client-server-synchronization)
-*   [Third-Party Synchronization](#6-third-party-synchronization)
+\# Contributors by commit history https://github.com/mdn/content/commits/main/files/en-us/learn\_web\_development/getting\_started/your\_first\_website/creating\_the\_content/index.md # Original Wiki contributors SphinxKnight mpmadhubhashana8 chrisdavidmills advancel sideshowbarker thelovekesh dcompcoder adatapost donnal4 shilili P1xt a4anandsingh bminard Chomchaum rachelcarmena dwvisser maria-rubina thekosiguy smoothie1998 RafeyIqbalRahman thoughtbyte Sheppy arai DragMeToProgramming moslyke datdathcmutrans suterj rajasrijanakiraman Quantzilla q3229270 jswisher explosive1111 Maruti-Ram Sharoon\_Francis Mastermind9513 rishikant-sharma hahaf313 jwhitlock hadleyel Tanvir-rahman mishkadoma Jeremie Cameron-Riecan klez tcyyky MightyBranch Carmelina manderton jlin karyse NickPapayiannakis odsantos xfq jsx
 
-As you can see lot of what we'll be discussing is how to integrate TinyBase with different persistence and synchronization techniques - whether on the client or the server, or both. Let's go!
+---
 
-### 0\. Standalone TinyBase
+## Page: https://developer.mozilla.org/en-US/docs/Learn_web_development/Getting_started/Your_first_website/Styling_the_content/contributors.txt
 
-In this option, a TinyBase [`Store`](https://beta.tinybase.org/api/store/interfaces/store/store/) is instantiated when the app runs. During its use, data is added or updated, and rendered accordingly. When the app is reloaded or closed, the data is lost.
+\# Contributors by commit history https://github.com/mdn/content/commits/main/files/en-us/learn\_web\_development/getting\_started/your\_first\_website/styling\_the\_content/index.md # Original Wiki contributors schalkneethling chrisdavidmills thelovekesh winst dcompcoder ohaver ngaydainuocmat304 Azzedine2020 LordZarano RicardsVeveris naser-baig forrest.lyu.it zzhhbyt1 rachelcarmena ezrinjaz edprince bhuvy2 smoothie1998 oyenirat jdblischak jswisher terevele 102 lui247 IMLERICH ry0id suterj q3229270 MohamedSalah1998 hadleyel thanhtran92 Looserof7 Jeremie MightyBranch SphinxKnight jackarmley odsantos Andrew\_Pfeiffer xfq
 
-*   **Pros**: This is very simple to set up, and good for prototyping small apps.
-*   **Cons**: It's a transient experience and your users' data won't show up again if they refresh their browser, revisit the app later.
+---
 
-The [Todo App v1 (the basics)](https://beta.tinybase.org/demos/todo-app/todo-app-v1-the-basics/) demo is a good example of how to get started with an app like this.
+## Page: https://developer.mozilla.org/en-US/docs/Learn_web_development/Getting_started/Your_first_website/Adding_interactivity/contributors.txt
 
-### 1\. Read-Only Cloud Data
+\# Contributors by commit history https://github.com/mdn/content/commits/main/files/en-us/learn\_web\_development/getting\_started/your\_first\_website/adding\_interactivity/index.md # Original Wiki contributors bershanskiy Arpitgoyalgg ekaradag14 bytensky SphinxKnight winst chrisdavidmills mrmowji Vjakupi blinkous biglyy ohaver Azzedine2020 jewellscott radiocane cogpark BusiPlay albanafmeti InfusOnWoW JonDevOps bukowski73 badcat saranshgupta1995 snehseel taoranz JawnMarc julianschacher gam271 rachelcarmena DhruvDh wrongsyntax zzhhbyt1 shilili pcuambe bittualam.in akashchy1705 ToshitaSingh mathieucaroff latinatsw28 Afzalafu sigoa trannguyenhb Juchuhsu lokesh-krishna fscholz stephaniehobson Pointy saud12 scuesta SHUBHAMTRIPATH dipu2013 Greedsy Master-Osaro hadleyel ku3nsting frankfang1990 prakashkmrchy suriyaa AprilMorone lol-russo mishkadoma Jeremie david\_ross dagolinuxoid klez Radi123 alexbaumgertner hrishikeshbarman mseyne stuart jswisher javabuddy garrettgrimsley verpixelt xfq Andrew\_Pfeiffer netbun pbschmid sunilchahal brnold sethmcknight nahero teoli michaelnetbiz chrisdavidmills-github
 
-As one way to enhance the standalone app option, you can use the TinyBase persistence framework to load data from a server when the app starts, and then store it in a [`Store`](https://beta.tinybase.org/api/store/interfaces/store/store/). This might be appropriate for an app that uses read-only structured data which is small enough to fit into memory (and fast enough to load at start up).
+---
 
-*   **Pros**: This is also relatively simple to set up, and good for data-centric or reference apps.
-*   **Cons**: The data is not interactive (or at least, changes made locally will not be saved). At some point, the size of the data needed might start to challenge the browser's memory - or the time you are prepared to let the startup spinner run for! - after which local persistence and pagination might be preferable.
+## Page: https://developer.mozilla.org/en-US/docs/Learn_web_development/Getting_started/Your_first_website/Publishing_your_website/contributors.txt
 
-The [Movie Database](https://beta.tinybase.org/demos/movie-database/) demo, the [Word Frequencies](https://beta.tinybase.org/demos/word-frequencies/) demo, the [Car Analysis](https://beta.tinybase.org/demos/car-analysis/) demo, and the [City Database](https://beta.tinybase.org/demos/city-database/) demo are all good examples of this sort of 'read-only' app, each exercising different aspects of the TinyBase framework. The [Countries](https://beta.tinybase.org/demos/countries/) demo also loads one of its stores from a server.
-
-See the [`RemotePersister`](https://beta.tinybase.org/api/persister-remote/interfaces/persister/remotepersister/) interface for more details on how to pull data down from a server. Note that it _is_ possible to configure that [`Persister`](https://beta.tinybase.org/api/persisters/interfaces/persister/persister/) to 'save' data back to the server, but for anything other than the simplest use-cases, you may want to consider using a [`Synchronizer`](https://beta.tinybase.org/api/synchronizers/interfaces/synchronizer/synchronizer/) instead, so that multiple clients can edit data without conflict. We'll discuss that option later in this guide.
-
-### 2\. Browser Storage
-
-Another way to upgrade the standalone experience is to have TinyBase persist its data to the browser's storage. This way, the data or state can be preserved when the app is reloaded, or even when it is returned to in a later session. This is a basic 'local-only' approach.
-
-*   **Pros**: This approach provides persistence of data and state between reloads and sessions.
-*   **Cons**: Data is only stored in one particular browser on one particular device. The data may also get evicted (and its size limited) by the browser, depending on the storage used.
-
-The [Todo App v1 (the basics)](https://beta.tinybase.org/demos/todo-app/todo-app-v1-the-basics/) and the [Todo App v3 (persistence)](https://beta.tinybase.org/demos/todo-app/todo-app-v3-persistence/) demo are good examples of how to get started with an app like this. Also see the [`SessionPersister`](https://beta.tinybase.org/api/persister-browser/interfaces/persister/sessionpersister/) and [`LocalPersister`](https://beta.tinybase.org/api/persister-browser/interfaces/persister/localpersister/) documentation for more details.
-
-### 3\. Client Database Storage
-
-As well as its native storage techniques, there are now many options for running richer client-side databases, such as SQLite or PGLite, in the browser. These solutions typically rely on WASM packages to provide the database functionality and then store the underlying data in IndexedDB or OPFS. Similar database run times might also be provided natively in some client environments (like React Native or Node- or Bun-based solutions).
-
-TinyBase can persist its own data to a relational database like this, either serialized as JSON or in a more structured relational form, where TinyBase tables map directly to database tables.
-
-*   **Pros**: This approach provides more structured persistence of data with less likelihood of eviction. Relational data can also be queried or updated with SQL outside of TinyBase (though it will nevertheless react to those changes).
-*   **Cons**: A WASM payload is required to provide the database functionality in the browser, increasing asset size, and some of these client solutions are still young and experimental.
-
-See the [`SqliteWasmPersister`](https://beta.tinybase.org/api/persister-sqlite-wasm/interfaces/persister/sqlitewasmpersister/) and [`PglitePersister`](https://beta.tinybase.org/api/persister-pglite/interfaces/persister/pglitepersister/) documentation for two of the browser-based database solutions. [`ExpoSqlitePersister`](https://beta.tinybase.org/api/persister-expo-sqlite/interfaces/persister/exposqlitepersister/) is appropriate for Expo-based React Native projects.
-
-### 4\. Client-Only [Synchronization](https://beta.tinybase.org/guides/synchronization/)
-
-Regardless of the client storage solution you choose, you may want to synchronize data between clients, either because you're supporting single users with multiple devices, or multiple users sharing common data.
-
-This relies on you instantiating your data in a TinyBase [`MergeableStore`](https://beta.tinybase.org/api/mergeable-store/interfaces/mergeable/mergeablestore/), which captures metadata for deterministic synchronization. Each client then uses a [`Synchronizer`](https://beta.tinybase.org/api/synchronizers/interfaces/synchronizer/synchronizer/) (such as the WebSocket-based [`WsSynchronizer`](https://beta.tinybase.org/api/synchronizer-ws-client/interfaces/synchronizer/wssynchronizer/)) to negotiate changes with others. WebSockets require a lightweight server that can forward and broadcast messages between clients.
-
-*   **Pros**: This approach lets users share data between devices or with each other. Combined with client storage, this can also support offline usage with eventual reconciliation.
-*   **Cons**: There is technically no 'source of truth': each client negotiates to merge changes with each other. If all devices evict their client storage simultaneously, the data is lost.
-
-See the [`MergeableStore`](https://beta.tinybase.org/api/mergeable-store/interfaces/mergeable/mergeablestore/) documentation and the [Synchronization](https://beta.tinybase.org/guides/synchronization/) guide to understand how this works. The [Todo App v6 (collaboration)](https://beta.tinybase.org/demos/todo-app/todo-app-v6-collaboration/) demo shows client-to-client synchronization for a simple to-do list application. The server is created, in a simple Node- or Bun-style environment with the [`createWsServer`](https://beta.tinybase.org/api/synchronizer-ws-server/functions/creation/createwsserver/) function.
-
-### 5\. Client-Server [Synchronization](https://beta.tinybase.org/guides/synchronization/)
-
-From here it is only a simple step to add server storage into the mix, removing the risk of all client devices clearing their data simultaneously and it being lost.
-
-Here, the synchronizer server (which is coordinating messages between clients) _also_ acts as a 'client' with an instance of TinyBase itself. This is most usefully then persisted to a server storage solution, such as SQLite, PostgreSQL, the file system, or a Cloudflare Durable Object.
-
-*   **Pros**: The server can now be considered a more permanent 'source of truth' than clients. Authentication and data integrity can now be more easily enforced.
-*   **Cons**: The only minor downside of this approach is the need for the server to have a copy of the TinyBase store in memory, so the default solutions page it in and out from the persisted storage when clients connect or disconnect.
-
-See the [`createWsServer`](https://beta.tinybase.org/api/synchronizer-ws-server/functions/creation/createwsserver/) function for details of how to create a persister for the synchronization server, such as [`Sqlite3Persister`](https://beta.tinybase.org/api/persister-sqlite3/interfaces/persister/sqlite3persister/) or [`PostgresPersister`](https://beta.tinybase.org/api/persister-postgres/interfaces/persister/postgrespersister/).
-
-A reliable all-in-one solution is to run both synchronization and storage on Cloudflare. Check out the [Cloudflare Durable Objects](https://beta.tinybase.org/guides/integrations/cloudflare-durable-objects/) guide and the dedicated [Vite starter template](https://github.com/tinyplex/vite-tinybase-ts-react-sync-durable-object) to see how to set this up.
-
-### 6\. Third-Party [Synchronization](https://beta.tinybase.org/guides/synchronization/)
-
-For completeness, it's worth mentioning that TinyBase can also integrate with other database and synchronization platforms. In these cases, you simply persist data locally and the third-party service takes care of the synchronization to a server or cloud service.
-
-(It is also possible to persist your data via two other open-source CRDT solutions, namely Yjs and Automerge, using the [`YjsPersister`](https://beta.tinybase.org/api/persister-yjs/interfaces/persister/yjspersister/) and [`AutomergePersister`](https://beta.tinybase.org/api/persister-automerge/interfaces/persister/automergepersister/) interfaces respectively.)
-
-*   **Pros**: You can add TinyBase into applications that are already using a third-party synchronization platform. Conversely you can then abstract away your choice of synchronization platform behind a consistent TinyBase API, preventing vendor lock-in.
-*   **Cons**: This approach adds additional moving parts, other libraries, and possible fees for commercial services, based on usage.
-
-For more details on these interfaces, see the [`ElectricSqlPersister`](https://beta.tinybase.org/api/persister-electric-sql/interfaces/persister/electricsqlpersister/), [`PowerSyncPersister`](https://beta.tinybase.org/api/persister-powersync/interfaces/persister/powersyncpersister/), and [`LibSqlPersister`](https://beta.tinybase.org/api/persister-libsql/interfaces/persister/libsqlpersister/) (Turso) interfaces. The APIs, consistent with the other SQLite- and PostgreSQL-based persisters, are described in the [Database Persistence](https://beta.tinybase.org/guides/persistence/database-persistence/) guide.
-
-### Mix It Up!
-
-It should go without saying that very few of these options are mutually exclusive! You can mix and match them as you see fit, depending on the way you want your persistence and synchronization to work. Not only that, you can of course have multiple Stores in your app, each with its own persistence and synchronization strategy.
-
-For example, a complex app might have multiple TinyBase stores use in lots of different ways:
-
-*   Transient state that is stored just in memory and not preserved between sessions.
-*   Views, routes and settings that are stored in the browser's local storage.
-*   Reference data that is read in from a server at startup, perhaps then stored in a client database for faster future loads.
-*   User documents that are synchronized between clients and a server, with the server persisting them as an 'source of truth'.
-
-[TinyHub](https://tinyhub.org/#/) uses several of these techniques throughout its client app. Its [different stores](https://github.com/tinyplex/tinyhub/tree/main/client/src/stores) are each initialized with different persister strategies.
-
-### Summary
-
-TinyBase provides many different architectural choices, depending on the type of app you are building, and where you want the data to reside when not in use.
-
-Next we will show how you can quickly build user interfaces on top of a [`Store`](https://beta.tinybase.org/api/store/interfaces/store/store/), and for that, it's time to proceed to the [Building UIs](https://beta.tinybase.org/guides/building-uis/) guide.
+\# Contributors by commit history https://github.com/mdn/content/commits/main/files/en-us/learn\_web\_development/getting\_started/your\_first\_website/publishing\_your\_website/index.md # Original Wiki contributors Mori ohaver chrisdavidmills Iqbalh11 kakwanisiddharth naser-baig Rick-Manarauskis SphinxKnight 14122712 iamsamwilson Greedsy hadleyel jk777 Jeremie klez ifilin xfq samlaf markg Andrew\_Pfeiffer manasmahodaya
