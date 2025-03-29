@@ -90,13 +90,26 @@ async function main() {
   // --- Combine and Write Final Output ---
   console.log(`\nWrite: ${outputFile}`);
 
+  // --- Combine and Write Final Output ---
+  console.log(`\nWrite: ${outputFile}`);
+
+  // Reconstruct the command string for frontmatter
+  let commandParts = ['node', 'crawl.js'];
+  argv.url.forEach(url => commandParts.push('-u', JSON.stringify(url))); // Use -u for each URL, quote it
+  commandParts.push('--selector', JSON.stringify(contentSelector));
+  commandParts.push('--crawl-mode', crawlMode); // No need to quote choices
+  commandParts.push('--limit', limit.toString()); // Convert number to string
+  commandParts.push('--output', JSON.stringify(outputFile)); // Quote output filename
+  const rerunCommand = commandParts.join(' ');
+
   // Prepare frontmatter data
   const frontmatterData = {
-    command_args: {
-      url: argv.url, // Array of URLs
+    rerun_command: rerunCommand, // Add the reconstructed command
+    command_args: { // Keep original args object as well
+      url: argv.url,
       selector: contentSelector,
       'crawl-mode': crawlMode,
-      limit: limit, // Add limit to frontmatter
+      limit: limit,
       output: outputFile
     }
   };

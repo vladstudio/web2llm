@@ -85,4 +85,6 @@ node crawl.js --url <STARTING_URL> [OPTIONS]
 *   For each unique page visited (up to the limit), it extracts the inner HTML of the element matching the `--selector`.
 *   Converts the extracted HTML to Markdown.
 *   Combines Markdown from all pages across all processed starting URLs into the single `--output` file, separated by `---`.
-*   Prepends a YAML frontmatter block to the output file containing the command-line arguments used for the run.
+*   Prepends a YAML frontmatter block to the output file containing:
+    *   `command_args`: The parsed arguments used for the run.
+    *   `rerun_command`: A reconstructed command string that can be copied and pasted to rerun the script with the same parameters.

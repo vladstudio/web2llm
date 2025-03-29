@@ -1,7 +1,13 @@
 ---
+rerun_command: >-
+  node crawl.js -u
+  "https://beta.tinybase.org/guides/the-basics/getting-started/" -u
+  "https://beta.tinybase.org/guides/the-basics/creating-a-store/" --selector
+  "article" --crawl-mode strict --limit 100 --output "test.md"
 command_args:
   url:
     - https://beta.tinybase.org/guides/the-basics/getting-started/
+    - https://beta.tinybase.org/guides/the-basics/creating-a-store/
   selector: article
   crawl-mode: strict
   limit: 100
@@ -122,3 +128,34 @@ If that all worked, you are set up and ready to learn more about TinyBase! From 
 Before we move on, you should be aware that the overall package includes a number of different versions of TinyBase, transpiled for different targets and formats. You may want to take a look at the [Importing TinyBase](/guides/the-basics/importing-tinybase/) guide if the code above isn't working in your environment - React Native in particular.
 
 Let's move onto the [Creating A Store](/guides/the-basics/creating-a-store/) guide.
+
+---
+
+## Page: https://beta.tinybase.org/guides/the-basics/creating-a-store/
+
+*   [TinyBase](/)
+*   [Guides](/guides/)
+*   [The Basics](/guides/the-basics/)
+*   [Creating A Store](/guides/the-basics/creating-a-store/)
+
+# Creating A Store
+
+This guide shows you how to create a new [`Store`](/api/store/interfaces/store/store/).
+
+Creating a [`Store`](/api/store/interfaces/store/store/) requires just a simple call to the [`createStore`](/api/store/functions/creation/createstore/) function from the [`store`](/api/store/) module.
+
+    import {createStore} from 'tinybase';
+    
+    const store = createStore();
+    
+
+Easy enough! The returned [`Store`](/api/store/interfaces/store/store/) starts off empty of course:
+
+    console.log(store.getValues());
+    // -> {}
+    
+    console.log(store.getTables());
+    // -> {}
+    
+
+To fix that, let's move onto the [Writing To Stores](/guides/the-basics/writing-to-stores/) guide.
