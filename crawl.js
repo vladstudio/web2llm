@@ -31,6 +31,13 @@ async function main() {
       type: "string",
       default: "main", // Default content selector
     })
+    .option("crawl-mode", {
+      alias: "m", // Add short alias
+      description: "Set the crawling behavior",
+      type: "string",
+      choices: ["strict", "domain", "disabled"],
+      default: "strict",
+    })
     .help()
     .alias("help", "h")
     .parse(); // Parse arguments inside main
@@ -38,16 +45,19 @@ async function main() {
   // --- Call Main Logic for each URL ---
   const outputFile = argv.output;
   const contentSelector = argv.selector;
+  const crawlMode = argv.crawlMode; // Get crawl mode
   const allCombinedMarkdown = [];
   let totalScraped = 0;
 
   console.log(`Output: ${outputFile}`);
   console.log(`Selector: ${contentSelector}`);
+  console.log(`Crawl Mode: ${crawlMode}`); // Log crawl mode
 
   for (const startUrl of argv.url) {
     console.log(`\nStart: ${startUrl}`);
     try {
-      const { markdown: markdownForUrl, count: scrapedCount } = await crawlAndScrape(startUrl, contentSelector);
+      // Pass crawlMode to the function
+      const { markdown: markdownForUrl, count: scrapedCount } = await crawlAndScrape(startUrl, contentSelector, crawlMode);
       if (markdownForUrl.length > 0) {
         allCombinedMarkdown.push(...markdownForUrl); // Add content from this crawl
         totalScraped += scrapedCount;
@@ -76,7 +86,7 @@ async function main() {
 }
 
 // --- Crawling Logic for a single start URL ---
-async function crawlAndScrape(startUrl, contentSelector) {
+async function crawlAndScrape(startUrl, contentSelector, crawlMode) { // Accept crawlMode
   // Accept startUrl and selector
   // Validate URL
   let startUrlParsed;
@@ -134,10 +144,11 @@ async function crawlAndScrape(startUrl, contentSelector) {
         console.log(`Info: No content found on ${currentUrl} with selector "${contentSelector}"`);
       }
 
-      // --- Find Links ---
-      $("a").each((i, link) => {
-        const href = $(link).attr("href");
-        if (!href || href.startsWith('mailto:')) return; // Ignore empty or mailto links
+      // --- Find Links (only if crawlMode is not 'disabled' or if it's the first URL) ---
+      if (crawlMode !== 'disabled' || urlsToProcess.length === 0) { // urlsToProcess is empty only after the first URL if disabled
+        $("a").each((i, link) => {
+          const href = $(link).attr("href");
+          if (!href || href.startsWith('mailto:')) return; // Ignore empty or mailto links
 
         try {
           // Resolve relative URLs based on the *original* currentUrl
@@ -148,20 +159,30 @@ async function crawlAndScrape(startUrl, contentSelector) {
             absoluteUrlParsed.pathname +
             absoluteUrlParsed.search; // Normalize found URL
 
-          // --- Filter Links ---
+          // --- Filter Links based on crawlMode ---
+          let shouldCrawl = false;
+          if (crawlMode === 'strict') {
+            shouldCrawl = absoluteUrl.startsWith(startUrl);
+          } else if (crawlMode === 'domain') {
+            // Check if the origin (protocol + hostname + port) matches
+            shouldCrawl = absoluteUrlParsed.origin === startUrlParsed.origin;
+          }
+          // 'disabled' mode is handled by the outer 'if'
+
           if (
-            absoluteUrl.startsWith(startUrl) && // Stricter check based on feedback
+            shouldCrawl &&
             absoluteUrl !== startUrl && // Avoid re-adding start URL
             !visitedUrls.has(normalizedFoundUrl) && // Check normalized URL against visited set
             !urlsToProcess.includes(absoluteUrl) // Check original URL against queue
           ) {
             urlsToProcess.push(absoluteUrl); // Add the original URL (with hash if present) to the queue
-            // console.log(`  -> Found: ${absoluteUrl}`); // Removed for brevity
+            // console.log(`  -> Found (${crawlMode}): ${absoluteUrl}`); // Optional debug log
           }
         } catch (urlError) {
           // console.warn(`WARN: Ignoring invalid URL in link: ${href} on page ${currentUrl}`); // Optional: uncomment for debugging
         }
-      });
+      }); // End of $("a").each
+     } // End of if (crawlMode !== 'disabled'...)
     } catch (error) {
       if (axios.isAxiosError(error)) {
         // Log specific Axios error messages (e.g., 404, timeout)
