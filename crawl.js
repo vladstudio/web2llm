@@ -3,6 +3,7 @@ import { hideBin } from "yargs/helpers";
 import axios from "axios";
 import * as cheerio from "cheerio"; // Use namespace import
 import TurndownService from "turndown";
+import { gfm } from "turndown-plugin-gfm"; // Import the GFM plugin
 import fs from "fs/promises";
 import { URL } from "url";
 import yaml from "js-yaml"; // Import js-yaml
@@ -133,7 +134,9 @@ async function crawlAndScrape(startUrl, contentSelector, crawlMode, limit, curre
     throw error; // Re-throw to be caught in main loop
   }
 
-  const turndownService = new TurndownService();
+  const turndownService = new TurndownService({ headingStyle: 'atx' }); // Use ATX headings (#)
+  turndownService.use(gfm); // Enable GFM plugins (tables, strikethrough, etc.)
+
   const visitedUrlsInThisCrawl = new Set(); // Stores normalized URLs visited *within this specific crawl*
   const urlsToProcess = [startUrl]; // Stores URLs to fetch for THIS crawl
   const singleCrawlMarkdown = []; // Stores markdown for THIS crawl
