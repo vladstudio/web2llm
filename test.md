@@ -1,3 +1,13 @@
+---
+command_args:
+  url:
+    - https://beta.tinybase.org/guides/the-basics/
+    - https://beta.tinybase.org/guides/building-uis/
+  selector: article
+  crawl-mode: strict
+  output: test.md
+---
+
 ## Page: https://beta.tinybase.org/guides/the-basics/
 
 *   [TinyBase](/)
@@ -1182,3 +1192,585 @@ For example, a complex app might have multiple TinyBase stores use in lots of di
 TinyBase provides many different architectural choices, depending on the type of app you are building, and where you want the data to reside when not in use.
 
 Next we will show how you can quickly build user interfaces on top of a [`Store`](/api/store/interfaces/store/store/), and for that, it's time to proceed to the [Building UIs](/guides/building-uis/) guide.
+
+---
+
+## Page: https://beta.tinybase.org/guides/building-uis/
+
+*   [TinyBase](/)
+*   [Guides](/guides/)
+*   [Building UIs](/guides/building-uis/)
+
+Building UIs
+============
+
+These guides cover how to use the [`ui-react`](/api/ui-react/) module and use React hooks and components to easily build reactive user interfaces with TinyBase.
+
+See also the [Countries](/demos/countries/) demo, the [Todo App](/demos/todo-app/) demos, and the [Drawing](/demos/drawing/) demo.
+
+Getting Started With ui-react
+-----------------------------
+
+To build React-based user interfaces with TinyBase, you will need to install the [`ui-react`](/api/ui-react/) module in addition to the main module, and, of course, React itself. [Read more](/guides/building-uis/getting-started-with-ui-react/).
+
+Using React Hooks
+-----------------
+
+There are reactive hooks in the [`ui-react`](/api/ui-react/) module for accessing every part of a [`Store`](/api/store/interfaces/store/store/), as well as more advanced things like the [`Metrics`](/api/metrics/interfaces/metrics/metrics/) and [`Indexes`](/api/indexes/interfaces/indexes/indexes/) objects. [Read more](/guides/building-uis/using-react-hooks/).
+
+Using React Components
+----------------------
+
+The reactive components in the [`ui-react`](/api/ui-react/) module let you declaratively display parts of a [`Store`](/api/store/interfaces/store/store/). [Read more](/guides/building-uis/using-react-components/).
+
+Using React DOM Components
+--------------------------
+
+The reactive components in the [`ui-react-dom`](/api/ui-react-dom/) module let you declaratively display parts of a [`Store`](/api/store/interfaces/store/store/) in a web browser, where the ReactDOM module is available. [Read more](/guides/building-uis/using-react-dom-components/).
+
+Using Context
+-------------
+
+The [`ui-react`](/api/ui-react/) module includes a context provider that lets you avoid passing global objects down through your component hierarchy. [Read more](/guides/building-uis/using-context/).
+
+---
+
+## Page: https://beta.tinybase.org/guides/building-uis/getting-started-with-ui-react/
+
+*   [TinyBase](/)
+*   [Guides](/guides/)
+*   [Building UIs](/guides/building-uis/)
+*   [Getting Started With ui-react](/guides/building-uis/getting-started-with-ui-react/)
+
+Getting Started With ui-react
+=============================
+
+To build React-based user interfaces with TinyBase, you will need to install the [`ui-react`](/api/ui-react/) module in addition to the main module, and, of course, React itself.
+
+For example, in an HTML file, you can get started with boilerplate that might look like this:
+
+    <html>
+      <head>
+        <title>My First TinyBase App</title>
+        <script type="importmap">
+          {
+            "imports": {
+              "tinybase": "https://esm.sh/tinybase@6.0.0",
+              "tinybase/ui-react": "https://esm.sh/tinybase@6.0.0/ui-react",
+              "react": "https://esm.sh/react@19.0.0",
+              "react/jsx-runtime": "https://esm.sh/react@19.0.0/jsx-runtime",
+              "react-dom/client": "https://esm.sh/react-dom@19.0.0/client"
+            }
+          }
+        </script>
+        <script type="module" src="https://esm.sh/tsx"></script>
+        <script type="text/jsx">
+          import {createStore} from "tinybase";
+          import {CellView} from "tinybase/ui-react";
+          import {createRoot} from "react-dom/client";
+          import React from "react";
+    
+          const store = createStore();
+          store.setCell('t1', 'r1', 'c1', 'Hello World');
+          createRoot(document.body).render(
+            <CellView store={store} tableId="t1" rowId="r1" cellId="c1" />,
+          );
+        </script>
+      </head>
+      <body />
+    </html>
+    
+
+Open this file in your browser and you should see the words '[Hello World](/demos/hello-world/)' on the screen, having been written to, and read from, a [`Store`](/api/store/interfaces/store/store/), and then rendered by the [`CellView`](/api/ui-react/functions/store-components/cellview/) component from the [`ui-react`](/api/ui-react/) module.
+
+Note that the standalone `https://esm.sh/tsx` script and `text/jsx` type on the script here are merely to support JSX in the browser and for the purposes of illustrating how to get started quickly. In a production environment you should pre-compile and your JSX and modules to create a bundled browser app. If you're bundling the whole app, you can of course import the [`ui-react`](/api/ui-react/) module something like this.
+
+Boilerplate aside, let's move on to understand how to use hooks in the [`ui-react`](/api/ui-react/) module, with the [Using React Hooks](/guides/building-uis/using-react-hooks/) guide.
+
+---
+
+## Page: https://beta.tinybase.org/guides/building-uis/using-react-hooks/
+
+*   [TinyBase](/)
+*   [Guides](/guides/)
+*   [Building UIs](/guides/building-uis/)
+*   [Using React Hooks](/guides/building-uis/using-react-hooks/)
+
+Using React Hooks
+=================
+
+There are reactive hooks in the [`ui-react`](/api/ui-react/) module for accessing every part of a [`Store`](/api/store/interfaces/store/store/), as well as more advanced things like the [`Metrics`](/api/metrics/interfaces/metrics/metrics/) and [`Indexes`](/api/indexes/interfaces/indexes/indexes/) objects.
+
+By reactive hooks, we mean that the hook not only fetches part of the [`Store`](/api/store/interfaces/store/store/), but that it also registers a listener that will then cause a component to re-render if the underlying value changes. Therefore, it's easy to describe a user interface in terms of raw data in a [`Store`](/api/store/interfaces/store/store/), and know that it will stay updated when the data changes.
+
+To start with a simple example, we use the [`useCell`](/api/ui-react/functions/store-hooks/usecell/) hook in a component called `App` to get the value of a [`Cell`](/api/store/type-aliases/store/cell/) and render it in a `<span>` element. When the [`Cell`](/api/store/type-aliases/store/cell/) is updated, so is the HTML.
+
+    import React from 'react';
+    import {createRoot} from 'react-dom/client';
+    import {createStore} from 'tinybase';
+    import {useCell} from 'tinybase/ui-react';
+    
+    const store = createStore().setCell('pets', 'fido', 'color', 'brown');
+    const App = () => <span>{useCell('pets', 'fido', 'color', store)}</span>;
+    
+    const app = document.createElement('div');
+    const root = createRoot(app);
+    root.render(<App />);
+    console.log(app.innerHTML);
+    // -> '<span>brown</span>'
+    
+    store.setCell('pets', 'fido', 'color', 'walnut');
+    console.log(app.innerHTML);
+    // -> '<span>walnut</span>'
+    
+
+There are hooks that correspond to each of the [`Store`](/api/store/interfaces/store/store/) getter methods:
+
+*   The [`useValues`](/api/ui-react/functions/store-hooks/usevalues/) hook is the reactive equivalent of the [`getValues`](/api/store/interfaces/store/store/methods/getter/getvalues/) method.
+*   The [`useValueIds`](/api/ui-react/functions/store-hooks/usevalueids/) hook is the reactive equivalent of the [`getValueIds`](/api/store/interfaces/store/store/methods/getter/getvalueids/) method.
+*   The [`useValue`](/api/ui-react/functions/store-hooks/usevalue/) hook is the reactive equivalent of the [`getValue`](/api/store/interfaces/store/store/methods/getter/getvalue/) method.
+
+And for tabular data:
+
+*   The [`useTables`](/api/ui-react/functions/store-hooks/usetables/) hook is the reactive equivalent of the [`getTables`](/api/store/interfaces/store/store/methods/getter/gettables/) method.
+*   The [`useTableIds`](/api/ui-react/functions/store-hooks/usetableids/) hook is the reactive equivalent of the [`getTableIds`](/api/store/interfaces/store/store/methods/getter/gettableids/) method.
+*   The [`useTable`](/api/ui-react/functions/store-hooks/usetable/) hook is the reactive equivalent of the [`getTable`](/api/store/interfaces/store/store/methods/getter/gettable/) method.
+*   The [`useTableCellIds`](/api/ui-react/functions/store-hooks/usetablecellids/) hook is the reactive equivalent of the [`getTableCellIds`](/api/store/interfaces/store/store/methods/getter/gettablecellids/) method.
+*   The [`useRowIds`](/api/ui-react/functions/store-hooks/userowids/) hook is the reactive equivalent of the [`getRowIds`](/api/store/interfaces/store/store/methods/getter/getrowids/) method.
+*   The [`useSortedRowIds`](/api/ui-react/functions/store-hooks/usesortedrowids/) hook is the reactive equivalent of the [`getSortedRowIds`](/api/store/interfaces/store/store/methods/getter/getsortedrowids/) method.
+*   The [`useRow`](/api/ui-react/functions/store-hooks/userow/) hook is the reactive equivalent of the [`getRow`](/api/store/interfaces/store/store/methods/getter/getrow/) method.
+*   The [`useCellIds`](/api/ui-react/functions/store-hooks/usecellids/) hook is the reactive equivalent of the [`getCellIds`](/api/store/interfaces/store/store/methods/getter/getcellids/) method.
+*   The [`useCell`](/api/ui-react/functions/store-hooks/usecell/) hook is the reactive equivalent of the [`getCell`](/api/store/interfaces/store/store/methods/getter/getcell/) method.
+
+They have the same return types. For example, the [`useTable`](/api/ui-react/functions/store-hooks/usetable/) hook returns an object:
+
+    import {useTable} from 'tinybase/ui-react';
+    
+    const App2 = () => <span>{JSON.stringify(useTable('pets', store))}</span>;
+    root.render(<App2 />);
+    console.log(app.innerHTML);
+    // -> '<span>{"fido":{"color":"walnut"}}</span>'
+    
+    store.setCell('pets', 'fido', 'species', 'dog');
+    console.log(app.innerHTML);
+    // -> '<span>{"fido":{"color":"walnut","species":"dog"}}</span>'
+    
+
+When the component is unmounted, the listener will be automatically removed. This means you can use these hooks without having to worry too much about the lifecycle of how your component interacts with the [`Store`](/api/store/interfaces/store/store/).
+
+### Using Hooks To Set Data
+
+In an interactive application, you don't just want to read data. You also want to be able to set it in response to user's actions. For this purpose, there is a group of hooks that return callbacks for setting data based on events.
+
+Let's start with a simple example, the [`useSetCellCallback`](/api/ui-react/functions/store-hooks/usesetcellcallback/) hook. The [`Cell`](/api/store/type-aliases/store/cell/) to be updated needs to be identified by the [`Table`](/api/store/type-aliases/store/table/), [`Row`](/api/store/type-aliases/store/row/), and [`Cell`](/api/store/type-aliases/store/cell/) [`Id`](/api/common/type-aliases/identity/id/) parameters. The fourth parameter to the hook is a parameterized callback (that will be memoized based on the dependencies in the fifth parameter). The responsibility of that function is to return the value that will be used to update the [`Cell`](/api/store/type-aliases/store/cell/).
+
+It's probably easier to understand with an example:
+
+    import {useSetCellCallback} from 'tinybase/ui-react';
+    
+    const App3 = () => {
+      const handleClick = useSetCellCallback(
+        'pets',
+        'fido',
+        'sold',
+        (event) => event.bubbles,
+        [],
+        store,
+      );
+      return (
+        <span>
+          Sold: {useCell('pets', 'fido', 'sold', store) ? 'yes' : 'no'}
+          <br />
+          <button onClick={handleClick}>Sell</button>
+        </span>
+      );
+    };
+    root.render(<App3 />);
+    console.log(app.innerHTML);
+    // -> '<span>Sold: no<br><button>Sell</button></span>'
+    
+    const button = app.querySelector('button');
+    // User clicks the <button> element:
+    // -> button MouseEvent('click', {bubbles: true})
+    
+    console.log(store.getTables());
+    // -> {pets: {fido: {color: 'walnut', species: 'dog', sold: true}}}
+    console.log(app.innerHTML);
+    // -> '<span>Sold: yes<br><button>Sell</button></span>'
+    
+
+In the real-world, a more valid case for using the event parameter might be to handle the content of a text input to write into the [`Store`](/api/store/interfaces/store/store/). See the Todo demo for a working example of doing that with the [`useAddRowCallback`](/api/ui-react/functions/store-hooks/useaddrowcallback/) hook to add new todos.
+
+### Other Hook Types
+
+The hooks to read and write [`Store`](/api/store/interfaces/store/store/) data (described above) will be the ones you most commonly use. For completeness, there are three other broad groups of hooks. Firstly, there are those that create callbacks to delete data (such as the [`useDelRowCallback`](/api/ui-react/functions/store-hooks/usedelrowcallback/) hook), which should be self-explanatory.
+
+Then there are hooks that are used to create objects (including [`Store`](/api/store/interfaces/store/store/) objects, but also [`Metrics`](/api/metrics/interfaces/metrics/metrics/), and [`Indexes`](/api/indexes/interfaces/indexes/indexes/) objects, and so on). These are essentially convenient aliases for memoization so that object creation can be performed inside a component without fear of creating a new instance per render:
+
+    import {useCreateStore} from 'tinybase/ui-react';
+    
+    const App4 = () => {
+      const store = useCreateStore(() => {
+        console.log('Store created');
+        return createStore().setTables({pets: {fido: {species: 'dog'}}});
+      });
+      return <span>{store.getCell('pets', 'fido', 'species')}</span>;
+    };
+    
+    root.render(<App4 />);
+    // -> 'Store created'
+    
+    root.render(<App4 />);
+    // No second Store creation
+    
+
+There is also a final group of hooks that add listeners (such as the [`useCellListener`](/api/ui-react/functions/store-hooks/usecelllistener/) hook). Since the regular hooks (like the [`useCell`](/api/ui-react/functions/store-hooks/usecell/) hook) already register listeners to track changes, you won't often need to use these unless you need to establish a listener in a component that has some other side-effect, such as mutating data to enforce a schema, for example.
+
+### Summary
+
+The hooks available in the [`ui-react`](/api/ui-react/) module make it easy to connect your user interface to TinyBase [`Store`](/api/store/interfaces/store/store/) data. It also contains some convenient components that you can use to build your user interface more declaratively. For that, let's proceed to the [Using React Components](/guides/building-uis/using-react-components/) guide.
+
+---
+
+## Page: https://beta.tinybase.org/guides/building-uis/using-react-components/
+
+*   [TinyBase](/)
+*   [Guides](/guides/)
+*   [Building UIs](/guides/building-uis/)
+*   [Using React Components](/guides/building-uis/using-react-components/)
+
+Using React Components
+======================
+
+The reactive components in the [`ui-react`](/api/ui-react/) module let you declaratively display parts of a [`Store`](/api/store/interfaces/store/store/).
+
+These are all essentially convenience wrappers around the hooks we described in the [Using React Hooks](/guides/building-uis/using-react-hooks/) guide, but make it easy to build hierarchical component trees from the [`Store`](/api/store/interfaces/store/store/) data. For example, the [`ValuesView`](/api/ui-react/functions/store-components/valuesview/) component wraps around the [`useValueIds`](/api/ui-react/functions/store-hooks/usevalueids/) hook to render child [`ValueView`](/api/ui-react/functions/store-components/valueview/) components. Similarly, the [`TablesView`](/api/ui-react/functions/store-components/tablesview/) component wraps around the [`useTableIds`](/api/ui-react/functions/store-hooks/usetableids/) hook to render child [`TableView`](/api/ui-react/functions/store-components/tableview/) components, which in turn can render child [`RowView`](/api/ui-react/functions/store-components/rowview/) components and [`CellView`](/api/ui-react/functions/store-components/cellview/) components.
+
+In this simple example, the [`CellView`](/api/ui-react/functions/store-components/cellview/) component is used to render the color [`Cell`](/api/store/type-aliases/store/cell/) in a `<span>`:
+
+    import React from 'react';
+    import {createRoot} from 'react-dom/client';
+    import {createStore} from 'tinybase';
+    import {CellView} from 'tinybase/ui-react';
+    
+    const store = createStore().setCell('pets', 'fido', 'color', 'brown');
+    const App = () => (
+      <span>
+        <CellView tableId="pets" rowId="fido" cellId="color" store={store} />
+      </span>
+    );
+    
+    const app = document.createElement('div');
+    const root = createRoot(app);
+    root.render(<App />);
+    console.log(app.innerHTML);
+    // -> '<span>brown</span>'
+    
+    store.setCell('pets', 'fido', 'color', 'walnut');
+    console.log(app.innerHTML);
+    // -> '<span>walnut</span>'
+    
+
+These components have very plain default renderings, and don't even generate HTML or use ReactDOM. This means that the [`ui-react`](/api/ui-react/) module works just as well with React Native or other React-based rendering systems.
+
+It does mean though, that if you use the default [`RowView`](/api/ui-react/functions/store-components/rowview/) component, you will simply render a concatenation of the values of its Cells:
+
+    import {RowView} from 'tinybase/ui-react';
+    
+    store.setCell('pets', 'fido', 'weight', 42);
+    const App2 = () => (
+      <span>
+        <RowView tableId="pets" rowId="fido" store={store} />
+      </span>
+    );
+    
+    root.render(<App2 />);
+    console.log(app.innerHTML);
+    // -> '<span>walnut42</span>'
+    
+
+This is not a particularly nice rendering! Even for the purposes of debugging data, you may want to separate the values, and this can be cheaply done with the `separator` prop:
+
+    const App3 = () => (
+      <span>
+        <RowView tableId="pets" rowId="fido" store={store} separator="," />
+      </span>
+    );
+    
+    root.render(<App3 />);
+    console.log(app.innerHTML);
+    // -> '<span>walnut,42</span>'
+    
+
+Going further, the `debugIds` prop helps you see the structure of the objects with their [`Ids`](/api/common/type-aliases/identity/ids/).
+
+    const App4 = () => (
+      <span>
+        <RowView tableId="pets" rowId="fido" store={store} debugIds={true} />
+      </span>
+    );
+    
+    root.render(<App4 />);
+    console.log(app.innerHTML);
+    // -> '<span>fido:{color:{walnut}weight:{42}}</span>'
+    
+
+These are slightly more readable, but are still not really appropriate to actually build a user interface! For that we need to understand how to customize components.
+
+### Customizing Components
+
+More likely than JSON-like strings, you will want to customize or compose the rendering of parts of the [`Store`](/api/store/interfaces/store/store/) for your UI. The way this works is that each of the react-ui module components has a prop that takes an alternative rendering for its children.
+
+For example, the [`TableView`](/api/ui-react/functions/store-components/tableview/) component takes a `rowComponent` prop that lets you indicate how each [`Row`](/api/store/type-aliases/store/row/) should be rendered, and the [`RowView`](/api/ui-react/functions/store-components/rowview/) component takes a `cellComponent` prop that lets you indicate how each [`Cell`](/api/store/type-aliases/store/cell/) should be rendered. The component passed in to such props itself needs to be capable of taking the same props that the default component would have.
+
+To render the contents of a [`Table`](/api/store/type-aliases/store/table/) into an HTML table, therefore, you might set the components up like this:
+
+    import {TableView} from 'tinybase/ui-react';
+    
+    const MyTableView = (props) => (
+      <table>
+        <tbody>
+          <TableView {...props} rowComponent={MyRowView} />
+        </tbody>
+      </table>
+    );
+    
+    const MyRowView = (props) => (
+      <tr>
+        <th>{props.rowId}</th>
+        <RowView {...props} cellComponent={MyCellView} />
+      </tr>
+    );
+    
+    const MyCellView = (props) => (
+      <td>
+        <CellView {...props} />
+      </td>
+    );
+    
+    const App5 = () => <MyTableView store={store} tableId="pets" />;
+    root.render(<App5 />);
+    console.log(app.innerHTML);
+    // -> '<table><tbody><tr><th>fido</th><td>walnut</td><td>42</td></tr></tbody></table>'
+    
+
+That is now starting to resemble a useful UI for tabular data! A final touch here is that each view can also let you create custom props for each of its children. For example the `getRowComponentProps` prop of the [`TableView`](/api/ui-react/functions/store-components/tableview/) component should be a function that returns additional props that will be passed to each child. See the API documentation for more examples.
+
+### Summary
+
+The components available in the [`ui-react`](/api/ui-react/) module make it easy to enumerate over objects to build your user interface with customized, composed components. This will work wherever the React module does, including React Native.
+
+When you are building an app in a web browser, however, where the ReactDOM module is available, TinyBase includes pre-made HTML components. We will look at these in the next [Using React DOM Components](/guides/building-uis/using-react-dom-components/) guide.
+
+---
+
+## Page: https://beta.tinybase.org/guides/building-uis/using-react-dom-components/
+
+*   [TinyBase](/)
+*   [Guides](/guides/)
+*   [Building UIs](/guides/building-uis/)
+*   [Using React DOM Components](/guides/building-uis/using-react-dom-components/)
+
+Using React DOM Components
+==========================
+
+The reactive components in the [`ui-react-dom`](/api/ui-react-dom/) module let you declaratively display parts of a [`Store`](/api/store/interfaces/store/store/) in a web browser, where the ReactDOM module is available.
+
+These are generally implementations of the components we discussed in the previous guide, but are specifically designed to render HTML content in a browser.
+
+Styling and class names are very basic, since you are expected to style them with CSS to fit your app's overall styling.
+
+The easiest way to understand these components is to see them all in action in the [UI Components](/demos/ui-components/) demos. There are table-based components for rendering [`Tables`](/api/store/type-aliases/store/tables/), sorted [`Tables`](/api/store/type-aliases/store/tables/), [`Values`](/api/store/type-aliases/store/values/), and so on:
+
+Component
+
+Purpose
+
+[`ValuesInHtmlTable`](/api/ui-react-dom/functions/store-components/valuesinhtmltable/)
+
+Renders [`Values`](/api/store/type-aliases/store/values/).
+
+[demo](/demos/ui-components/valuesinhtmltable/)
+
+[`TableInHtmlTable`](/api/ui-react-dom/functions/store-components/tableinhtmltable/)
+
+Renders a [`Table`](/api/store/type-aliases/store/table/).
+
+[demo](/demos/ui-components/tableinhtmltable/)
+
+[`SortedTableInHtmlTable`](/api/ui-react-dom/functions/store-components/sortedtableinhtmltable/)
+
+Renders a sorted [`Table`](/api/store/type-aliases/store/table/), with optional interactivity.
+
+[demo](/demos/ui-components/sortedtableinhtmltable/)
+
+[`SliceInHtmlTable`](/api/ui-react-dom/functions/indexes-components/sliceinhtmltable/)
+
+Renders a [`Slice`](/api/indexes/type-aliases/concept/slice/) from an [`Index`](/api/indexes/type-aliases/concept/index/).
+
+[demo](/demos/ui-components/sliceinhtmltable/)
+
+[`RelationshipInHtmlTable`](/api/ui-react-dom/functions/relationships-components/relationshipinhtmltable/)
+
+Renders the local and remote [`Tables`](/api/store/type-aliases/store/tables/) of a relationship
+
+[demo](/demos/ui-components/relationshipinhtmltable/)
+
+[`ResultTableInHtmlTable`](/api/ui-react-dom/functions/queries-components/resulttableinhtmltable/)
+
+Renders a [`ResultTable`](/api/queries/type-aliases/result/resulttable/).
+
+[demo](/demos/ui-components/resulttableinhtmltable/)
+
+[`ResultSortedTableInHtmlTable`](/api/ui-react-dom/functions/queries-components/resultsortedtableinhtmltable/)
+
+Renders a sorted [`ResultTable`](/api/queries/type-aliases/result/resulttable/), with optional interactivity.
+
+[demo](/demos/ui-components/resultsortedtableinhtmltable/)
+
+There are also editable components for individual Cells and [`Values`](/api/store/type-aliases/store/values/):
+
+Component
+
+Purpose
+
+[`EditableCellView`](/api/ui-react-dom/functions/store-components/editablecellview/)
+
+Renders a [`Cell`](/api/store/type-aliases/store/cell/) and lets you change its type and value.
+
+[demo](/demos/ui-components/editablecellview/)
+
+[`EditableValueView`](/api/ui-react-dom/functions/store-components/editablevalueview/)
+
+Renders a [`Value`](/api/store/type-aliases/store/value/) and lets you change its type and value.
+
+[demo](/demos/ui-components/editablevalueview/)
+
+We finish off this section with a best practice to avoid passing the global [`Store`](/api/store/interfaces/store/store/) down into components. Please proceed to to the [Using Context](/guides/building-uis/using-context/) guide!
+
+---
+
+## Page: https://beta.tinybase.org/guides/building-uis/using-context/
+
+*   [TinyBase](/)
+*   [Guides](/guides/)
+*   [Building UIs](/guides/building-uis/)
+*   [Using Context](/guides/building-uis/using-context/)
+
+Using Context
+=============
+
+The [`ui-react`](/api/ui-react/) module includes a context provider that lets you avoid passing global objects down through your component hierarchy.
+
+One thing you may have noticed (especially with the hooks) is how we've had to reference the global [`Store`](/api/store/interfaces/store/store/) object within components (or potentially drill it through the hierarchy with props). It's very likely that your whole app (or parts of it) will use the same [`Store`](/api/store/interfaces/store/store/) throughout, though.
+
+To help with this, the [`Provider`](/api/ui-react/functions/context-components/provider/) component lets you specify a [`Store`](/api/store/interfaces/store/store/) that all the hooks and components will bind to automatically. Simply provide the [`Store`](/api/store/interfaces/store/store/) in the `store` prop, and it will be used by default. Notice how the `store` variable is not referenced in the child `Pane` component here, for example:
+
+    import React from 'react';
+    import {createRoot} from 'react-dom/client';
+    import {createStore} from 'tinybase';
+    import {CellView, Provider, useCell, useCreateStore} from 'tinybase/ui-react';
+    
+    const App = () => {
+      const store = useCreateStore(() =>
+        createStore().setTables({pets: {fido: {species: 'dog', color: 'brown'}}}),
+      );
+    
+      return (
+        <Provider store={store}>
+          <Pane />
+        </Provider>
+      );
+    };
+    
+    const Pane = () => (
+      <span>
+        <CellView tableId="pets" rowId="fido" cellId="species" />,
+        {useCell('pets', 'fido', 'color')}
+      </span>
+    );
+    
+    const app = document.createElement('div');
+    const root = createRoot(app);
+    root.render(<App />);
+    console.log(app.innerHTML);
+    // -> '<span>dog,brown</span>'
+    
+
+Obviously this requires your components to be used in a context where you know the right sort of [`Store`](/api/store/interfaces/store/store/) will be available.
+
+### Context With Multiple Stores
+
+In cases where you want to have multiple [`Store`](/api/store/interfaces/store/store/) objects available to an application, the [`Provider`](/api/ui-react/functions/context-components/provider/) component takes a `storesById` prop that is an object keyed by [`Id`](/api/common/type-aliases/identity/id/). Your hooks and components use the [`Id`](/api/common/type-aliases/identity/id/) to indicate which they want to use:
+
+    const App2 = () => {
+      const petStore = useCreateStore(() =>
+        createStore().setTables({pets: {fido: {species: 'dog'}}}),
+      );
+      const planetStore = useCreateStore(() =>
+        createStore().setTables({planets: {mars: {moons: 2}}}),
+      );
+    
+      return (
+        <Provider storesById={{pet: petStore, planet: planetStore}}>
+          <Pane2 />
+        </Provider>
+      );
+    };
+    
+    const Pane2 = () => (
+      <span>
+        <CellView tableId="pets" rowId="fido" cellId="species" store="pet" />,
+        {useCell('planets', 'mars', 'moons', 'planet')}
+      </span>
+    );
+    
+    root.render(<App2 />);
+    console.log(app.innerHTML);
+    // -> '<span>dog,2</span>'
+    
+
+### Nesting Context
+
+[`Provider`](/api/ui-react/functions/context-components/provider/) components can be nested and the contexts are merged. This last example is a little verbose, but shows how two [`Store`](/api/store/interfaces/store/store/) objects each keyed with a different [`Id`](/api/common/type-aliases/identity/id/) are both visible, despite having been set in two different [`Provider`](/api/ui-react/functions/context-components/provider/) components:
+
+    const App3 = () => {
+      const petStore = useCreateStore(() =>
+        createStore().setTables({pets: {fido: {species: 'dog'}}}),
+      );
+    
+      return (
+        <Provider storesById={{pet: petStore}}>
+          <OuterPane />
+        </Provider>
+      );
+    };
+    
+    const OuterPane = () => {
+      const planetStore = useCreateStore(() =>
+        createStore().setTables({planets: {mars: {moons: 2}}}),
+      );
+      return (
+        <Provider store={planetStore}>
+          <InnerPane />
+        </Provider>
+      );
+    };
+    
+    const InnerPane = () => (
+      <span>
+        <CellView tableId="pets" rowId="fido" cellId="species" store="pet" />,
+        {useCell('planets', 'mars', 'moons')}
+      </span>
+    );
+    
+    root.render(<App3 />);
+    console.log(app.innerHTML);
+    // -> '<span>dog,2</span>'
+    
+
+### Summary
+
+We have covered the main parts of the [`ui-react`](/api/ui-react/) module, including its hooks and components, and the way it supports context to make [`Store`](/api/store/interfaces/store/store/) objects available.
+
+Next we talk about how a [`Store`](/api/store/interfaces/store/store/) can have a [`TablesSchema`](/api/store/type-aliases/schema/tablesschema/) and can be persisted. Let's move onto the [Schemas](/guides/schemas/) guide to find out more.

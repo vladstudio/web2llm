@@ -5,6 +5,7 @@ import * as cheerio from "cheerio"; // Use namespace import
 import TurndownService from "turndown";
 import fs from "fs/promises";
 import { URL } from "url";
+import yaml from "js-yaml"; // Import js-yaml
 
 // Helper function for delay
 const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
@@ -38,6 +39,12 @@ async function main() {
       choices: ["strict", "domain", "disabled"],
       default: "strict",
     })
+    .option("limit", { // Added limit option
+      alias: "l",
+      description: "Maximum total number of pages to crawl across all start URLs",
+      type: "number",
+      default: 100,
+    })
     .help()
     .alias("help", "h")
     .parse(); // Parse arguments inside main
@@ -45,40 +52,69 @@ async function main() {
   // --- Call Main Logic for each URL ---
   const outputFile = argv.output;
   const contentSelector = argv.selector;
-  const crawlMode = argv.crawlMode; // Get crawl mode
+  const crawlMode = argv.crawlMode;
+  const limit = argv.limit; // Get limit
   const allCombinedMarkdown = [];
-  let totalScraped = 0;
+  let totalVisitedCount = 0; // Track total pages visited across all crawls
 
   console.log(`Output: ${outputFile}`);
   console.log(`Selector: ${contentSelector}`);
-  console.log(`Crawl Mode: ${crawlMode}`); // Log crawl mode
+  console.log(`Crawl Mode: ${crawlMode}`);
+  console.log(`Limit: ${limit}`); // Log limit
 
   for (const startUrl of argv.url) {
-    console.log(`\nStart: ${startUrl}`);
+    if (totalVisitedCount >= limit) { // Check limit before starting next URL
+      console.log(`Info: Global crawl limit (${limit}) reached. Skipping remaining start URLs.`);
+      break;
+    }
+    console.log(`\nStart: ${startUrl} (Visited: ${totalVisitedCount}/${limit})`);
     try {
-      // Pass crawlMode to the function
-      const { markdown: markdownForUrl, count: scrapedCount } = await crawlAndScrape(startUrl, contentSelector, crawlMode);
+      // Pass crawlMode, limit and current visited count
+      const { markdown: markdownForUrl, visited: visitedInCrawl } = await crawlAndScrape(
+        startUrl,
+        contentSelector,
+        crawlMode,
+        limit,
+        totalVisitedCount // Pass current count
+      );
       if (markdownForUrl.length > 0) {
-        allCombinedMarkdown.push(...markdownForUrl); // Add content from this crawl
-        totalScraped += scrapedCount;
+        allCombinedMarkdown.push(...markdownForUrl);
       }
+      totalVisitedCount = visitedInCrawl; // Update total count from the value returned by crawlAndScrape
     } catch (error) {
       // Error is logged within crawlAndScrape if it's an invalid URL
-      // Other errors might need logging here if needed
     }
   }
 
   // --- Combine and Write Final Output ---
   console.log(`\nWrite: ${outputFile}`);
-  const finalMarkdown = allCombinedMarkdown.join("\n\n---\n\n"); // Separator between pages
 
-  if (!finalMarkdown.trim()) {
-    console.log("Info: No content scraped. Output file will be empty.");
+  // Prepare frontmatter data
+  const frontmatterData = {
+    command_args: {
+      url: argv.url, // Array of URLs
+      selector: contentSelector,
+      'crawl-mode': crawlMode,
+      limit: limit, // Add limit to frontmatter
+      output: outputFile
+    }
+  };
+
+  // Generate YAML frontmatter string
+  const frontmatterYaml = yaml.dump(frontmatterData);
+  const frontmatterBlock = `---\n${frontmatterYaml}---\n\n`;
+
+  const markdownContent = allCombinedMarkdown.join("\n\n---\n\n"); // Separator between pages
+  const finalOutputContent = frontmatterBlock + markdownContent; // Prepend frontmatter
+
+  if (!markdownContent.trim()) {
+    console.log("Info: No content scraped. Output file will contain only frontmatter.");
   }
 
   try {
-    await fs.writeFile(outputFile, finalMarkdown.trim());
-    console.log(`OK: Saved ${totalScraped} pages to ${outputFile}`);
+    await fs.writeFile(outputFile, finalOutputContent.trim()); // Write content with frontmatter
+    // Use totalVisitedCount for the final message as it reflects attempts, not just successes
+    console.log(`OK: Visited ${totalVisitedCount} pages (limit: ${limit}). Saved content to ${outputFile}`);
   } catch (err) {
     console.error(`ERROR: Writing to ${outputFile} failed: ${err.message}`);
     process.exit(1);
@@ -86,8 +122,8 @@ async function main() {
 }
 
 // --- Crawling Logic for a single start URL ---
-async function crawlAndScrape(startUrl, contentSelector, crawlMode) { // Accept crawlMode
-  // Accept startUrl and selector
+// Accept limit and current total visited count
+async function crawlAndScrape(startUrl, contentSelector, crawlMode, limit, currentTotalVisited) {
   // Validate URL
   let startUrlParsed;
   try {
@@ -98,21 +134,12 @@ async function crawlAndScrape(startUrl, contentSelector, crawlMode) { // Accept 
   }
 
   const turndownService = new TurndownService();
-  const visitedUrls = new Set(); // Stores normalized URLs for THIS crawl
+  const visitedUrlsInThisCrawl = new Set(); // Stores normalized URLs visited *within this specific crawl*
   const urlsToProcess = [startUrl]; // Stores URLs to fetch for THIS crawl
   const singleCrawlMarkdown = []; // Stores markdown for THIS crawl
-  let scrapedCount = 0;
-  // const baseOrigin = startUrlParsed.origin;
-  // const basePathname = startUrlParsed.pathname.substring(
-  //   0,
-  //   startUrlParsed.pathname.lastIndexOf("/") + 1
-  // );
+  let visitedCountOverall = currentTotalVisited; // Track overall visited count passed in
 
-  // console.log(
-  //   `Info: Restricting crawl to origin: ${baseOrigin} and path starting with: ${basePathname}`
-  // ); // Removed as per user feedback (implied by startswith check)
-
-  while (urlsToProcess.length > 0) {
+  while (urlsToProcess.length > 0 && visitedCountOverall < limit) { // Check limit in loop condition
     const currentUrl = urlsToProcess.shift(); // Get the next URL (may have hash)
     const currentUrlParsed = new URL(currentUrl);
     const normalizedUrl =
@@ -120,13 +147,20 @@ async function crawlAndScrape(startUrl, contentSelector, crawlMode) { // Accept 
       currentUrlParsed.pathname +
       currentUrlParsed.search; // Remove hash
 
-    if (visitedUrls.has(normalizedUrl)) {
-      // console.log(`Skip: ${normalizedUrl} (already processed)`); // Optional: uncomment for debugging
-      continue; // Skip if base URL already visited
+    if (visitedUrlsInThisCrawl.has(normalizedUrl)) {
+      // console.log(`Skip: ${normalizedUrl} (already processed in this run)`); // Optional: uncomment for debugging
+      continue; // Skip if base URL already visited *in this specific crawl*
     }
 
-    console.log(`Crawl: ${currentUrl}`); // Log the original URL being fetched
-    visitedUrls.add(normalizedUrl); // Add the normalized URL to visited set
+    // Check limit *before* processing (redundant due to while loop, but safe)
+    if (visitedCountOverall >= limit) {
+        console.log(`Info: Global crawl limit (${limit}) reached during crawl for ${startUrl}.`);
+        break; // Exit the while loop for this startUrl
+    }
+
+    console.log(`Crawl: ${currentUrl} (${visitedCountOverall + 1}/${limit})`); // Show progress towards limit
+    visitedUrlsInThisCrawl.add(normalizedUrl); // Add the normalized URL to visited set for *this* crawl
+    visitedCountOverall++; // Increment global counter *after* deciding to process
 
     try {
       const response = await axios.get(currentUrl, { timeout: 10000 }); // 10s timeout
@@ -138,51 +172,62 @@ async function crawlAndScrape(startUrl, contentSelector, crawlMode) { // Accept 
       if (contentHtml) {
         const markdown = turndownService.turndown(contentHtml);
         singleCrawlMarkdown.push(`## Page: ${currentUrl}\n\n${markdown}`); // Use singleCrawlMarkdown here
-        scrapedCount++;
-        // console.log(`  -> Scraped content.`); // Removed for brevity
       } else {
         console.log(`Info: No content found on ${currentUrl} with selector "${contentSelector}"`);
       }
 
-      // --- Find Links (only if crawlMode is not 'disabled' or if it's the first URL) ---
-      if (crawlMode !== 'disabled' || urlsToProcess.length === 0) { // urlsToProcess is empty only after the first URL if disabled
+      // --- Find Links (only if crawlMode is not 'disabled') ---
+      // Check limit *before* finding/adding links
+      if (crawlMode !== 'disabled' && visitedCountOverall < limit) {
         $("a").each((i, link) => {
+          // Check limit inside loop as well, in case many links are found on one page
+          if (visitedCountOverall + urlsToProcess.length >= limit) {
+              // console.log(`Info: Limit reached while checking links on ${currentUrl}`); // Optional debug
+              return false; // Stop processing further links on this page
+          }
+
           const href = $(link).attr("href");
           if (!href || href.startsWith('mailto:')) return; // Ignore empty or mailto links
 
-        try {
-          // Resolve relative URLs based on the *original* currentUrl
-          const absoluteUrl = new URL(href, currentUrl).toString();
-          const absoluteUrlParsed = new URL(absoluteUrl);
-          const normalizedFoundUrl =
-            absoluteUrlParsed.origin +
-            absoluteUrlParsed.pathname +
-            absoluteUrlParsed.search; // Normalize found URL
+          try {
+            // Resolve relative URLs based on the *original* currentUrl
+            const absoluteUrl = new URL(href, currentUrl).toString();
+            const absoluteUrlParsed = new URL(absoluteUrl);
+            const normalizedFoundUrl =
+              absoluteUrlParsed.origin +
+              absoluteUrlParsed.pathname +
+              absoluteUrlParsed.search; // Normalize found URL
 
-          // --- Filter Links based on crawlMode ---
-          let shouldCrawl = false;
-          if (crawlMode === 'strict') {
-            shouldCrawl = absoluteUrl.startsWith(startUrl);
-          } else if (crawlMode === 'domain') {
-            // Check if the origin (protocol + hostname + port) matches
-            shouldCrawl = absoluteUrlParsed.origin === startUrlParsed.origin;
-          }
-          // 'disabled' mode is handled by the outer 'if'
+            // --- Filter Links based on crawlMode ---
+            let shouldCrawl = false;
+            if (crawlMode === 'strict') {
+              shouldCrawl = absoluteUrl.startsWith(startUrl);
+            } else if (crawlMode === 'domain') {
+              // Check if the origin (protocol + hostname + port) matches
+              shouldCrawl = absoluteUrlParsed.origin === startUrlParsed.origin;
+            }
+            // 'disabled' mode is handled by the outer 'if'
 
-          if (
-            shouldCrawl &&
-            absoluteUrl !== startUrl && // Avoid re-adding start URL
-            !visitedUrls.has(normalizedFoundUrl) && // Check normalized URL against visited set
-            !urlsToProcess.includes(absoluteUrl) // Check original URL against queue
-          ) {
-            urlsToProcess.push(absoluteUrl); // Add the original URL (with hash if present) to the queue
-            // console.log(`  -> Found (${crawlMode}): ${absoluteUrl}`); // Optional debug log
+            if (
+              shouldCrawl &&
+              absoluteUrl !== startUrl && // Avoid re-adding start URL
+              !visitedUrlsInThisCrawl.has(normalizedFoundUrl) && // Check normalized URL against visited set for *this* crawl
+              !urlsToProcess.includes(absoluteUrl) // Check original URL against queue for *this* crawl
+            ) {
+               // Check limit *before* adding to queue
+              if (visitedCountOverall + urlsToProcess.length < limit) { // Check if adding one more exceeds limit
+                   urlsToProcess.push(absoluteUrl); // Add the original URL (with hash if present) to the queue
+                   // console.log(`  -> Queued (${crawlMode}): ${absoluteUrl}`); // Optional debug log
+              } else {
+                   // console.log(`Info: Limit reached, not queueing ${absoluteUrl}`); // Optional debug log
+                   return false; // Stop processing links if adding one would exceed limit
+              }
+            }
+          } catch (urlError) {
+            // console.warn(`WARN: Ignoring invalid URL in link: ${href} on page ${currentUrl}`); // Optional: uncomment for debugging
           }
-        } catch (urlError) {
-          // console.warn(`WARN: Ignoring invalid URL in link: ${href} on page ${currentUrl}`); // Optional: uncomment for debugging
-        }
-      }); // End of $("a").each
-     } // End of if (crawlMode !== 'disabled'...)
+        }); // End of $("a").each
+       } // End of if (crawlMode !== 'disabled'...)
     } catch (error) {
       if (axios.isAxiosError(error)) {
         // Log specific Axios error messages (e.g., 404, timeout)
@@ -194,14 +239,17 @@ async function crawlAndScrape(startUrl, contentSelector, crawlMode) { // Accept 
       }
     }
 
-    // Be polite - add a small delay
-    if (urlsToProcess.length > 0) {
+    // Be polite - add a small delay (only if more processing might happen)
+    if (urlsToProcess.length > 0 && visitedCountOverall < limit) {
       await delay(200); // 200ms delay
     }
-  }
+  } // End of while loop
 
-  console.log(`Done: ${startUrl} (${scrapedCount} pages scraped)`);
-  return { markdown: singleCrawlMarkdown, count: scrapedCount }; // Return collected markdown and count
+  // Report pages visited in *this specific crawl* for the Done message
+  const pagesVisitedInThisRun = visitedCountOverall - currentTotalVisited;
+  console.log(`Done: ${startUrl} (${pagesVisitedInThisRun} pages visited in this run)`);
+  // Return collected markdown and the *updated total* visited count
+  return { markdown: singleCrawlMarkdown, visited: visitedCountOverall };
 }
 
 // --- Run the script ---

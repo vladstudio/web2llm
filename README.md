@@ -35,6 +35,7 @@ node crawl.js --url <STARTING_URL> [OPTIONS]
     *   `strict`: Only follow links if the target URL string starts with the initial URL string.
     *   `domain`: Follow any link that points to the same domain (origin) as the initial URL.
     *   `disabled`: Do not follow any links; only scrape the initial URL(s).
+*   `--limit` or `-l`: Maximum total number of pages to crawl across all start URLs (default: 100).
 *   `--help` or `-h`: Show help message.
 
 **Examples:**
@@ -65,6 +66,11 @@ node crawl.js --url <STARTING_URL> [OPTIONS]
     node crawl.js --url https://example.com/docs --crawl-mode domain
     ```
 
+6.  Crawl strictly, but stop after visiting 10 pages total:
+    ```bash
+    node crawl.js --url https://example.com/docs --limit 10
+    ```
+
 ## How it Works
 
 *   Processes each `--url` provided in sequence according to the specified `--crawl-mode`.
@@ -74,7 +80,9 @@ node crawl.js --url <STARTING_URL> [OPTIONS]
         *   `strict`: Target URL must start with the starting URL string.
         *   `domain`: Target URL must have the same origin (protocol + hostname + port) as the starting URL.
         *   `disabled`: No links are followed.
+*   Stops crawling additional pages (across all starting URLs) once the global `--limit` is reached.
 *   Ignores URL fragments (`#...`) when checking if a page has already been visited within a crawl sequence, preventing duplicate crawls of the same base page.
-*   For each unique page visited, it extracts the inner HTML of the element matching the `--selector`.
+*   For each unique page visited (up to the limit), it extracts the inner HTML of the element matching the `--selector`.
 *   Converts the extracted HTML to Markdown.
 *   Combines Markdown from all pages across all processed starting URLs into the single `--output` file, separated by `---`.
+*   Prepends a YAML frontmatter block to the output file containing the command-line arguments used for the run.
