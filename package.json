@@ -1,5 +1,5 @@
 {
-  "name": "scrap",
+  "name": "web2md",
   "version": "1.0.0",
   "description": "",
   "main": "crawl.js",
@@ -9,7 +9,7 @@
   },
   "keywords": [],
   "author": "",
-  "license": "ISC",
+  "license": "MIT",
   "dependencies": {
     "@mozilla/readability": "^0.6.0",
     "axios": "^1.8.4",
