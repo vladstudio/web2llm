@@ -6,6 +6,11 @@ const config = {
       "https://developer.mozilla.org/en-US/docs/Learn_web_development/Getting_started/Your_first_website",
     expectedFileName: "mdn.expected.md",
   },
+  mdnText: {
+    testUrl:
+      "https://developer.mozilla.org/en-US/docs/Learn_web_development/Getting_started/Your_first_website",
+    expectedFileName: "mdn-text.expected.md",
+  },
   // Add other test configurations here, e.g.:
   // anotherTest: {
   //   testUrl: "https://example.com/another-page",

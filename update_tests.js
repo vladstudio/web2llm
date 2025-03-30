@@ -29,7 +29,14 @@ for (const testId of testIds) {
     const { testUrl, expectedOutputPath } = testConfig;
 
     // Construct the command
-    const command = `node crawl.js -u "${testUrl}" -o "${expectedOutputPath}"`;
+    let command = `node crawl.js -u "${testUrl}"`; // Start building command
+
+    // Add -t flag specifically for mdnText test
+    if (testId === "mdnText") {
+      command += " -t";
+    }
+
+    command += ` -o "${expectedOutputPath}"`; // Add output path
 
     console.log(`Executing: ${command}`);
     // Execute the crawl command to update the fixture file
