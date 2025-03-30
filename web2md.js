@@ -171,11 +171,11 @@ async function main() {
 
   const frontmatterData = {
     rerun_command: rerunCommand,
-    command_args: frontmatterArgs,
+    // command_args: frontmatterArgs, // Removed as requested
   };
 
-  // Generate YAML frontmatter string
-  const frontmatterYaml = yaml.dump(frontmatterData);
+  // Generate YAML frontmatter string, disable line wrapping for the command
+  const frontmatterYaml = yaml.dump(frontmatterData, { lineWidth: -1 });
   const frontmatterBlock = `---\n${frontmatterYaml}---\n\n`;
 
   const markdownContent = allCombinedMarkdown.join("\n\n---\n\n");
