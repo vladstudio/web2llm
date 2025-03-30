@@ -8,13 +8,13 @@ Crawls web pages starting from given URLs, scrapes main content, converts to Mar
 
 ## Installation
 
-1.  Clone/download files (`crawl.js`, `package.json`).
+1.  Clone/download files (`web2md.js`, `package.json`).
 2.  In the script's directory, run: `npm install`
 
 ## Usage
 
 ```bash
-node crawl.js -u <URL1> [-u <URL2>...] [OPTIONS]
+node web2md.js -u <URL1> [-u <URL2>...] [OPTIONS]
 ```
 
 **Arguments:**
@@ -35,16 +35,16 @@ node crawl.js -u <URL1> [-u <URL2>...] [OPTIONS]
 
 ```bash
 # Crawl single site with auto-detection
-node crawl.js -u https://example.com/docs/
+node web2md.js -u https://example.com/docs/
 
 # Crawl single site with specific selector
-node crawl.js -u https://example.com/docs/ -s "#content" -o custom.md
+node web2md.js -u https://example.com/docs/ -s "#content" -o custom.md
 
 # Crawl multiple sites, limit pages, exclude /api/ paths
-node crawl.js -u https://site1.com -u https://site2.com/ -l 50 -e "/api/" -o combined.md
+node web2md.js -u https://site1.com -u https://site2.com/ -l 50 -e "/api/" -o combined.md
 
 # Crawl only initial pages (no following links)
-node crawl.js -u https://page1.com -u https://page2.com -m disabled
+node web2md.js -u https://page1.com -u https://page2.com -m disabled
 ```
 
 ## How it Works

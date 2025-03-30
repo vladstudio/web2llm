@@ -2,7 +2,7 @@
   "name": "web2md",
   "version": "1.0.0",
   "description": "",
-  "main": "crawl.js",
+  "main": "web2md.js",
   "type": "module",
   "scripts": {
     "test": "node --test test/**/*.test.js"
