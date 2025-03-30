@@ -31,7 +31,8 @@ async function main() {
     })
     .option("selector", {
       alias: "s",
-      description: "CSS selector for the main content area (optional; overrides auto-detection)",
+      description:
+        "CSS selector for the main content area (optional; overrides auto-detection)",
       type: "string",
       // No default - auto-detection is the default if this is omitted
     })
@@ -42,19 +43,24 @@ async function main() {
       choices: ["strict", "domain", "disabled"],
       default: "strict",
     })
-    .option("limit", { // Added limit option
+    .option("limit", {
+      // Added limit option
       alias: "l",
-      description: "Maximum total number of pages to crawl across all start URLs",
+      description:
+        "Maximum total number of pages to crawl across all start URLs",
       type: "number",
       default: 100,
     })
-    .option("exclude", { // Added exclude option
+    .option("exclude", {
+      // Added exclude option
       alias: "e",
       description: "Regex patterns for URLs to exclude from crawling",
       type: "array", // Accept multiple patterns
       requiresArg: true,
       // Default excludes common non-HTML file extensions
-      default: ["\\.(txt|pdf|zip|tar|gz|rar|docx?|xlsx?|pptx?|jpe?g|png|gif|svg|webp|mp[34])$"],
+      default: [
+        "\\.(txt|pdf|zip|tar|gz|rar|docx?|xlsx?|pptx?|jpe?g|png|gif|svg|webp|mp[34])$",
+      ],
     })
     .help()
     .alias("help", "h")
@@ -72,36 +78,43 @@ async function main() {
   // Compile exclude patterns into RegExp objects
   let excludeRegexes = [];
   try {
-    excludeRegexes = excludePatterns.map(pattern => new RegExp(pattern));
+    excludeRegexes = excludePatterns.map((pattern) => new RegExp(pattern));
   } catch (e) {
-    console.error(`ERROR: Invalid regex pattern provided in --exclude option: ${e.message}`);
+    console.error(
+      `ERROR: Invalid regex pattern provided in --exclude option: ${e.message}`
+    );
     process.exit(1);
   }
 
   console.log(`Output: ${outputFile}`);
-  console.log(`Selector: ${contentSelector || '(auto-detect)'}`);
+  console.log(`Selector: ${contentSelector || "(auto-detect)"}`);
   console.log(`Crawl Mode: ${crawlMode}`);
   console.log(`Limit: ${limit}`);
   if (excludeRegexes.length > 0) {
-    console.log(`Exclude Patterns: ${excludePatterns.join(', ')}`);
+    console.log(`Exclude Patterns: ${excludePatterns.join(", ")}`);
   }
 
   for (const startUrl of argv.url) {
     if (totalVisitedCount >= limit) {
-      console.log(`Info: Global crawl limit (${limit}) reached. Skipping remaining start URLs.`);
+      console.log(
+        `Info: Global crawl limit (${limit}) reached. Skipping remaining start URLs.`
+      );
       break;
     }
-    console.log(`\nStart: ${startUrl} (Visited: ${totalVisitedCount}/${limit})`);
+    console.log(
+      `\nStart: ${startUrl} (Visited: ${totalVisitedCount}/${limit})`
+    );
     try {
       // Pass compiled regexes as well
-      const { markdown: markdownForUrl, visited: visitedInCrawl } = await crawlAndScrape(
-        startUrl,
-        contentSelector,
-        crawlMode,
-        limit,
-        totalVisitedCount,
-        excludeRegexes // Pass compiled regexes
-      );
+      const { markdown: markdownForUrl, visited: visitedInCrawl } =
+        await crawlAndScrape(
+          startUrl,
+          contentSelector,
+          crawlMode,
+          limit,
+          totalVisitedCount,
+          excludeRegexes // Pass compiled regexes
+        );
       if (markdownForUrl.length > 0) {
         allCombinedMarkdown.push(...markdownForUrl);
       }
@@ -115,25 +128,27 @@ async function main() {
   console.log(`\nWrite: ${outputFile}`);
 
   // Reconstruct the command string for frontmatter
-  let commandParts = ['node', 'crawl.js'];
-  argv.url.forEach(url => commandParts.push('-u', JSON.stringify(url)));
+  let commandParts = ["node", "crawl.js"];
+  argv.url.forEach((url) => commandParts.push("-u", JSON.stringify(url)));
   if (contentSelector) {
-    commandParts.push('--selector', JSON.stringify(contentSelector));
+    commandParts.push("--selector", JSON.stringify(contentSelector));
   }
-  commandParts.push('--crawl-mode', crawlMode);
-  commandParts.push('--limit', limit.toString());
+  commandParts.push("--crawl-mode", crawlMode);
+  commandParts.push("--limit", limit.toString());
   // Add exclude patterns to command
-  excludePatterns.forEach(pattern => commandParts.push('-e', JSON.stringify(pattern)));
-  commandParts.push('--output', JSON.stringify(outputFile));
-  const rerunCommand = commandParts.join(' ');
+  excludePatterns.forEach((pattern) =>
+    commandParts.push("-e", JSON.stringify(pattern))
+  );
+  commandParts.push("--output", JSON.stringify(outputFile));
+  const rerunCommand = commandParts.join(" ");
 
   // Prepare frontmatter data
   const frontmatterArgs = {
     url: argv.url,
-    'crawl-mode': crawlMode,
+    "crawl-mode": crawlMode,
     limit: limit,
     exclude: excludePatterns, // Add exclude patterns
-    output: outputFile
+    output: outputFile,
   };
   if (contentSelector) {
     frontmatterArgs.selector = contentSelector;
@@ -141,7 +156,7 @@ async function main() {
 
   const frontmatterData = {
     rerun_command: rerunCommand,
-    command_args: frontmatterArgs
+    command_args: frontmatterArgs,
   };
 
   // Generate YAML frontmatter string
@@ -152,12 +167,16 @@ async function main() {
   const finalOutputContent = frontmatterBlock + markdownContent;
 
   if (!markdownContent.trim()) {
-    console.log("Info: No content scraped. Output file will contain only frontmatter.");
+    console.log(
+      "Info: No content scraped. Output file will contain only frontmatter."
+    );
   }
 
   try {
     await fs.writeFile(outputFile, finalOutputContent.trim());
-    console.log(`OK: Visited ${totalVisitedCount} pages (limit: ${limit}). Saved content to ${outputFile}`);
+    console.log(
+      `OK: Visited ${totalVisitedCount} pages (limit: ${limit}). Saved content to ${outputFile}`
+    );
   } catch (err) {
     console.error(`ERROR: Writing to ${outputFile} failed: ${err.message}`);
     process.exit(1);
@@ -166,7 +185,14 @@ async function main() {
 
 // --- Crawling Logic for a single start URL ---
 // Accept limit, current total visited count, and exclude regexes
-async function crawlAndScrape(startUrl, contentSelector, crawlMode, limit, currentTotalVisited, excludeRegexes) {
+async function crawlAndScrape(
+  startUrl,
+  contentSelector,
+  crawlMode,
+  limit,
+  currentTotalVisited,
+  excludeRegexes
+) {
   // Validate URL
   let startUrlParsed;
   try {
@@ -176,7 +202,7 @@ async function crawlAndScrape(startUrl, contentSelector, crawlMode, limit, curre
     throw error;
   }
 
-  const turndownService = new TurndownService({ headingStyle: 'atx' });
+  const turndownService = new TurndownService({ headingStyle: "atx" });
   turndownService.use(gfm);
 
   const visitedUrlsInThisCrawl = new Set();
@@ -193,10 +219,12 @@ async function crawlAndScrape(startUrl, contentSelector, crawlMode, limit, curre
       currentUrlParsed.search;
 
     // Check exclusion patterns *before* checking visited or processing
-    const isExcludedInitially = excludeRegexes.some(regex => regex.test(currentUrl));
+    const isExcludedInitially = excludeRegexes.some((regex) =>
+      regex.test(currentUrl)
+    );
     if (isExcludedInitially) {
-        console.log(`Skip: ${currentUrl} (matches exclude pattern)`);
-        continue;
+      console.log(`Skip: ${currentUrl} (matches exclude pattern)`);
+      continue;
     }
 
     if (visitedUrlsInThisCrawl.has(normalizedUrl)) {
@@ -204,8 +232,10 @@ async function crawlAndScrape(startUrl, contentSelector, crawlMode, limit, curre
     }
 
     if (visitedCountOverall >= limit) {
-        console.log(`Info: Global crawl limit (${limit}) reached during crawl for ${startUrl}.`);
-        break;
+      console.log(
+        `Info: Global crawl limit (${limit}) reached during crawl for ${startUrl}.`
+      );
+      break;
     }
 
     console.log(`Crawl, ${visitedCountOverall + 1}/${limit}: ${currentUrl}`);
@@ -219,7 +249,9 @@ async function crawlAndScrape(startUrl, contentSelector, crawlMode, limit, curre
 
       // --- Scrape Content ---
       if (contentSelector) {
-        console.log(`Info: Using provided selector "${contentSelector}" for ${currentUrl}`);
+        console.log(
+          `Info: Using provided selector "${contentSelector}" for ${currentUrl}`
+        );
         const $ = cheerio.load(html);
         contentHtml = $(contentSelector).html();
       } else {
@@ -230,10 +262,14 @@ async function crawlAndScrape(startUrl, contentSelector, crawlMode, limit, curre
           if (article && article.content) {
             contentHtml = article.content;
           } else {
-            console.warn(`WARN: Readability could not extract content from ${currentUrl}.`);
+            console.warn(
+              `WARN: Readability could not extract content from ${currentUrl}.`
+            );
           }
         } catch (readabilityError) {
-            console.warn(`WARN: Readability processing failed for ${currentUrl}: ${readabilityError.message}`);
+          console.warn(
+            `WARN: Readability processing failed for ${currentUrl}: ${readabilityError.message}`
+          );
         }
       }
 
@@ -241,21 +277,23 @@ async function crawlAndScrape(startUrl, contentSelector, crawlMode, limit, curre
         const markdown = turndownService.turndown(contentHtml);
         singleCrawlMarkdown.push(`## Page: ${currentUrl}\n\n${markdown}`);
       } else {
-         if(contentSelector && !contentHtml) {
-             console.log(`Info: No content found on ${currentUrl} with selector "${contentSelector}"`);
-         }
+        if (contentSelector && !contentHtml) {
+          console.log(
+            `Info: No content found on ${currentUrl} with selector "${contentSelector}"`
+          );
+        }
       }
 
       // --- Find Links (only if crawlMode is not 'disabled') ---
-      if (crawlMode !== 'disabled' && visitedCountOverall < limit) {
+      if (crawlMode !== "disabled" && visitedCountOverall < limit) {
         const $ = cheerio.load(html);
         $("a").each((i, link) => {
           if (visitedCountOverall + urlsToProcess.length >= limit) {
-              return false;
+            return false;
           }
 
           const href = $(link).attr("href");
-          if (!href || href.startsWith('mailto:')) return;
+          if (!href || href.startsWith("mailto:")) return;
 
           try {
             const absoluteUrl = new URL(href, currentUrl).toString();
@@ -266,9 +304,9 @@ async function crawlAndScrape(startUrl, contentSelector, crawlMode, limit, curre
               absoluteUrlParsed.search;
 
             let shouldCrawl = false;
-            if (crawlMode === 'strict') {
+            if (crawlMode === "strict") {
               shouldCrawl = absoluteUrl.startsWith(startUrl);
-            } else if (crawlMode === 'domain') {
+            } else if (crawlMode === "domain") {
               shouldCrawl = absoluteUrlParsed.origin === startUrlParsed.origin;
             }
 
@@ -279,30 +317,36 @@ async function crawlAndScrape(startUrl, contentSelector, crawlMode, limit, curre
               !urlsToProcess.includes(absoluteUrl)
             ) {
               // Check exclusion patterns *before* queueing
-              const isExcluded = excludeRegexes.some(regex => regex.test(absoluteUrl));
+              const isExcluded = excludeRegexes.some((regex) =>
+                regex.test(absoluteUrl)
+              );
 
               if (!isExcluded) {
                 // Check limit *before* adding to queue
                 if (visitedCountOverall + urlsToProcess.length < limit) {
-                     urlsToProcess.push(absoluteUrl);
-                     // console.log(`  -> Queued (${crawlMode}): ${absoluteUrl}`); // Optional debug log
+                  urlsToProcess.push(absoluteUrl);
+                  // console.log(`  -> Queued (${crawlMode}): ${absoluteUrl}`); // Optional debug log
                 } else {
-                     // console.log(`Info: Limit reached, not queueing ${absoluteUrl}`); // Optional debug log
-                     return false; // Stop processing links if adding one would exceed limit
+                  // console.log(`Info: Limit reached, not queueing ${absoluteUrl}`); // Optional debug log
+                  return false; // Stop processing links if adding one would exceed limit
                 }
               } else {
-                  console.log(`Skip: ${absoluteUrl}`);
+                console.log(`Skip: ${absoluteUrl}`);
               }
             }
           } catch (urlError) {
             // Ignore invalid URLs in links
           }
         });
-       }
+      }
     } catch (error) {
       if (axios.isAxiosError(error)) {
-        const status = error.response?.status ? ` (Status: ${error.response.status})` : '';
-        console.warn(`WARN: Fetch failed for ${currentUrl}: ${error.message}${status}`);
+        const status = error.response?.status
+          ? ` (Status: ${error.response.status})`
+          : "";
+        console.warn(
+          `WARN: Fetch failed for ${currentUrl}: ${error.message}${status}`
+        );
       } else {
         console.error(`ERROR: Processing ${currentUrl}: ${error.message}`);
       }
@@ -314,7 +358,9 @@ async function crawlAndScrape(startUrl, contentSelector, crawlMode, limit, curre
   }
 
   const pagesVisitedInThisRun = visitedCountOverall - currentTotalVisited;
-  console.log(`Done: ${startUrl} (${pagesVisitedInThisRun} pages visited in this run)`);
+  console.log(
+    `Done: ${startUrl} (${pagesVisitedInThisRun} pages visited in this run)`
+  );
   return { markdown: singleCrawlMarkdown, visited: visitedCountOverall };
 }
 
