@@ -28,7 +28,8 @@ node crawl.js -u <URL1> [-u <URL2>...] [OPTIONS]
     *   `disabled`: Do not follow links.
 *   `-l`, `--limit`: Max total pages to crawl (default: 100).
 *   `-e`, `--exclude`: Regex pattern(s) to exclude URLs. Overrides default non-HTML file exclusion. Provide multiple times for multiple patterns.
-*   `-h`, `--help`: Show help message.
+*   `-h`, `--href`: Keep links in the output markdown. By default, links are stripped, keeping only the text content.
+*   `--help`: Show help message.
 
 ##  Examples
 

@@ -36,8 +36,9 @@ describe("crawl.js E2E tests", () => {
   // Clean up after tests run
   after(cleanup);
 
-  it("should generate correct markdown for MDN page", () => {
-    const command = `node crawl.js -u "${testUrl}" -o ${outputFileName}`;
+  it("should generate correct markdown with links kept when --href is used", () => {
+    // Added --href flag to keep links
+    const command = `node crawl.js -u "${testUrl}" --href -o ${outputFileName}`;
 
     try {
       // Execute the crawl command

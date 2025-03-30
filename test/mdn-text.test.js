@@ -37,9 +37,9 @@ describe("crawl.js E2E tests for MDN Text", () => {
   // Clean up after tests run
   after(cleanup);
 
-  it("should generate correct text markdown for MDN page", () => {
-    // Added -t flag for text content
-    const command = `node crawl.js -u "${testUrl}" -t -o ${outputFileName}`;
+  it("should generate correct markdown with links stripped (default behavior) for MDN page", () => {
+    // -t flag removed, as stripping links is now the default
+    const command = `node crawl.js -u "${testUrl}" -o ${outputFileName}`;
 
     try {
       // Execute the crawl command
