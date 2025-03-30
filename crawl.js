@@ -62,6 +62,12 @@ async function main() {
         "\\.(txt|pdf|zip|tar|gz|rar|docx?|xlsx?|pptx?|jpe?g|png|gif|svg|webp|mp[34])$",
       ],
     })
+    .option("text", { // Added text option
+      alias: "t",
+      description: "Strip links, keeping only the text content",
+      type: "boolean",
+      default: false,
+    })
     .help()
     .alias("help", "h")
     .parse(); // Parse arguments inside main
@@ -72,6 +78,7 @@ async function main() {
   const crawlMode = argv.crawlMode;
   const limit = argv.limit;
   const excludePatterns = argv.exclude; // Get exclude patterns
+  const textOnly = argv.text; // Get text-only flag
   const allCombinedMarkdown = [];
   let totalVisitedCount = 0;
 
@@ -90,6 +97,7 @@ async function main() {
   console.log(`Selector: ${contentSelector || "(auto-detect)"}`);
   console.log(`Crawl Mode: ${crawlMode}`);
   console.log(`Limit: ${limit}`);
+  console.log(`Text Only (Strip Links): ${textOnly}`); // Log the new option
   if (excludeRegexes.length > 0) {
     console.log(`Exclude Patterns: ${excludePatterns.join(", ")}`);
   }
@@ -113,7 +121,8 @@ async function main() {
           crawlMode,
           limit,
           totalVisitedCount,
-          excludeRegexes // Pass compiled regexes
+          excludeRegexes, // Pass compiled regexes
+          textOnly // Pass textOnly flag
         );
       if (markdownForUrl.length > 0) {
         allCombinedMarkdown.push(...markdownForUrl);
@@ -139,6 +148,9 @@ async function main() {
   excludePatterns.forEach((pattern) =>
     commandParts.push("-e", JSON.stringify(pattern))
   );
+  if (textOnly) { // Add text flag to command if true
+      commandParts.push("--text");
+  }
   commandParts.push("--output", JSON.stringify(outputFile));
   const rerunCommand = commandParts.join(" ");
 
@@ -152,6 +164,9 @@ async function main() {
   };
   if (contentSelector) {
     frontmatterArgs.selector = contentSelector;
+  }
+  if (textOnly) { // Add text flag to frontmatter if true
+    frontmatterArgs.text = textOnly;
   }
 
   const frontmatterData = {
@@ -191,7 +206,8 @@ async function crawlAndScrape(
   crawlMode,
   limit,
   currentTotalVisited,
-  excludeRegexes
+  excludeRegexes,
+  textOnly // Accept textOnly flag
 ) {
   // Validate URL
   let startUrlParsed;
@@ -203,7 +219,20 @@ async function crawlAndScrape(
   }
 
   const turndownService = new TurndownService({ headingStyle: "atx" });
-  turndownService.use(gfm);
+
+  // Conditionally add rule to strip links
+  if (textOnly) {
+    turndownService.addRule('stripLink', {
+      filter: 'a',
+      replacement: function (content) {
+        // Keep only the inner content (text), discard the link itself
+        return content;
+      }
+    });
+    console.log("Info: Stripping links (keeping text only).");
+  }
+
+  turndownService.use(gfm); // Apply GFM rules after custom rules if needed
 
   const visitedUrlsInThisCrawl = new Set();
   const urlsToProcess = [startUrl];
