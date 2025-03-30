@@ -4,7 +4,7 @@ rerun_command: >-
   "https://developer.mozilla.org/en-US/docs/Learn_web_development/Getting_started/Your_first_website"
   --crawl-mode strict --limit 100 -e
   "\\.(txt|pdf|zip|tar|gz|rar|docx?|xlsx?|pptx?|jpe?g|png|gif|svg|webp|mp[34])$"
-  --output "/Users/vlad/Code/web2md/test/fixtures/mdn.expected.md"
+  --href --output "/Users/vlad/Code/web2md/test/fixtures/mdn.expected.md"
 command_args:
   url:
     - >-
@@ -15,6 +15,7 @@ command_args:
     - >-
       \.(txt|pdf|zip|tar|gz|rar|docx?|xlsx?|pptx?|jpe?g|png|gif|svg|webp|mp[34])$
   output: /Users/vlad/Code/web2md/test/fixtures/mdn.expected.md
+  href: true
 ---
 
 ## Page: https://developer.mozilla.org/en-US/docs/Learn_web_development/Getting_started/Your_first_website

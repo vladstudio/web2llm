@@ -31,10 +31,11 @@ for (const testId of testIds) {
     // Construct the command
     let command = `node crawl.js -u "${testUrl}"`; // Start building command
 
-    // Add -t flag specifically for mdnText test
-    if (testId === "mdnText") {
-      command += " -t";
+    // Add --href flag specifically for the 'mdn' test (or others that need links)
+    if (testId === "mdn") { // Check for the test ID that should keep links
+      command += " --href"; // Add the new flag
     }
+    // The 'mdnText' test (and any others) will run without the flag, using the default link stripping
 
     command += ` -o "${expectedOutputPath}"`; // Add output path
 

@@ -3,7 +3,7 @@ rerun_command: >-
   node crawl.js -u "https://beta.tinybase.org/guides/schemas/" --crawl-mode
   strict --limit 100 -e
   "\\.(txt|pdf|zip|tar|gz|rar|docx?|xlsx?|pptx?|jpe?g|png|gif|svg|webp|mp[34])$"
-  --text --output "test.md"
+  --output "test.md"
 command_args:
   url:
     - https://beta.tinybase.org/guides/schemas/
@@ -13,7 +13,6 @@ command_args:
     - >-
       \.(txt|pdf|zip|tar|gz|rar|docx?|xlsx?|pptx?|jpe?g|png|gif|svg|webp|mp[34])$
   output: test.md
-  text: true
 ---
 
 ## Page: https://beta.tinybase.org/guides/schemas/
