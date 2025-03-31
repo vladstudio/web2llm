@@ -1,5 +1,5 @@
 ---
-rerun_command: node web2md.js -u "https://developer.mozilla.org/en-US/docs/Learn_web_development/Getting_started/Your_first_website" --output "/Users/vlad/Code/web2md/test/fixtures/mdn-text.expected.md"
+rerun_command: node web2md.js -u "https://developer.mozilla.org/en-US/docs/Learn_web_development/Getting_started/Your_first_website" --output "test/fixtures/mdn-text.expected.md"
 ---
 
 ## Page: https://developer.mozilla.org/en-US/docs/Learn_web_development/Getting_started/Your_first_website
