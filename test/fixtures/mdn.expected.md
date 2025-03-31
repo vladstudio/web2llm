@@ -1,10 +1,5 @@
 ---
-rerun_command: >-
-  node crawl.js -u
-  "https://developer.mozilla.org/en-US/docs/Learn_web_development/Getting_started/Your_first_website"
-  --crawl-mode strict --limit 100 -e
-  "\\.(txt|pdf|zip|tar|gz|rar|docx?|xlsx?|pptx?|jpe?g|png|gif|svg|webp|mp[34])$"
-  --href --output "/Users/vlad/Code/web2md/test/fixtures/mdn.expected.md"
+rerun_command: node web2md.js -u "https://developer.mozilla.org/en-US/docs/Learn_web_development/Getting_started/Your_first_website" --href --output "/Users/vlad/Code/web2md/test/fixtures/mdn.expected.md"
 ---
 
 ## Page: https://developer.mozilla.org/en-US/docs/Learn_web_development/Getting_started/Your_first_website
@@ -51,7 +46,7 @@ Once you finish writing the code and organizing the files that make up your webs
 
 ## [See also](#see_also)
 
-[The Frontend Developer Career Path](https://v2.scrimba.com/the-frontend-developer-career-path-c0j?via=mdn) _MDN learning partner_
+[The Frontend Developer Career Path](https://scrimba.com/the-frontend-developer-career-path-c0j?via=mdn) _MDN learning partner_
 
 [Scrimba's](https://scrimba.com/?via=mdn) _Frontend Developer Career Path_ teaches all you need to know to be a competent front-end web developer, with fun interactive lessons and challenges, knowledgeable teachers, and a supportive community. Go from zero to landing your first front-end job! Many of the course components are available as standalone free versions.
 

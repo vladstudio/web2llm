@@ -1,10 +1,5 @@
 ---
-rerun_command: >-
-  node crawl.js -u
-  "https://developer.mozilla.org/en-US/docs/Learn_web_development/Getting_started/Your_first_website"
-  --crawl-mode strict --limit 100 -e
-  "\\.(txt|pdf|zip|tar|gz|rar|docx?|xlsx?|pptx?|jpe?g|png|gif|svg|webp|mp[34])$"
-  --output "/Users/vlad/Code/web2md/test/fixtures/mdn-text.expected.md"
+rerun_command: node web2md.js -u "https://developer.mozilla.org/en-US/docs/Learn_web_development/Getting_started/Your_first_website" --output "/Users/vlad/Code/web2md/test/fixtures/mdn-text.expected.md"
 ---
 
 ## Page: https://developer.mozilla.org/en-US/docs/Learn_web_development/Getting_started/Your_first_website

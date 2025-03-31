@@ -13,61 +13,63 @@ import { JSDOM } from "jsdom"; // Import JSDOM
 // Helper function for delay
 const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
+const optionsConfig = {
+  url: {
+    alias: "u",
+    description: "One or more starting URLs to crawl",
+    type: "array", // Accept multiple URLs
+    demandOption: true,
+    requiresArg: true,
+  },
+  output: {
+    alias: "o",
+    description: "Output file name for the merged Markdown",
+    type: "string",
+    default: "output.md", // Default output filename
+  },
+  selector: {
+    alias: "s",
+    description:
+      "CSS selector for the main content area (optional; overrides auto-detection)",
+    type: "string",
+    // No default - auto-detection is the default if this is omitted
+  },
+  "crawl-mode": {
+    alias: "m",
+    description: "Set the crawling behavior",
+    type: "string",
+    choices: ["strict", "domain", "disabled"],
+    default: "strict",
+  },
+  limit: {
+    alias: "l",
+    description: "Maximum total number of pages to crawl across all start URLs",
+    type: "number",
+    default: 100,
+  },
+  exclude: {
+    alias: "e",
+    description: "Regex patterns for URLs to exclude from crawling",
+    type: "array", // Accept multiple patterns
+    requiresArg: true,
+    // Default excludes common non-HTML file extensions
+    default: [
+      "\\.(txt|pdf|zip|tar|gz|rar|docx?|xlsx?|pptx?|jpe?g|png|gif|svg|webp|mp[34])$",
+    ],
+  },
+  href: {
+    alias: "h",
+    description: "Keep links instead of stripping them", // Updated description
+    type: "boolean",
+    default: false,
+  },
+};
+
 async function main() {
-  // --- Argument Parsing ---
   const argv = yargs(hideBin(process.argv))
-    .option("url", {
-      alias: "u",
-      description: "One or more starting URLs to crawl",
-      type: "array", // Accept multiple URLs
-      demandOption: true,
-      requiresArg: true,
-    })
-    .option("output", {
-      alias: "o",
-      description: "Output file name for the merged Markdown",
-      type: "string",
-      default: "output.md", // Default output filename
-    })
-    .option("selector", {
-      alias: "s",
-      description:
-        "CSS selector for the main content area (optional; overrides auto-detection)",
-      type: "string",
-      // No default - auto-detection is the default if this is omitted
-    })
-    .option("crawl-mode", {
-      alias: "m",
-      description: "Set the crawling behavior",
-      type: "string",
-      choices: ["strict", "domain", "disabled"],
-      default: "strict",
-    })
-    .option("limit", {
-      alias: "l",
-      description:
-        "Maximum total number of pages to crawl across all start URLs",
-      type: "number",
-      default: 100,
-    })
-    .option("exclude", {
-      alias: "e",
-      description: "Regex patterns for URLs to exclude from crawling",
-      type: "array", // Accept multiple patterns
-      requiresArg: true,
-      // Default excludes common non-HTML file extensions
-      default: [
-        "\\.(txt|pdf|zip|tar|gz|rar|docx?|xlsx?|pptx?|jpe?g|png|gif|svg|webp|mp[34])$",
-      ],
-    })
-    .option("href", {
-      alias: "h",
-      description: "Keep links instead of stripping them", // Updated description
-      type: "boolean",
-      default: false,
-    })
+    .options(optionsConfig)
     .help()
-    .parse(); // Parse arguments inside main
+    .parse();
 
   // --- Call Main Logic for each URL ---
   const outputFile = argv.output;
@@ -133,24 +135,36 @@ async function main() {
   // --- Combine and Write Final Output ---
   console.log(`\nWrite: ${outputFile}`);
 
-  // Reconstruct the command string for frontmatter
-  let commandParts = ["node", "crawl.js"];
-  argv.url.forEach((url) => commandParts.push("-u", JSON.stringify(url)));
+  // Reconstruct the command string for frontmatter, only adding non-default values
+  let commandParts = ["node", "web2md.js"]; // Assuming the script name is web2md.js
+  argv.url.forEach((url) => commandParts.push("-u", JSON.stringify(url))); // URL is mandatory
+
   if (contentSelector) {
     commandParts.push("--selector", JSON.stringify(contentSelector));
   }
-  commandParts.push("--crawl-mode", crawlMode);
-  commandParts.push("--limit", limit.toString());
-  excludePatterns.forEach((pattern) =>
-    commandParts.push("-e", JSON.stringify(pattern))
-  );
-  if (keepLinks) {
+  if (crawlMode !== optionsConfig["crawl-mode"].default) {
+    commandParts.push("--crawl-mode", crawlMode);
+  }
+  if (limit !== optionsConfig.limit.default) {
+    commandParts.push("--limit", limit.toString());
+  }
+  if (
+    JSON.stringify(excludePatterns) !==
+    JSON.stringify(optionsConfig.exclude.default)
+  ) {
+    excludePatterns.forEach((pattern) =>
+      commandParts.push("-e", JSON.stringify(pattern))
+    );
+  }
+  if (keepLinks !== optionsConfig.href.default) {
     commandParts.push("--href");
   }
-  commandParts.push("--output", JSON.stringify(outputFile));
+  if (outputFile !== optionsConfig.output.default) {
+    commandParts.push("--output", JSON.stringify(outputFile));
+  }
   const rerunCommand = commandParts.join(" ");
 
-  // Prepare frontmatter data
+  // Prepare frontmatter data (keep this as is, it reflects actual used values)
   const frontmatterArgs = {
     url: argv.url,
     "crawl-mode": crawlMode,
