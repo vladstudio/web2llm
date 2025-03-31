@@ -37,14 +37,13 @@ async function main() {
       // No default - auto-detection is the default if this is omitted
     })
     .option("crawl-mode", {
-      alias: "m", // Add short alias
+      alias: "m",
       description: "Set the crawling behavior",
       type: "string",
       choices: ["strict", "domain", "disabled"],
       default: "strict",
     })
     .option("limit", {
-      // Added limit option
       alias: "l",
       description:
         "Maximum total number of pages to crawl across all start URLs",
@@ -52,7 +51,6 @@ async function main() {
       default: 100,
     })
     .option("exclude", {
-      // Added exclude option
       alias: "e",
       description: "Regex patterns for URLs to exclude from crawling",
       type: "array", // Accept multiple patterns
@@ -62,14 +60,13 @@ async function main() {
         "\\.(txt|pdf|zip|tar|gz|rar|docx?|xlsx?|pptx?|jpe?g|png|gif|svg|webp|mp[34])$",
       ],
     })
-    .option("href", { // Changed from --text
-      alias: "h", // Changed from -t
+    .option("href", {
+      alias: "h",
       description: "Keep links instead of stripping them", // Updated description
       type: "boolean",
-      default: false, // Default is now to strip links (keepLinks = false)
+      default: false,
     })
     .help()
-    // Note: help alias 'h' is removed as it conflicts with 'href'
     .parse(); // Parse arguments inside main
 
   // --- Call Main Logic for each URL ---
@@ -77,8 +74,8 @@ async function main() {
   const contentSelector = argv.selector; // Will be undefined if not provided
   const crawlMode = argv.crawlMode;
   const limit = argv.limit;
-  const excludePatterns = argv.exclude; // Get exclude patterns
-  const keepLinks = argv.href; // Renamed from textOnly, using new arg name
+  const excludePatterns = argv.exclude;
+  const keepLinks = argv.href;
   const allCombinedMarkdown = [];
   let totalVisitedCount = 0;
 
@@ -97,7 +94,7 @@ async function main() {
   console.log(`Selector: ${contentSelector || "(auto-detect)"}`);
   console.log(`Crawl Mode: ${crawlMode}`);
   console.log(`Limit: ${limit}`);
-  console.log(`Keep Links: ${keepLinks}`); // Updated log message
+  console.log(`Keep Links: ${keepLinks}`);
   if (excludeRegexes.length > 0) {
     console.log(`Exclude Patterns: ${excludePatterns.join(", ")}`);
   }
@@ -121,8 +118,8 @@ async function main() {
           crawlMode,
           limit,
           totalVisitedCount,
-          excludeRegexes, // Pass compiled regexes
-          keepLinks // Pass renamed flag
+          excludeRegexes,
+          keepLinks
         );
       if (markdownForUrl.length > 0) {
         allCombinedMarkdown.push(...markdownForUrl);
@@ -144,12 +141,11 @@ async function main() {
   }
   commandParts.push("--crawl-mode", crawlMode);
   commandParts.push("--limit", limit.toString());
-  // Add exclude patterns to command
   excludePatterns.forEach((pattern) =>
     commandParts.push("-e", JSON.stringify(pattern))
   );
-  if (keepLinks) { // Add href flag to command if true
-      commandParts.push("--href"); // Use new flag name
+  if (keepLinks) {
+    commandParts.push("--href");
   }
   commandParts.push("--output", JSON.stringify(outputFile));
   const rerunCommand = commandParts.join(" ");
@@ -165,13 +161,13 @@ async function main() {
   if (contentSelector) {
     frontmatterArgs.selector = contentSelector;
   }
-  if (keepLinks) { // Add href flag to frontmatter if true
+  if (keepLinks) {
+    // Add href flag to frontmatter if true
     frontmatterArgs.href = keepLinks; // Use new flag name
   }
 
   const frontmatterData = {
     rerun_command: rerunCommand,
-    // command_args: frontmatterArgs, // Removed as requested
   };
 
   // Generate YAML frontmatter string, disable line wrapping for the command
@@ -221,13 +217,14 @@ async function crawlAndScrape(
   const turndownService = new TurndownService({ headingStyle: "atx" });
 
   // Conditionally add rule to strip links (Default behavior)
-  if (!keepLinks) { // Inverted logic: strip if keepLinks is false
-    turndownService.addRule('stripLink', {
-      filter: 'a',
+  if (!keepLinks) {
+    // Inverted logic: strip if keepLinks is false
+    turndownService.addRule("stripLink", {
+      filter: "a",
       replacement: function (content) {
         // Keep only the inner content (text), discard the link itself
         return content;
-      }
+      },
     });
     console.log("Info: Stripping links (default). Use --href to keep them."); // Updated log
   } else {
