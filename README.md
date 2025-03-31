@@ -1,4 +1,4 @@
-# web2md
+# web2llm
 
 Crawls web pages starting from given URLs, scrapes main content, converts to Markdown, and merges into one file. Features automatic content detection, crawl scoping, page limits, exclusions, and GFM table conversion.
 
@@ -8,13 +8,13 @@ Crawls web pages starting from given URLs, scrapes main content, converts to Mar
 
 ## Installation
 
-1.  Clone/download files (`web2md.js`, `package.json`).
+1.  Clone/download files (`web2llm.js`, `package.json`).
 2.  In the script's directory, run: `npm install`
 
 ## Usage
 
 ```bash
-node web2md.js -u <URL1> [-u <URL2>...] [OPTIONS]
+node web2llm.js -u <URL1> [-u <URL2>...] [OPTIONS]
 ```
 
 **Arguments:**
@@ -35,16 +35,16 @@ node web2md.js -u <URL1> [-u <URL2>...] [OPTIONS]
 
 ```bash
 # Crawl single site with auto-detection
-node web2md.js -u https://example.com/docs/
+node web2llm.js -u https://example.com/docs/
 
 # Crawl single site with specific selector
-node web2md.js -u https://example.com/docs/ -s "#content" -o custom.md
+node web2llm.js -u https://example.com/docs/ -s "#content" -o custom.md
 
 # Crawl multiple sites, limit pages, exclude /api/ paths
-node web2md.js -u https://site1.com -u https://site2.com/ -l 50 -e "/api/" -o combined.md
+node web2llm.js -u https://site1.com -u https://site2.com/ -l 50 -e "/api/" -o combined.md
 
 # Crawl only initial pages (no following links)
-node web2md.js -u https://page1.com -u https://page2.com -m disabled
+node web2llm.js -u https://page1.com -u https://page2.com -m disabled
 ```
 
 ## How it Works

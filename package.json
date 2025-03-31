@@ -1,8 +1,8 @@
 {
-  "name": "web2md",
+  "name": "web2llm",
   "version": "1.0.0",
   "description": "",
-  "main": "web2md.js",
+  "main": "web2llm.js",
   "type": "module",
   "scripts": {
     "test": "node --test test/**/*.test.js"

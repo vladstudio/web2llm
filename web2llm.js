@@ -136,7 +136,7 @@ async function main() {
   console.log(`\nWrite: ${outputFile}`);
 
   // Reconstruct the command string for frontmatter, only adding non-default values
-  let commandParts = ["node", "web2md.js"]; // Assuming the script name is web2md.js
+  let commandParts = ["node", "web2llm.js"]; // Assuming the script name is web2llm.js
   argv.url.forEach((url) => commandParts.push("-u", JSON.stringify(url))); // URL is mandatory
 
   if (contentSelector) {

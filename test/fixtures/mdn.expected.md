@@ -1,5 +1,5 @@
 ---
-rerun_command: node web2md.js -u "https://developer.mozilla.org/en-US/docs/Learn_web_development/Getting_started/Your_first_website" --href --output "test/fixtures/mdn.expected.md"
+rerun_command: node web2llm.js -u "https://developer.mozilla.org/en-US/docs/Learn_web_development/Getting_started/Your_first_website" --href --output "test/fixtures/mdn.expected.md"
 ---
 
 ## Page: https://developer.mozilla.org/en-US/docs/Learn_web_development/Getting_started/Your_first_website
