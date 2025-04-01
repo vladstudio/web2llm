@@ -1,10 +1,10 @@
 # web2llm
 
-Crawls web pages starting from given URLs, scrapes main content, converts to Markdown, and merges into one file. Features automatic content detection, crawl scoping, page limits, exclusions, and GFM table conversion.
+A tiny CLI app that crawls web pages starting from given URLs, scrapes main content, converts to Markdown, and merges into one file. Features automatic content detection, crawl scoping, limits, exclusions, and GFM table conversion.
 
 ## Prerequisites
 
-*   Node.js and npm installed.
+- Node.js and npm installed.
 
 ## Installation
 
@@ -19,19 +19,19 @@ node web2llm.js -u <URL1> [-u <URL2>...] [OPTIONS]
 
 **Arguments:**
 
-*   `-u`, `--url` (Required): One or more starting URLs.
-*   `-o`, `--output`: Output file name (default: `output.md`).
-*   `-s`, `--selector`: CSS selector for content (overrides auto-detect). If omitted, uses Readability.js for auto-detection.
-*   `-m`, `--crawl-mode`: Crawl scope (default: `strict`). Choices:
-    *   `strict`: Follow links only if URL starts with the base URL.
-    *   `domain`: Follow links only if they are on the same domain (origin).
-    *   `disabled`: Do not follow links.
-*   `-l`, `--limit`: Max total pages to crawl (default: 100).
-*   `-e`, `--exclude`: Regex pattern(s) to exclude URLs. Overrides default non-HTML file exclusion. Provide multiple times for multiple patterns.
-*   `-h`, `--href`: Keep links in the output markdown. By default, links are stripped, keeping only the text content.
-*   `--help`: Show help message.
+- `-u`, `--url` (Required): One or more starting URLs.
+- `-o`, `--output`: Output file name (default: `output.md`).
+- `-s`, `--selector`: CSS selector for content (overrides auto-detect). If omitted, uses Readability.js for auto-detection.
+- `-m`, `--crawl-mode`: Crawl scope (default: `strict`). Choices:
+  - `strict`: Follow links only if URL starts with the base URL.
+  - `domain`: Follow links only if they are on the same domain (origin).
+  - `disabled`: Do not follow links.
+- `-l`, `--limit`: Max total pages to crawl (default: 100).
+- `-e`, `--exclude`: Regex pattern(s) to exclude URLs. Overrides default non-HTML file exclusion. Provide multiple times for multiple patterns.
+- `-h`, `--href`: Keep links in the output markdown. By default, links are stripped, keeping only the text content.
+- `--help`: Show help message.
 
-##  Examples
+## Examples
 
 ```bash
 # Crawl single site with auto-detection
@@ -55,8 +55,8 @@ The script processes each starting URL. It fetches pages, attempts to extract th
 
 This tool relies on the following excellent libraries:
 
-*   [Mozilla Readability](https://github.com/mozilla/readability): For automatic content extraction.
-*   [Turndown](https://github.com/mixmark-io/turndown): For converting HTML to Markdown.
+- [Mozilla Readability](https://github.com/mozilla/readability): For automatic content extraction.
+- [Turndown](https://github.com/mixmark-io/turndown): For converting HTML to Markdown.
 
 ## Author
 
