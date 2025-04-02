@@ -23,28 +23,28 @@ const optionsConfig = {
   },
   output: {
     alias: "o",
-    description: "Output file name for the merged Markdown",
+    description: "Output file name",
     type: "string",
-    default: "output.md", // Default output filename
+    default: "output.md",
   },
   selector: {
     alias: "s",
     description:
-      "CSS selector for the main content area (optional; overrides auto-detection)",
+      "CSS selector for the content, disables auto-detection",
     type: "string",
     // No default - auto-detection is the default if this is omitted
   },
   crawl: {
     alias: "c",
     description:
-      "URL prefix(es) to restrict crawling to. Can be specified multiple times. If omitted, defaults to the start URL.",
+      "Restrict crawl to URL prefix(es). Default: start URL.", // Shortened description
     type: "array", // Accept multiple URLs
     requiresArg: true,
     // No default here, handled in logic
   },
   limit: {
     alias: "l",
-    description: "Maximum total number of pages to crawl across all start URLs",
+    description: "Maximum number of pages to crawl",
     type: "number",
     default: 100,
   },
