@@ -27,9 +27,9 @@ describe("web2llm.js E2E tests for MDN Text", () => {
   // Clean up after tests run
   after(cleanup);
 
-  it("should generate correct markdown with links stripped (default behavior) for MDN page", () => {
-    // -t flag removed, as stripping links is now the default
-    const command = `node web2llm.js -u "${testUrl}" -o ${outputFileName}`;
+  it("should generate correct markdown with links stripped (default behavior) and crawling restricted to start URL", () => {
+    // Links stripped by default, added explicit -c for default crawl behavior
+    const command = `node web2llm.js -u "${testUrl}" -c "${testUrl}" -o ${outputFileName}`;
 
     try {
       // Execute the crawl command

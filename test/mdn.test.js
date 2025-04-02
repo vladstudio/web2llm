@@ -26,9 +26,9 @@ describe("web2llm.js E2E tests", () => {
   // Clean up after tests run
   after(cleanup);
 
-  it("should generate correct markdown with links kept when --href is used", () => {
-    // Added --href flag to keep links
-    const command = `node web2llm.js -u "${testUrl}" --href -o ${outputFileName}`;
+  it("should generate correct markdown with links kept when --href is used and crawling is restricted to start URL", () => {
+    // Added --href flag and explicit -c for default crawl behavior
+    const command = `node web2llm.js -u "${testUrl}" -c "${testUrl}" --href -o ${outputFileName}`;
 
     try {
       // Execute the crawl command

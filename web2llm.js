@@ -34,12 +34,13 @@ const optionsConfig = {
     type: "string",
     // No default - auto-detection is the default if this is omitted
   },
-  "crawl-mode": {
-    alias: "m",
-    description: "Set the crawling behavior",
-    type: "string",
-    choices: ["strict", "domain", "disabled"],
-    default: "strict",
+  crawl: {
+    alias: "c",
+    description:
+      "URL prefix(es) to restrict crawling to. Can be specified multiple times. If omitted, defaults to the start URL.",
+    type: "array", // Accept multiple URLs
+    requiresArg: true,
+    // No default here, handled in logic
   },
   limit: {
     alias: "l",
@@ -74,7 +75,7 @@ async function main() {
   // --- Call Main Logic for each URL ---
   const outputFile = argv.output;
   const contentSelector = argv.selector; // Will be undefined if not provided
-  const crawlMode = argv.crawlMode;
+  const crawlPrefixesArg = argv.crawl; // Array of URLs or undefined
   const limit = argv.limit;
   const excludePatterns = argv.exclude;
   const keepLinks = argv.href;
@@ -94,7 +95,12 @@ async function main() {
 
   console.log(`Output: ${outputFile}`);
   console.log(`Selector: ${contentSelector || "(auto-detect)"}`);
-  console.log(`Crawl Mode: ${crawlMode}`);
+  // Log crawl prefixes if provided
+  if (crawlPrefixesArg && crawlPrefixesArg.length > 0) {
+    console.log(`Crawl Prefixes: ${crawlPrefixesArg.join(", ")}`);
+  } else {
+    console.log(`Crawl Prefixes: (Defaulting to start URL)`);
+  }
   console.log(`Limit: ${limit}`);
   console.log(`Keep Links: ${keepLinks}`);
   if (excludeRegexes.length > 0) {
@@ -112,12 +118,18 @@ async function main() {
       `\nStart: ${startUrl} (Visited: ${totalVisitedCount}/${limit})`
     );
     try {
-      // Pass compiled regexes as well
+      // Determine effective crawl prefixes for this specific startUrl
+      const effectiveCrawlPrefixes =
+        crawlPrefixesArg && crawlPrefixesArg.length > 0
+          ? crawlPrefixesArg
+          : [startUrl]; // Default to the current start URL if -c not provided
+
+      // Pass compiled regexes and effective prefixes
       const { markdown: markdownForUrl, visited: visitedInCrawl } =
         await crawlAndScrape(
           startUrl,
           contentSelector,
-          crawlMode,
+          effectiveCrawlPrefixes, // Pass the calculated prefixes
           limit,
           totalVisitedCount,
           excludeRegexes,
@@ -155,11 +167,11 @@ async function main() {
 }
 
 // --- Crawling Logic for a single start URL ---
-// Accept limit, current total visited count, and exclude regexes
+// Accept crawl prefixes, limit, current total visited count, and exclude regexes
 async function crawlAndScrape(
   startUrl,
   contentSelector,
-  crawlMode,
+  crawlPrefixes, // Changed from crawlMode
   limit,
   currentTotalVisited,
   excludeRegexes,
@@ -272,8 +284,9 @@ async function crawlAndScrape(
         }
       }
 
-      // --- Find Links (only if crawlMode is not 'disabled') ---
-      if (crawlMode !== "disabled" && visitedCountOverall < limit) {
+      // --- Find Links ---
+      // Crawling is implicitly enabled if crawlPrefixes is not empty and limit not reached
+      if (crawlPrefixes.length > 0 && visitedCountOverall < limit) {
         const $ = cheerio.load(html);
         $("a").each((i, link) => {
           if (visitedCountOverall + urlsToProcess.length >= limit) {
@@ -291,16 +304,14 @@ async function crawlAndScrape(
               absoluteUrlParsed.pathname +
               absoluteUrlParsed.search;
 
-            let shouldCrawl = false;
-            if (crawlMode === "strict") {
-              shouldCrawl = absoluteUrl.startsWith(startUrl);
-            } else if (crawlMode === "domain") {
-              shouldCrawl = absoluteUrlParsed.origin === startUrlParsed.origin;
-            }
+            // Check if the absolute URL starts with any of the provided prefixes
+            const shouldCrawl = crawlPrefixes.some((prefix) =>
+              absoluteUrl.startsWith(prefix)
+            );
 
             if (
               shouldCrawl &&
-              absoluteUrl !== startUrl &&
+              // absoluteUrl !== startUrl && // No longer needed, prefix check handles this
               !visitedUrlsInThisCrawl.has(normalizedFoundUrl) &&
               !urlsToProcess.includes(absoluteUrl)
             ) {
@@ -313,7 +324,7 @@ async function crawlAndScrape(
                 // Check limit *before* adding to queue
                 if (visitedCountOverall + urlsToProcess.length < limit) {
                   urlsToProcess.push(absoluteUrl);
-                  // console.log(`  -> Queued (${crawlMode}): ${absoluteUrl}`); // Optional debug log
+                  // console.log(`  -> Queued: ${absoluteUrl}`); // Optional debug log
                 } else {
                   // console.log(`Info: Limit reached, not queueing ${absoluteUrl}`); // Optional debug log
                   return false; // Stop processing links if adding one would exceed limit

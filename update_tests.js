@@ -29,7 +29,8 @@ for (const testId of testIds) {
     const { testUrl, expectedOutputPath } = testConfig;
 
     // Construct the command
-    let command = `node web2llm.js -u "${testUrl}"`; // Start building command
+    // Add -c "${testUrl}" for default crawl behavior (equivalent to old strict mode)
+    let command = `node web2llm.js -u "${testUrl}" -c "${testUrl}"`; // Start building command
 
     // Add --href flag specifically for the 'mdn' test (or others that need links)
     if (testId === "mdn") { // Check for the test ID that should keep links
