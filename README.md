@@ -49,7 +49,7 @@ node web2llm.js -u https://page1.com -u https://page2.com -m disabled
 
 ## How it Works
 
-The script processes each starting URL. It fetches pages, attempts to extract the main content (using Readability by default, or a provided CSS selector), and converts it to Markdown (including GFM tables). It follows links based on the chosen `crawl-mode`, respecting the `limit` and `exclude` patterns. Visited URLs (ignoring `#fragments`) are tracked per crawl sequence to avoid duplicates. Finally, all collected Markdown is merged into the output file with YAML frontmatter containing a `rerun_command`.
+The script processes each starting URL. It fetches pages, attempts to extract the main content (using Readability by default, or a provided CSS selector), and converts it to Markdown (including GFM tables). It follows links based on the chosen `crawl-mode`, respecting the `limit` and `exclude` patterns. Visited URLs (ignoring `#fragments`) are tracked per crawl sequence to avoid duplicates. Finally, all collected Markdown is merged into the output file.
 
 ## Credits
 

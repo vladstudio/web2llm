@@ -6,7 +6,7 @@ import TurndownService from "turndown";
 import { gfm } from "turndown-plugin-gfm"; // Import the GFM plugin
 import fs from "fs/promises";
 import { URL } from "url";
-import yaml from "js-yaml"; // Import js-yaml
+// Removed js-yaml import
 import { Readability } from "@mozilla/readability"; // Import Readability
 import { JSDOM } from "jsdom"; // Import JSDOM
 
@@ -135,70 +135,16 @@ async function main() {
   // --- Combine and Write Final Output ---
   console.log(`\nWrite: ${outputFile}`);
 
-  // Reconstruct the command string for frontmatter, only adding non-default values
-  let commandParts = ["node", "web2llm.js"]; // Assuming the script name is web2llm.js
-  argv.url.forEach((url) => commandParts.push("-u", JSON.stringify(url))); // URL is mandatory
-
-  if (contentSelector) {
-    commandParts.push("--selector", JSON.stringify(contentSelector));
-  }
-  if (crawlMode !== optionsConfig["crawl-mode"].default) {
-    commandParts.push("--crawl-mode", crawlMode);
-  }
-  if (limit !== optionsConfig.limit.default) {
-    commandParts.push("--limit", limit.toString());
-  }
-  if (
-    JSON.stringify(excludePatterns) !==
-    JSON.stringify(optionsConfig.exclude.default)
-  ) {
-    excludePatterns.forEach((pattern) =>
-      commandParts.push("-e", JSON.stringify(pattern))
-    );
-  }
-  if (keepLinks !== optionsConfig.href.default) {
-    commandParts.push("--href");
-  }
-  if (outputFile !== optionsConfig.output.default) {
-    commandParts.push("--output", JSON.stringify(outputFile));
-  }
-  const rerunCommand = commandParts.join(" ");
-
-  // Prepare frontmatter data (keep this as is, it reflects actual used values)
-  const frontmatterArgs = {
-    url: argv.url,
-    "crawl-mode": crawlMode,
-    limit: limit,
-    exclude: excludePatterns, // Add exclude patterns
-    output: outputFile,
-  };
-  if (contentSelector) {
-    frontmatterArgs.selector = contentSelector;
-  }
-  if (keepLinks) {
-    // Add href flag to frontmatter if true
-    frontmatterArgs.href = keepLinks; // Use new flag name
-  }
-
-  const frontmatterData = {
-    rerun_command: rerunCommand,
-  };
-
-  // Generate YAML frontmatter string, disable line wrapping for the command
-  const frontmatterYaml = yaml.dump(frontmatterData, { lineWidth: -1 });
-  const frontmatterBlock = `---\n${frontmatterYaml}---\n\n`;
-
+  // Combine all scraped markdown content
   const markdownContent = allCombinedMarkdown.join("\n\n---\n\n");
-  const finalOutputContent = frontmatterBlock + markdownContent;
 
   if (!markdownContent.trim()) {
-    console.log(
-      "Info: No content scraped. Output file will contain only frontmatter."
-    );
+    console.log("Info: No content scraped. Output file will be empty.");
   }
 
   try {
-    await fs.writeFile(outputFile, finalOutputContent.trim());
+    // Write only the combined markdown content to the file
+    await fs.writeFile(outputFile, markdownContent.trim());
     console.log(
       `OK: Visited ${totalVisitedCount} pages (limit: ${limit}). Saved content to ${outputFile}`
     );

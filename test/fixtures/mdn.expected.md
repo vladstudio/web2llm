@@ -1,7 +1,3 @@
----
-rerun_command: node web2llm.js -u "https://developer.mozilla.org/en-US/docs/Learn_web_development/Getting_started/Your_first_website" --href --output "test/fixtures/mdn.expected.md"
----
-
 ## Page: https://developer.mozilla.org/en-US/docs/Learn_web_development/Getting_started/Your_first_website
 
 *   [Previous](https://developer.mozilla.org/en-US/docs/Learn_web_development/Getting_started/Environment_setup/Command_line)
@@ -658,7 +654,7 @@ However, getting comfortable with JavaScript is more challenging than getting co
 
 **Warning:** If you haven't been following along with the rest of our course, [download this example code](https://codeload.github.com/mdn/beginner-html-site-styled/zip/refs/heads/gh-pages) and use it as a starting point.
 
-1.  Inside your `first-website` folder, create a new folder named `scripts`.
+1.  Inside your `first-website` folder or the example folder you have just downloaded, create a new folder named `scripts`.
     
 2.  Within the `scripts` folder, create a new text document called `main.js`, and save it.
     
