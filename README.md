@@ -27,7 +27,7 @@ node web2llm.js -u <URL1> [-u <URL2>...] [OPTIONS]
   - `domain`: Follow links only if they are on the same domain (origin).
   - `disabled`: Do not follow links.
 - `-l`, `--limit`: Max total pages to crawl (default: 100).
-- `-e`, `--exclude`: Regex pattern(s) to exclude URLs. Overrides default non-HTML file exclusion. Provide multiple times for multiple patterns.
+- `-x`, `--exclude`: Regex pattern(s) to exclude URLs. Overrides default non-HTML file exclusion. Provide multiple times for multiple patterns.
 - `-h`, `--href`: Keep links in the output markdown. By default, links are stripped, keeping only the text content.
 - `--help`: Show help message.
 
@@ -41,7 +41,7 @@ node web2llm.js -u https://example.com/docs/
 node web2llm.js -u https://example.com/docs/ -s "#content" -o custom.md
 
 # Crawl multiple sites, limit pages, exclude /api/ paths
-node web2llm.js -u https://site1.com -u https://site2.com/ -l 50 -e "/api/" -o combined.md
+node web2llm.js -u https://site1.com -u https://site2.com/ -l 50 -x "/api/" -o combined.md
 
 # Crawl only initial pages (no following links)
 node web2llm.js -u https://page1.com -u https://page2.com -m disabled

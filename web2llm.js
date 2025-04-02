@@ -48,7 +48,7 @@ const optionsConfig = {
     default: 100,
   },
   exclude: {
-    alias: "e",
+    alias: "x", // Changed alias from 'e' to 'x'
     description: "Regex patterns for URLs to exclude from crawling",
     type: "array", // Accept multiple patterns
     requiresArg: true,
