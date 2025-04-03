@@ -22,12 +22,9 @@ node web2llm.js -u <URL1> [-u <URL2>...] [OPTIONS]
 - `-u`, `--url` (Required): One or more starting URLs.
 - `-o`, `--output`: Output file name (default: `output.md`).
 - `-s`, `--selector`: CSS selector for content (overrides auto-detect). If omitted, uses Readability.js for auto-detection.
-- `-m`, `--crawl-mode`: Crawl scope (default: `strict`). Choices:
-  - `strict`: Follow links only if URL starts with the base URL.
-  - `domain`: Follow links only if they are on the same domain (origin).
-  - `disabled`: Do not follow links.
-- `-l`, `--limit`: Max total pages to crawl (default: 100).
-- `-x`, `--exclude`: Regex pattern(s) to exclude URLs. Overrides default non-HTML file exclusion. Provide multiple times for multiple patterns.
+- `-c`, `--crawl`: Restrict crawl to URL prefix(es). If omitted, defaults to restricting crawl to the *current starting URL* being processed. Provide multiple times for multiple prefixes (e.g., `-c http://a.com/docs -c http://b.com/api`). Links must start with one of these prefixes to be followed.
+- `-l`, `--limit`: Max total pages to crawl across all starting URLs (default: 100).
+- `-x`, `--exclude`: Regex pattern(s) to exclude URLs. Provide multiple times for multiple patterns. Default excludes common non-HTML file extensions (`\.(txt|pdf|zip|tar|gz|rar|docx?|xlsx?|pptx?|jpe?g|png|gif|svg|webp|mp[34])$`).
 - `-h`, `--href`: Keep links in the output markdown. By default, links are stripped, keeping only the text content.
 - `--help`: Show help message.
 
@@ -40,23 +37,42 @@ node web2llm.js -u https://example.com/docs/
 # Crawl single site with specific selector
 node web2llm.js -u https://example.com/docs/ -s "#content" -o custom.md
 
-# Crawl multiple sites, limit pages, exclude /api/ paths
-node web2llm.js -u https://site1.com -u https://site2.com/ -l 50 -x "/api/" -o combined.md
+# Crawl multiple sites, limit pages, exclude /api/ paths, keep links
+node web2llm.js -u https://site1.com -u https://site2.com/ -l 50 -x "/api/" -h -o combined.md
 
-# Crawl only initial pages (no following links)
-node web2llm.js -u https://page1.com -u https://page2.com -m disabled
+# Crawl within a specific section of a site
+node web2llm.js -u https://example.com/docs/ -c https://example.com/docs/ -o docs_only.md
+
+# Crawl multiple specific prefixes across different start URLs
+node web2llm.js -u https://site1.com/start -u https://site2.com/another -c https://site1.com/start/feature -c https://site2.com/another/guide -l 20
 ```
 
 ## How it Works
 
-The script processes each starting URL. It fetches pages, attempts to extract the main content (using Readability by default, or a provided CSS selector), and converts it to Markdown (including GFM tables). It follows links based on the chosen `crawl-mode`, respecting the `limit` and `exclude` patterns. Visited URLs (ignoring `#fragments`) are tracked per crawl sequence to avoid duplicates. Finally, all collected Markdown is merged into the output file.
+The script processes each starting URL provided via `-u`. For each start URL:
+1. It fetches the page.
+2. Extracts main content using Readability.js (default) or a CSS selector (`-s`).
+3. Converts the content to Markdown using Turndown (with GFM plugin). Links are stripped by default unless `-h` is used.
+4. Finds links (`<a>` tags) on the page.
+5. **Crawling Logic:**
+   - If the `--crawl` option is **not** provided, it only queues links that start with the *current start URL*.
+   - If the `--crawl` option **is** provided, it only queues links that start with *any* of the URL prefixes given in `--crawl`.
+   - It respects the total page limit (`-l`) and excludes URLs matching `--exclude` patterns.
+   - It avoids re-visiting URLs within the same overall crawl session.
+6. Repeats steps 1-5 for queued URLs until the queue is empty or the limit is reached.
+7. After processing all start URLs, it combines all collected Markdown content (separated by `---`) and saves it to the output file (`-o`).
 
 ## Credits
 
 This tool relies on the following excellent libraries:
 
+- [yargs](https://github.com/yargs/yargs): For command-line argument parsing.
+- [axios](https://github.com/axios/axios): For fetching web pages.
+- [cheerio](https://github.com/cheeriojs/cheerio): For parsing HTML and finding links.
 - [Mozilla Readability](https://github.com/mozilla/readability): For automatic content extraction.
+- [jsdom](https://github.com/jsdom/jsdom): Used by Readability for DOM parsing.
 - [Turndown](https://github.com/mixmark-io/turndown): For converting HTML to Markdown.
+- [turndown-plugin-gfm](https://github.com/mixmark-io/turndown-plugin-gfm): For GFM table support in Turndown.
 
 ## Author
 
