@@ -6,6 +6,7 @@ import TurndownService from "turndown";
 import { gfm } from "turndown-plugin-gfm"; // Import the GFM plugin
 import fs from "fs/promises";
 import { URL } from "url";
+import path from "path"; // Import path module
 // Removed js-yaml import
 import { Readability } from "@mozilla/readability"; // Import Readability
 import { JSDOM } from "jsdom"; // Import JSDOM
@@ -161,10 +162,10 @@ async function main() {
     // Write only the combined markdown content to the file
     await fs.writeFile(outputFile, markdownContent.trim());
     console.log(
-      `OK: Visited ${totalVisitedCount} pages (limit: ${limit}). Saved content to ${outputFile}`
+      `OK: Visited ${totalVisitedCount} pages (limit: ${limit}). Saved content to ${path.basename(outputFile)}` // Use path.basename()
     );
   } catch (err) {
-    console.error(`ERROR: Writing to ${outputFile} failed: ${err.message}`);
+    console.error(`ERROR: Writing to ${path.basename(outputFile)} failed: ${err.message}`); // Also update error message for consistency
     process.exit(1);
   }
 }
