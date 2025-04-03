@@ -67,7 +67,17 @@ const optionsConfig = {
 };
 
 async function main() {
-  const argv = yargs(hideBin(process.argv))
+  // Check if any arguments were passed (excluding node executable and script path)
+  const userArgs = hideBin(process.argv);
+  if (userArgs.length === 0) {
+    // No arguments provided, show help and exit cleanly
+    console.log("No arguments provided. Displaying help:\n");
+    yargs(userArgs).options(optionsConfig).showHelp();
+    process.exit(0); // Exit successfully
+  }
+
+  // Proceed with parsing if arguments exist
+  const argv = yargs(userArgs)
     .options(optionsConfig)
     .help()
     .parse();
