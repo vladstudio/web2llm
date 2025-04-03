@@ -97,7 +97,7 @@ async function main() {
     process.exit(1);
   }
 
-  console.log(`Output: ${outputFile}`);
+  console.log(`Output: ${path.basename(outputFile)}`); // Use path.basename() here too
   console.log(`Selector: ${contentSelector || "(auto-detect)"}`);
   // Log crawl prefixes if provided
   if (crawlPrefixesArg && crawlPrefixesArg.length > 0) {
@@ -149,7 +149,7 @@ async function main() {
   }
 
   // --- Combine and Write Final Output ---
-  console.log(`\nWrite: ${outputFile}`);
+  console.log(`\nWrite: ${path.basename(outputFile)}`); // Use path.basename() here too
 
   // Combine all scraped markdown content
   const markdownContent = allCombinedMarkdown.join("\n\n---\n\n");
