@@ -29,15 +29,13 @@ const optionsConfig = {
   },
   selector: {
     alias: "s",
-    description:
-      "CSS selector for the content, disables auto-detection",
+    description: "CSS selector for the content, disables auto-detection",
     type: "string",
     // No default - auto-detection is the default if this is omitted
   },
   crawl: {
     alias: "c",
-    description:
-      "Restrict crawl to URL prefix(es). Default: start URL.", // Shortened description
+    description: "Restrict crawl to URL prefix(es). Default: start URL.", // Shortened description
     type: "array", // Accept multiple URLs
     requiresArg: true,
     // No default here, handled in logic
@@ -67,20 +65,15 @@ const optionsConfig = {
 };
 
 async function main() {
-  // Check if any arguments were passed (excluding node executable and script path)
   const userArgs = hideBin(process.argv);
   if (userArgs.length === 0) {
     // No arguments provided, show help and exit cleanly
-    console.log("No arguments provided. Displaying help:\n");
     yargs(userArgs).options(optionsConfig).showHelp();
-    process.exit(0); // Exit successfully
+    process.exit(0);
   }
 
   // Proceed with parsing if arguments exist
-  const argv = yargs(userArgs)
-    .options(optionsConfig)
-    .help()
-    .parse();
+  const argv = yargs(userArgs).options(optionsConfig).help().parse();
 
   // --- Call Main Logic for each URL ---
   const outputFile = argv.output;
