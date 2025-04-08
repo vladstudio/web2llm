@@ -45,7 +45,7 @@ const optionsConfig = {
     alias: "l",
     description: "Maximum number of pages to crawl",
     type: "number",
-    default: 100,
+    default: 2000,
   },
   exclude: {
     alias: "x", // Changed alias from 'e' to 'x'

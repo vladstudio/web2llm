@@ -23,7 +23,7 @@ node web2llm.js -u <URL1> [-u <URL2>...] [OPTIONS]
 - `-o`, `--output`: Output file name (default: `output.md`).
 - `-s`, `--selector`: CSS selector for content (overrides auto-detect). If omitted, uses Readability.js for auto-detection.
 - `-c`, `--crawl`: Restrict crawl to URL prefix(es). If omitted, defaults to restricting crawl to the *current starting URL* being processed. Provide multiple times for multiple prefixes (e.g., `-c http://a.com/docs -c http://b.com/api`). Links must start with one of these prefixes to be followed.
-- `-l`, `--limit`: Max total pages to crawl across all starting URLs (default: 100).
+- `-l`, `--limit`: Max total pages to crawl across all starting URLs (default: 2000).
 - `-x`, `--exclude`: Regex pattern(s) to exclude URLs. Provide multiple times for multiple patterns. Default excludes common non-HTML file extensions (`\.(txt|pdf|zip|tar|gz|rar|docx?|xlsx?|pptx?|jpe?g|png|gif|svg|webp|mp[34])$`).
 - `-h`, `--href`: Keep links in the output markdown. By default, links are stripped, keeping only the text content.
 - `--help`: Show help message.
