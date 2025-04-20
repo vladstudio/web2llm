@@ -1,15 +1,14 @@
 import yargs from "yargs";
 import { hideBin } from "yargs/helpers";
-import axios from "axios";
-import * as cheerio from "cheerio"; // Use namespace import
+import * as cheerio from "cheerio";
 import TurndownService from "turndown";
-import { gfm } from "turndown-plugin-gfm"; // Import the GFM plugin
+import { gfm } from "turndown-plugin-gfm";
 import fs from "fs/promises";
 import { URL } from "url";
-import path from "path"; // Import path module
-// Removed js-yaml import
-import { Readability } from "@mozilla/readability"; // Import Readability
-import { JSDOM } from "jsdom"; // Import JSDOM
+import path from "path";
+import { Readability } from "@mozilla/readability";
+import { JSDOM } from "jsdom";
+import puppeteer from "puppeteer";
 
 // Helper function for delay
 const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
@@ -133,7 +132,7 @@ async function main() {
         await crawlAndScrape(
           startUrl,
           contentSelector,
-          effectiveCrawlPrefixes, // Pass the calculated prefixes
+          effectiveCrawlPrefixes,
           limit,
           totalVisitedCount,
           excludeRegexes,
@@ -171,15 +170,24 @@ async function main() {
 }
 
 // --- Crawling Logic for a single start URL ---
-// Accept crawl prefixes, limit, current total visited count, and exclude regexes
+/**
+ * Crawl and scrape pages.
+ * @param {string} startUrl
+ * @param {string|undefined} contentSelector
+ * @param {string[]} crawlPrefixes
+ * @param {number} limit
+ * @param {number} currentTotalVisited
+ * @param {RegExp[]} excludeRegexes
+ * @param {boolean} keepLinks
+ */
 async function crawlAndScrape(
   startUrl,
   contentSelector,
-  crawlPrefixes, // Changed from crawlMode
+  crawlPrefixes,
   limit,
   currentTotalVisited,
   excludeRegexes,
-  keepLinks // Accept renamed flag
+  keepLinks
 ) {
   // Validate URL
   let startUrlParsed;
@@ -206,6 +214,40 @@ async function crawlAndScrape(
   } else {
     console.log("Info: Keeping links (--href specified)."); // Log when keeping links
   }
+
+  // Add rule for syntax-highlighted code blocks (e.g., Shiki)
+  turndownService.addRule('shikiCodeBlock', {
+    filter: function (node, options) {
+      // Target <pre> elements that likely contain Shiki <span> structure
+      return (
+        node.nodeName === 'PRE' &&
+        node.querySelector('span.line > span') // Check for nested spans typical of Shiki
+      );
+    },
+    replacement: function (content, node, options) {
+      // Extract text content from all child nodes, preserving line breaks
+      let code = '';
+      node.childNodes.forEach(child => {
+        if (child.nodeType === Node.TEXT_NODE) {
+          code += child.textContent;
+        } else if (child.nodeType === Node.ELEMENT_NODE && child.nodeName === 'SPAN' && child.classList.contains('line')) {
+           // Get text from spans within the line, handles nested spans
+           code += Array.from(child.childNodes)
+             .map(innerChild => innerChild.textContent)
+             .join('');
+           code += '\n'; // Add newline after each line span
+        } else {
+           // Fallback for unexpected structures within pre
+           code += child.textContent;
+        }
+      });
+
+      // Determine language (optional, basic check)
+      const language = node.getAttribute('data-language') || '';
+      return '\n```' + language + '\n' + code.trim() + '\n```\n';
+    }
+  });
+
 
   turndownService.use(gfm); // Apply GFM rules after custom rules if needed
 
@@ -247,8 +289,18 @@ async function crawlAndScrape(
     visitedCountOverall++;
 
     try {
-      const response = await axios.get(currentUrl, { timeout: 10000 });
-      const html = response.data;
+      // Always use Puppeteer to fetch fully rendered HTML
+      console.log(`Info: Fetching with Puppeteer: ${currentUrl}`);
+      const browser = await puppeteer.launch({ headless: "new" });
+      const page = await browser.newPage();
+      await page.goto(currentUrl, { waitUntil: "networkidle2", timeout: 30000 });
+      const html = await page.content();
+
+      // Save raw HTML for debugging
+      await fs.writeFile("temp.html", html);
+
+      await browser.close();
+
       let contentHtml = null;
 
       // --- Scrape Content ---
@@ -343,16 +395,7 @@ async function crawlAndScrape(
         });
       }
     } catch (error) {
-      if (axios.isAxiosError(error)) {
-        const status = error.response?.status
-          ? ` (Status: ${error.response.status})`
-          : "";
-        console.warn(
-          `WARN: Fetch failed for ${currentUrl}: ${error.message}${status}`
-        );
-      } else {
-        console.error(`ERROR: Processing ${currentUrl}: ${error.message}`);
-      }
+      console.error(`ERROR: Processing ${currentUrl}: ${error.message}`);
     }
 
     if (urlsToProcess.length > 0 && visitedCountOverall < limit) {
