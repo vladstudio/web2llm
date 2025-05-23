@@ -62,6 +62,13 @@ const optionsConfig = {
     type: "boolean",
     default: false,
   },
+  remove: {
+    alias: "r",
+    description: "CSS selectors to remove from HTML before conversion",
+    type: "array",
+    requiresArg: true,
+    default: [],
+  },
 };
 
 async function main() {
@@ -82,6 +89,7 @@ async function main() {
   const limit = argv.limit;
   const excludePatterns = argv.exclude;
   const keepLinks = argv.href;
+  const removeSelectors = argv.remove;
   const allCombinedMarkdown = [];
   let totalVisitedCount = 0;
 
@@ -106,6 +114,9 @@ async function main() {
   }
   console.log(`Limit: ${limit}`);
   console.log(`Keep Links: ${keepLinks}`);
+  if (removeSelectors.length > 0) {
+    console.log(`Remove Selectors: ${removeSelectors.join(", ")}`);
+  }
   if (excludeRegexes.length > 0) {
     console.log(`Exclude Patterns: ${excludePatterns.join(", ")}`);
   }
@@ -136,7 +147,8 @@ async function main() {
           limit,
           totalVisitedCount,
           excludeRegexes,
-          keepLinks
+          keepLinks,
+          removeSelectors
         );
       if (markdownForUrl.length > 0) {
         allCombinedMarkdown.push(...markdownForUrl);
@@ -179,6 +191,7 @@ async function main() {
  * @param {number} currentTotalVisited
  * @param {RegExp[]} excludeRegexes
  * @param {boolean} keepLinks
+ * @param {string[]} removeSelectors
  */
 async function crawlAndScrape(
   startUrl,
@@ -187,7 +200,8 @@ async function crawlAndScrape(
   limit,
   currentTotalVisited,
   excludeRegexes,
-  keepLinks
+  keepLinks,
+  removeSelectors
 ) {
   // Validate URL
   let startUrlParsed;
@@ -294,12 +308,26 @@ async function crawlAndScrape(
       const browser = await puppeteer.launch({ headless: "new" });
       const page = await browser.newPage();
       await page.goto(currentUrl, { waitUntil: "networkidle2", timeout: 30000 });
-      const html = await page.content();
+      let html = await page.content();
 
       // Save raw HTML for debugging
       await fs.writeFile("temp.html", html);
 
       await browser.close();
+
+      // Remove specified CSS selectors from HTML
+      if (removeSelectors.length > 0) {
+        console.log(`Info: Removing selectors: ${removeSelectors.join(", ")}`);
+        const $ = cheerio.load(html);
+        removeSelectors.forEach(selector => {
+          try {
+            $(selector).remove();
+          } catch (error) {
+            console.warn(`WARN: Invalid CSS selector "${selector}": ${error.message}`);
+          }
+        });
+        html = $.html();
+      }
 
       let contentHtml = null;
 

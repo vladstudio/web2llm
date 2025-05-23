@@ -26,6 +26,7 @@ node web2llm.js -u <URL1> [-u <URL2>...] [OPTIONS]
 - `-l`, `--limit`: Max total pages to crawl across all starting URLs (default: 2000).
 - `-x`, `--exclude`: Regex pattern(s) to exclude URLs. Provide multiple times for multiple patterns. Default excludes common non-HTML file extensions (`\.(txt|pdf|zip|tar|gz|rar|docx?|xlsx?|pptx?|jpe?g|png|gif|svg|webp|mp[34])$`).
 - `-h`, `--href`: Keep links in the output markdown. By default, links are stripped, keeping only the text content.
+- `-r`, `--remove`: CSS selector(s) to remove from HTML before conversion. Provide multiple times for multiple selectors (e.g., `-r .sidebar -r .demo`).
 - `--help`: Show help message.
 
 ## Examples
@@ -45,22 +46,26 @@ node web2llm.js -u https://example.com/docs/ -c https://example.com/docs/ -o doc
 
 # Crawl multiple specific prefixes across different start URLs
 node web2llm.js -u https://site1.com/start -u https://site2.com/another -c https://site1.com/start/feature -c https://site2.com/another/guide -l 20
+
+# Remove unwanted elements before conversion
+node web2llm.js -u https://example.com/docs/ -r .sidebar -r .demo -r .advertisement -o clean.md
 ```
 
 ## How it Works
 
 The script processes each starting URL provided via `-u`. For each start URL:
 1. It fetches the page.
-2. Extracts main content using Readability.js (default) or a CSS selector (`-s`).
-3. Converts the content to Markdown using Turndown (with GFM plugin). Links are stripped by default unless `-h` is used.
-4. Finds links (`<a>` tags) on the page.
-5. **Crawling Logic:**
+2. Removes unwanted elements if `--remove` selectors are specified.
+3. Extracts main content using Readability.js (default) or a CSS selector (`-s`).
+4. Converts the content to Markdown using Turndown (with GFM plugin). Links are stripped by default unless `-h` is used.
+5. Finds links (`<a>` tags) on the page.
+6. **Crawling Logic:**
    - If the `--crawl` option is **not** provided, it only queues links that start with the *current start URL*.
    - If the `--crawl` option **is** provided, it only queues links that start with *any* of the URL prefixes given in `--crawl`.
    - It respects the total page limit (`-l`) and excludes URLs matching `--exclude` patterns.
    - It avoids re-visiting URLs within the same overall crawl session.
-6. Repeats steps 1-5 for queued URLs until the queue is empty or the limit is reached.
-7. After processing all start URLs, it combines all collected Markdown content (separated by `---`) and saves it to the output file (`-o`).
+7. Repeats steps 1-6 for queued URLs until the queue is empty or the limit is reached.
+8. After processing all start URLs, it combines all collected Markdown content (separated by `---`) and saves it to the output file (`-o`).
 
 ## Credits
 
