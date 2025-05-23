@@ -305,7 +305,10 @@ async function crawlAndScrape(
     try {
       // Always use Puppeteer to fetch fully rendered HTML
       console.log(`Info: Fetching with Puppeteer: ${currentUrl}`);
-      const browser = await puppeteer.launch({ headless: "new" });
+      const browser = await puppeteer.launch({ 
+  headless: "new",
+  executablePath: '/usr/bin/chromium-browser'
+});
       const page = await browser.newPage();
       await page.goto(currentUrl, { waitUntil: "networkidle2", timeout: 30000 });
       let html = await page.content();
