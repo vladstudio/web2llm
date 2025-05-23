@@ -307,7 +307,8 @@ async function crawlAndScrape(
       console.log(`Info: Fetching with Puppeteer: ${currentUrl}`);
       const browser = await puppeteer.launch({ 
   headless: "new",
-  executablePath: '/usr/bin/chromium-browser'
+  executablePath: '/usr/bin/chromium-browser',
+  args: ['--no-sandbox', '--disable-setuid-sandbox']
 });
       const page = await browser.newPage();
       await page.goto(currentUrl, { waitUntil: "networkidle2", timeout: 30000 });
