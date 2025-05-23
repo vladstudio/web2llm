@@ -8,7 +8,7 @@ import { URL } from "url";
 import path from "path";
 import { Readability } from "@mozilla/readability";
 import { JSDOM } from "jsdom";
-import puppeteer from "puppeteer";
+import { chromium } from "playwright";
 
 // Helper function for delay
 const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
@@ -303,15 +303,13 @@ async function crawlAndScrape(
     visitedCountOverall++;
 
     try {
-      // Always use Puppeteer to fetch fully rendered HTML
-      console.log(`Info: Fetching with Puppeteer: ${currentUrl}`);
-      const browser = await puppeteer.launch({ 
-  headless: "new",
-  executablePath: '/usr/bin/chromium-browser',
-  args: ['--no-sandbox', '--disable-setuid-sandbox']
+      // Always use Playwright to fetch fully rendered HTML
+      console.log(`Info: Fetching with Playwright: ${currentUrl}`);
+      const browser = await chromium.launch({ 
+  headless: true
 });
       const page = await browser.newPage();
-      await page.goto(currentUrl, { waitUntil: "networkidle2", timeout: 30000 });
+      await page.goto(currentUrl, { waitUntil: "networkidle", timeout: 30000 });
       let html = await page.content();
 
       // Save raw HTML for debugging

@@ -16,6 +16,7 @@
     "cheerio": "^1.0.0",
     "js-yaml": "^4.1.0",
     "jsdom": "^26.1.0",
+    "playwright": "^1.52.0",
     "puppeteer": "^24.9.0",
     "turndown": "^7.2.0",
     "turndown-plugin-gfm": "^1.0.2",
