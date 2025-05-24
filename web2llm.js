@@ -9,9 +9,11 @@ import { URL } from "url";
 import yargs from "yargs";
 import { hideBin } from "yargs/helpers";
 import { config } from "dotenv";
+import { fileURLToPath } from "url";
 
-// Load environment variables
-config();
+// Load environment variables from script directory
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
+config({ path: path.join(__dirname, '.env') });
 
 // Helper function for delay
 const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
