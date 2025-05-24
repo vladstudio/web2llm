@@ -1,6 +1,9 @@
 ## Page: https://developer.mozilla.org/en-US/docs/Learn_web_development/Getting_started/Your_first_website
 
+## Your first website
+
 *   [Previous](https://developer.mozilla.org/en-US/docs/Learn_web_development/Getting_started/Environment_setup/Command_line)
+*   [Overview: Getting started modules](https://developer.mozilla.org/en-US/docs/Learn_web_development/Getting_started)
 *   [Next](https://developer.mozilla.org/en-US/docs/Learn_web_development/Getting_started/Your_first_website/What_will_your_website_look_like)
 
 This module introduces you to the practicalities of web development. You'll gather the assets and write the code to construct a simple webpage, then publish it for the world to see.
@@ -36,6 +39,7 @@ JavaScript is a programming language that adds interactivity to websites. This h
 Once you finish writing the code and organizing the files that make up your website, you need to put it all online so people can find it. This article explains how to get your sample website online with little effort.
 
 *   [Previous](https://developer.mozilla.org/en-US/docs/Learn_web_development/Getting_started/Environment_setup/Command_line)
+*   [Overview: Getting started modules](https://developer.mozilla.org/en-US/docs/Learn_web_development/Getting_started)
 *   [Next](https://developer.mozilla.org/en-US/docs/Learn_web_development/Getting_started/Your_first_website/What_will_your_website_look_like)
 
 ## [See also](#see_also)
@@ -48,6 +52,9 @@ Once you finish writing the code and organizing the files that make up your webs
 
 ## Page: https://developer.mozilla.org/en-US/docs/Learn_web_development/Getting_started/Your_first_website/What_will_your_website_look_like
 
+## What will your website look like?
+
+*   [Overview: Your first website](https://developer.mozilla.org/en-US/docs/Learn_web_development/Getting_started/Your_first_website)
 *   [Next](https://developer.mozilla.org/en-US/docs/Learn_web_development/Getting_started/Your_first_website/Creating_the_content)
 
 _What will your website look like?_ discusses the planning and design work you have to do for your website before writing code, including "What information does my website offer?", "What fonts and colors do I want?", and "What does my site do?"
@@ -113,13 +120,17 @@ Let's use Google fonts to choose a font for your website:
 
 **Note:** As with images, many fonts are protected by licenses, meaning you cannot necessarily use them freely on commercial websites. You will be fine for now while working on learning examples, but keep this in mind when choosing fonts for real websites.
 
+*   [Overview: Your first website](https://developer.mozilla.org/en-US/docs/Learn_web_development/Getting_started/Your_first_website)
 *   [Next](https://developer.mozilla.org/en-US/docs/Learn_web_development/Getting_started/Your_first_website/Creating_the_content)
 
 ---
 
 ## Page: https://developer.mozilla.org/en-US/docs/Learn_web_development/Getting_started/Your_first_website/Creating_the_content
 
+## HTML: Creating the content
+
 *   [Previous](https://developer.mozilla.org/en-US/docs/Learn_web_development/Getting_started/Your_first_website/What_will_your_website_look_like)
+*   [Overview: Your first website](https://developer.mozilla.org/en-US/docs/Learn_web_development/Getting_started/Your_first_website)
 *   [Next](https://developer.mozilla.org/en-US/docs/Learn_web_development/Getting_started/Your_first_website/Styling_the_content)
 
 HTML (**H**yper**T**ext **M**arkup **L**anguage) is the code that is used to structure a web page and its content. This article provides a basic understanding of HTML and its functionality, and shows you how to create the basic content for your first website.
@@ -132,23 +143,21 @@ HTML is a _markup language_ consisting of a series of **[elements](https://devel
 
 Let's look at an example — the following content will all be shown on the same line when displayed on a web page, as it is not structured in any way:
 
-Instructions for life:
-Eat
-Sleep
-Repeat
+Instructions for life: Eat Sleep Repeat 
 
 If we wrap this content with the following HTML elements, we can turn that single line into a paragraph ([`<p>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/p)) and three bullet points ([`<li>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/li)):
 
-    <p>Instructions for life:</p>
-    
-    <ul>
-      <li>Eat</li>
-      <li>Sleep</li>
-      <li>Repeat</li>
-    </ul>
-    
+html
+
+    <p>Instructions for life:</p> <ul> <li>Eat</li> <li>Sleep</li> <li>Repeat</li> </ul> 
 
 This HTML will render as follows in a web browser:
+
+Instructions for life:
+
+*   Eat
+*   Sleep
+*   Repeat
 
 As well as structuring text, HTML has many other uses — making text or images link to other web pages, embedding images or videos, creating data tables, and so on.
 
@@ -159,18 +168,9 @@ Let's see how individual elements are combined to form an HTML page. In this sec
 1.  Inside your `web-projects` folder, create another new folder called `first-website`.
 2.  Inside `first-website`, create a new file called `index.html`, and insert the following code into the file exactly as shown:
 
-    <!doctype html>
-    <html lang="en-US">
-      <head>
-        <meta charset="utf-8" />
-        <meta name="viewport" content="width=device-width" />
-        <title>My test page</title>
-      </head>
-      <body>
-        <img src="" alt="My test image" />
-      </body>
-    </html>
-    
+html
+
+    <!doctype html> <html lang="en-US"> <head> <meta charset="utf-8" /> <meta name="viewport" content="width=device-width" /> <title>My test page</title> </head> <body> <img src="" alt="My test image" /> </body> </html> 
 
 Here, we have the following:
 
@@ -188,8 +188,9 @@ Here, we have the following:
 
 Let's turn our attention to the [`<img>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/img) element:
 
-    <img src="" alt="My test image" />
-    
+html
+
+    <img src="" alt="My test image" /> 
 
 This embeds an image into our page in the position it appears. It does this via the `src` (source) attribute, which contains the path to the image file we want to embed.
 
@@ -225,12 +226,9 @@ This section will cover some essential HTML elements you'll use for marking up t
 
 Heading elements allow you to specify that certain parts of your content are headings — or subheadings. In the same way that a book has the main title, chapter titles, and subtitles, an HTML document can too. HTML contains 6 heading levels, [<h1>–<h6>](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/Heading_Elements), although you'll commonly only use 3 to 4 at most:
 
-    <!-- 4 heading levels: -->
-    <h1>My main title</h1>
-    <h2>My top level heading</h2>
-    <h3>My subheading</h3>
-    <h4>My sub-subheading</h4>
-    
+html
+
+    <!-- 4 heading levels: --> <h1>My main title</h1> <h2>My top level heading</h2> <h3>My subheading</h3> <h4>My sub-subheading</h4> 
 
 **Note:** Anything in HTML between `<!--` and `-->` is an **HTML comment**. The browser ignores comments as it renders the code. In other words, they are not visible on the page — just in the code. HTML comments are a way for you to add notes about your code or logic, which might be useful to others working on the same code, or you, if you came back to it after 6 months and can't remember what you did.
 
@@ -240,8 +238,9 @@ Now try adding a suitable main title to your HTML page just above your [`<img>`]
 
 Paragraph [`<p>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/p) elements are for containing paragraphs of text; you'll use these frequently when marking up regular text content:
 
-    <p>This is a single paragraph</p>
-    
+html
+
+    <p>This is a single paragraph</p> 
 
 Add your sample text from the previous article into one or a few paragraphs, placed directly below your [`<img>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/img) element. Save it and look at your page in a browser.
 
@@ -256,24 +255,15 @@ Each item inside the lists is put inside an [`<li>`](https://developer.mozilla.o
 
 For example, if we wanted to turn part of the following paragraph fragment into a list:
 
-    <p>
-      At Mozilla, we're a global community of technologists, thinkers, and builders
-      working together…
-    </p>
-    
+html
+
+    <p> At Mozilla, we're a global community of technologists, thinkers, and builders working together… </p> 
 
 We could modify the markup to this:
 
-    <p>At Mozilla, we're a global community of</p>
-    
-    <ul>
-      <li>technologists</li>
-      <li>thinkers</li>
-      <li>builders</li>
-    </ul>
-    
-    <p>working together…</p>
-    
+html
+
+    <p>At Mozilla, we're a global community of</p> <ul> <li>technologists</li> <li>thinkers</li> <li>builders</li> </ul> <p>working together…</p> 
 
 Try adding an ordered or unordered list to your example page, and view the result in a browser.
 
@@ -285,20 +275,21 @@ Links are very important — they are what makes the web a web! To add a link, w
     
 2.  Wrap the text in an [`<a>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/a) element, as shown below:
     
-        <a>Mozilla Manifesto</a>
-        
+    html
+    
+        <a>Mozilla Manifesto</a> 
     
 3.  Give the [`<a>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/a) element an `href` attribute, as shown below:
     
-        <a href="">Mozilla Manifesto</a>
-        
+    html
+    
+        <a href="">Mozilla Manifesto</a> 
     
 4.  Fill in the value of this attribute with the web address that you want the link to point to:
     
-        <a href="https://www.mozilla.org/en-US/about/manifesto/">
-          Mozilla Manifesto
-        </a>
-        
+    html
+    
+        <a href="https://www.mozilla.org/en-US/about/manifesto/"> Mozilla Manifesto </a> 
     
 
 You might get unexpected results if you omit the `https://` or `http://` part, called the _protocol_, at the beginning of the web address. After making a link, click it to make sure it is sending you where you wanted it to.
@@ -319,18 +310,14 @@ Here, we have only really scratched the surface of HTML. You'll learn a lot more
 
 ## [See also](#see_also)
 
-[Learn HTML and CSS](https://scrimba.com/learn-html-and-css-c0p?via=mdn), Scrimba [_MDN learning partner_](https://developer.mozilla.org/en-US/docs/MDN/Writing_guidelines/Learning_content#partner_links_and_embeds)
-
-[Scrimba's](https://scrimba.com/?via=mdn) _Learn HTML and CSS_ course teaches you HTML and CSS through building and deploying five awesome projects, with fun interactive lessons and challenges taught by knowledgeable teachers.
-
-*   [Previous](https://developer.mozilla.org/en-US/docs/Learn_web_development/Getting_started/Your_first_website/What_will_your_website_look_like)
-*   [Next](https://developer.mozilla.org/en-US/docs/Learn_web_development/Getting_started/Your_first_website/Styling_the_content)
-
 ---
 
 ## Page: https://developer.mozilla.org/en-US/docs/Learn_web_development/Getting_started/Your_first_website/Styling_the_content
 
+## CSS: Styling the content
+
 *   [Previous](https://developer.mozilla.org/en-US/docs/Learn_web_development/Getting_started/Your_first_website/Creating_the_content)
+*   [Overview: Your first website](https://developer.mozilla.org/en-US/docs/Learn_web_development/Getting_started/Your_first_website)
 *   [Next](https://developer.mozilla.org/en-US/docs/Learn_web_development/Getting_started/Your_first_website/Adding_interactivity)
 
 CSS (Cascading Style Sheets) is the code that styles web content. This article walks you through a basic understanding of CSS — how it works and how to improve the look and feel of the content structure you created in the previous article.
@@ -343,32 +330,31 @@ Like HTML, CSS is not a programming language. It's not a markup language either.
 
 Let's revisit the basic HTML example from the article [Creating the content](https://developer.mozilla.org/en-US/docs/Learn_web_development/Getting_started/Your_first_website/Creating_the_content):
 
-    <p>Instructions for life:</p>
-    
-    <ul>
-      <li>Eat</li>
-      <li>Sleep</li>
-      <li>Repeat</li>
-    </ul>
-    
+html
+
+    <p>Instructions for life:</p> <ul> <li>Eat</li> <li>Sleep</li> <li>Repeat</li> </ul> 
 
 This renders as follows on its own:
 
+Instructions for life:
+
+*   Eat
+*   Sleep
+*   Repeat
+
 If we add some CSS into the mix, we can change how the HTML looks. The following snippet selects the [`<p>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/p) element and gives it a different [font](https://developer.mozilla.org/en-US/docs/Web/CSS/font-family) and a red text [`color`](https://developer.mozilla.org/en-US/docs/Web/CSS/color). It then selects all the [`<li>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/li) elements and gives each one a greeny-yellow [`background-color`](https://developer.mozilla.org/en-US/docs/Web/CSS/background-color), a 1-pixel solid black [`border`](https://developer.mozilla.org/en-US/docs/Web/CSS/border), and a 5-pixel [bottom margin](https://developer.mozilla.org/en-US/docs/Web/CSS/margin-bottom):
 
-    p {
-      font-family: sans-serif;
-      color: red;
-    }
-    
-    li {
-      background-color: greenyellow;
-      border: 1px solid black;
-      margin-bottom: 5px;
-    }
-    
+css
+
+    p { font-family: sans-serif; color: red; } li { background-color: greenyellow; border: 1px solid black; margin-bottom: 5px; } 
 
 With the CSS applied to the HTML, the demo now renders like this:
+
+Instructions for life:
+
+*   Eat
+*   Sleep
+*   Repeat
 
 As you can see, with just a little CSS, we were able to change the appearance of a plain-looking list.
 
@@ -382,17 +368,17 @@ When using CSS, the first thing to get right is to make sure that your CSS is su
     
 2.  Using a text editor, paste the following CSS into a new file, which will give your `<p>` elements a red text color. It's useful to start with something like this to test whether your stylesheet is being applied to your HTML correctly.
     
-        p {
-          color: red;
-        }
-        
+    css
+    
+        p { color: red; } 
     
 3.  Save the file in the `styles` folder with the filename `style.css`.
     
 4.  Open your `index.html` file. Paste the following line inside the HTML head (between the [`<head>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/head) and `</head>` tags):
     
-        <link href="styles/style.css" rel="stylesheet" />
-        
+    html
+    
+        <link href="styles/style.css" rel="stylesheet" /> 
     
 5.  Save `index.html` and load it in your browser. You should see something like this:
     
@@ -409,23 +395,17 @@ The whole structure is called a **ruleset**. (The term _ruleset_ is often referr
 
 Let's look at another ruleset, this time with multiple declarations:
 
-    p {
-      color: red;
-      width: 500px;
-      border: 1px solid black;
-    }
-    
+css
+
+    p { color: red; width: 500px; border: 1px solid black; } 
 
 Within a ruleset, you must use a semicolon (`;`) to separate one declaration from the next. Within each declaration, you must use a colon (`:`) to separate the property and its value.
 
 You can also include multiple selectors in one rule, separated by commas, to select multiple elements. For example:
 
-    p,
-    .my-class,
-    #my-id {
-      color: red;
-    }
-    
+css
+
+    p, .my-class, #my-id { color: red; } 
 
 In this CSS rule, we've included an **element** (or **type**) selector, which selects a specific HTML element. We've also included two other selector types, which aren't relevant to the rest of this tutorial. If you're curious about what they do, check out our [Basic selectors](https://developer.mozilla.org/en-US/docs/Learn_web_development/Core/Styling_basics/Basic_selectors) guide.
 
@@ -437,12 +417,9 @@ Let's return to our example and use CSS to improve the appearance of the text. W
     
 2.  Add the [`<link>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/link) elements inside your `index.html`'s [`<head>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/head), just before the closing `</head>` tag. They should look something like this:
     
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-        <link
-          href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap"
-          rel="stylesheet" />
-        
+    html
+    
+        <link rel="preconnect" href="https://fonts.googleapis.com" /> <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin /> <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet" /> 
     
     This code links your page to a stylesheet hosted by the Google Fonts service, which loads your chosen font.
     
@@ -450,37 +427,25 @@ Let's return to our example and use CSS to improve the appearance of the text. W
     
 4.  Add the following lines to `style.css`:
     
-        html {
-          /* px means "pixels". The base font size is now 10 pixels high */
-          font-size: 10px;
-          /* Replace PLACEHOLDER with the font-family property value you got from Google Fonts */
-          font-family: PLACEHOLDER;
-        }
-        
+    css
+    
+        html { /* px means "pixels". The base font size is now 10 pixels high */ font-size: 10px; /* Replace PLACEHOLDER with the font-family property value you got from Google Fonts */ font-family: PLACEHOLDER; } 
     
     **Note:** Anything in CSS between `/*` and `*/` is a **CSS comment**, which is ignored by the browser. CSS comments are a way for you to include helpful notes about your code or logic, without affecting how your webpage is rendered.
     
 5.  Replace the `font-family` placeholder line with the `font-family` line from your Google Fonts code, for example:
     
-        font-family: "Roboto", sans-serif;
-        
+    css
+    
+        font-family: "Roboto", sans-serif; 
     
     The `font-family` property sets the font(s) you want to apply to your HTML. This rule defines a global base font and font size for the whole page. All elements inside the [`<html>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/html) element will inherit the same `font-size` and `font-family`.
     
 6.  Now let's set some font and text styles on our [`<h1>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/Heading_Elements), [`<li>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/li), and [`<p>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/p) elements. We'll set new [`font-size`](https://developer.mozilla.org/en-US/docs/Web/CSS/font-size) values for each element. We'll also center the heading using [`text-align`](https://developer.mozilla.org/en-US/docs/Web/CSS/text-align) and increase the [`line-height`](https://developer.mozilla.org/en-US/docs/Web/CSS/line-height) and [`letter-spacing`](https://developer.mozilla.org/en-US/docs/Web/CSS/letter-spacing) of the paragraphs and list items to make the body content more readable.
     
-        h1 {
-          font-size: 60px;
-          text-align: center;
-        }
-        
-        p,
-        li {
-          font-size: 16px;
-          line-height: 2;
-          letter-spacing: 1px;
-        }
-        
+    css
+    
+        h1 { font-size: 60px; text-align: center; } p, li { font-size: 16px; line-height: 2; letter-spacing: 1px; } 
     
 7.  Save your code and load your HTML in a browser (refresh it if you've got it open from before). Your work-in-progress should look similar to this:
     
@@ -518,23 +483,17 @@ In each of the sections that follow:
 
 ## [Changing the page color](#changing_the_page_color)
 
-    html {
-      background-color: #00539f;
-    }
-    
+css
+
+    html { background-color: #00539f; } 
 
 This rule sets a background color for the entire page. Change the color code to the color you chose in [What will your website look like?](https://developer.mozilla.org/en-US/docs/Learn_web_development/Getting_started/Your_first_website/What_will_your_website_look_like#choosing_a_theme_color).
 
 ## [Styling the body](#styling_the_body)
 
-    body {
-      width: 600px;
-      margin: 0 auto;
-      background-color: #ff9500;
-      padding: 0 20px 20px 20px;
-      border: 5px solid black;
-    }
-    
+css
+
+    body { width: 600px; margin: 0 auto; background-color: #ff9500; padding: 0 20px 20px 20px; border: 5px solid black; } 
 
 The above code sets new values for several properties of the [`<body>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/body) element. Let's go through these line-by-line:
 
@@ -546,13 +505,9 @@ The above code sets new values for several properties of the [`<body>`](https://
 
 ## [Positioning and styling the main page title](#positioning_and_styling_the_main_page_title)
 
-    h1 {
-      margin: 0;
-      padding: 20px 0;
-      color: #00539f;
-      text-shadow: 3px 3px 1px black;
-    }
-    
+css
+
+    h1 { margin: 0; padding: 20px 0; color: #00539f; text-shadow: 3px 3px 1px black; } 
 
 You may have noticed a horrible gap at the top of the body. That happens because browsers apply default styling to the `<h1>` element. That might seem like a bad idea, but the intent is to provide basic readability for unstyled pages. To eliminate the gap, we overwrite the browser's default styling with the setting `margin: 0;`.
 
@@ -567,12 +522,9 @@ Finally, `text-shadow` applies a shadow to the text content of the element:
 
 ## [Centering the image](#centering_the_image)
 
-    img {
-      display: block;
-      margin: 0 auto;
-      max-width: 100%;
-    }
-    
+css
+
+    img { display: block; margin: 0 auto; max-width: 100%; } 
 
 Next, we center the image to make it look better. We can use the same `margin: 0 auto` trick as we did for the body, but there are differences that require an additional setting to make the CSS work.
 
@@ -594,18 +546,14 @@ In this article, we've only scratched the surface of CSS. You'll learn a lot mor
 
 ## [See also](#see_also)
 
-[Learn HTML and CSS](https://scrimba.com/learn-html-and-css-c0p?via=mdn), Scrimba [_MDN learning partner_](https://developer.mozilla.org/en-US/docs/MDN/Writing_guidelines/Learning_content#partner_links_and_embeds)
-
-[Scrimba's](https://scrimba.com/?via=mdn) _Learn HTML and CSS_ course teaches you HTML and CSS through building and deploying five awesome projects, with fun interactive lessons and challenges taught by knowledgeable teachers.
-
-*   [Previous](https://developer.mozilla.org/en-US/docs/Learn_web_development/Getting_started/Your_first_website/Creating_the_content)
-*   [Next](https://developer.mozilla.org/en-US/docs/Learn_web_development/Getting_started/Your_first_website/Adding_interactivity)
-
 ---
 
 ## Page: https://developer.mozilla.org/en-US/docs/Learn_web_development/Getting_started/Your_first_website/Adding_interactivity
 
+## JavaScript: Adding interactivity
+
 *   [Previous](https://developer.mozilla.org/en-US/docs/Learn_web_development/Getting_started/Your_first_website/Styling_the_content)
+*   [Overview: Your first website](https://developer.mozilla.org/en-US/docs/Learn_web_development/Getting_started/Your_first_website)
 *   [Next](https://developer.mozilla.org/en-US/docs/Learn_web_development/Getting_started/Your_first_website/Publishing_your_website)
 
 JavaScript is a programming language that adds interactivity to websites. You can use it to control just about anything — form data validation, button functionality, game logic, dynamic styling, animation updates, and much more. This article gets you started with JavaScript and walks you through adding some fun features to your first website.
@@ -624,43 +572,31 @@ JavaScript, when used on web pages (though it can also be used in other places),
 
 Let's look at an example. We'll use the same basic list we saw in the last couple of articles:
 
-    <p>Instructions for life:</p>
-    
-    <ul>
-      <li>Eat</li>
-      <li>Sleep</li>
-      <li>Repeat</li>
-    </ul>
-    
+html
+
+    <p>Instructions for life:</p> <ul> <li>Eat</li> <li>Sleep</li> <li>Repeat</li> </ul> 
 
 We'll also define a CSS class called `.done` that will style any element it's applied to, making it look like a completed task with green text color and a strikethrough. We'll apply it to our `<li>` elements using JavaScript in the next step.
 
-    .done {
-      color: darkseagreen;
-      text-decoration: line-through solid black 2px;
-    }
-    
+css
+
+    .done { color: darkseagreen; text-decoration: line-through solid black 2px; } 
 
 Now on to the JavaScript. Here, we first store references to the `<li>` elements inside a variable called `listItems`. We then define a function called `toggleDone()` that adds the `done` class to a list item if it doesn't already have it, and removes the class if it does. Finally, we loop through the list items (using `forEach()`) and add an event listener (using `addEventListener()`) to each list item so that when it is clicked, the `done` class is toggled, applying the CSS we defined earlier.
 
-    const listItems = document.querySelectorAll("li");
-    
-    function toggleDone(e) {
-      if (!e.target.className) {
-        e.target.className = "done";
-      } else {
-        e.target.className = "";
-      }
-    }
-    
-    listItems.forEach((item) => {
-      item.addEventListener("click", toggleDone);
-    });
-    
+js
+
+    const listItems = document.querySelectorAll("li"); function toggleDone(e) { if (!e.target.className) { e.target.className = "done"; } else { e.target.className = ""; } } listItems.forEach((item) => { item.addEventListener("click", toggleDone); }); 
 
 Don't worry if you don't understand the above JavaScript now. Getting comfortable with JavaScript is more challenging than getting comfortable with HTML and CSS, but things will become clearer later on in the course.
 
 This example will render as follows in a web browser:
+
+Instructions for life:
+
+*   Eat
+*   Sleep
+*   Repeat
 
 Try clicking the list items a few times and note how the "done" styles are toggled on and off as a result. Not that bad for 11 lines of JavaScript.
 
@@ -676,18 +612,17 @@ To start you off with writing some JavaScript, we'll walk you through adding a _
     
 3.  Go to your `index.html` file and enter this code on a new line, just before the closing `</head>` tag:
     
-        <script async src="scripts/main.js"></script>
-        
+    html
+    
+        <script async src="scripts/main.js"></script> 
     
     This does the same job as the [`<link>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/link) element for CSS – it applies the JavaScript to the page so it can affect the HTML (along with the CSS and anything else on the page).
     
 4.  Add this code to your `scripts/main.js` file:
     
-        // Store a reference to the <h1> in a variable
-        const myHeading = document.querySelector("h1");
-        // Update the text content of the <h1>
-        myHeading.textContent = "Hello world!";
-        
+    js
+    
+        // Store a reference to the <h1> in a variable const myHeading = document.querySelector("h1"); // Update the text content of the <h1> myHeading.textContent = "Hello world!"; 
     
 5.  Make sure the HTML and JavaScript files are saved, then load `index.html` in your browser. You should see something like this:
     
@@ -716,17 +651,9 @@ In this section, you will use JavaScript and [DOM API](https://developer.mozilla
     
 3.  Add the following JavaScript code to your `main.js` file, making sure to replace `firefox2.png` and both instances of `firefox-icon.png` with your second and first image names, respectively.
     
-        const myImage = document.querySelector("img");
-        
-        myImage.addEventListener("click", () => {
-          const mySrc = myImage.getAttribute("src");
-          if (mySrc === "images/firefox-icon.png") {
-            myImage.setAttribute("src", "images/firefox2.png");
-          } else {
-            myImage.setAttribute("src", "images/firefox-icon.png");
-          }
-        });
-        
+    js
+    
+        const myImage = document.querySelector("img"); myImage.addEventListener("click", () => { const mySrc = myImage.getAttribute("src"); if (mySrc === "images/firefox-icon.png") { myImage.setAttribute("src", "images/firefox2.png"); } else { myImage.setAttribute("src", "images/firefox-icon.png"); } }); 
     
 4.  Save all files and load `index.html` in the browser. Now when you click the image, it should change to the other one.
     
@@ -753,23 +680,21 @@ Next, let's change the page heading to show a personalized welcome message when 
 
 1.  In `index.html`, add the following line just before the closing `</body>` tag:
     
-        <button>Change user</button>
-        
+    html
+    
+        <button>Change user</button> 
     
 2.  In `main.js`, place the following code at the bottom of the file, exactly as it is written. This creates references to the new button and the heading, storing each inside variables:
     
-        let myButton = document.querySelector("button");
-        let myHeading = document.querySelector("h1");
-        
+    js
+    
+        let myButton = document.querySelector("button"); let myHeading = document.querySelector("h1"); 
     
 3.  Add the following function to set the personalized greeting. This won't do anything yet; we will call the function later on.
     
-        function setUserName() {
-          const myName = prompt("Please enter your name.");
-          localStorage.setItem("name", myName);
-          myHeading.textContent = `Mozilla is cool, ${myName}`;
-        }
-        
+    js
+    
+        function setUserName() { const myName = prompt("Please enter your name."); localStorage.setItem("name", myName); myHeading.textContent = `Mozilla is cool, ${myName}`; } 
     
     The `setUserName()` function contains a [`prompt()`](https://developer.mozilla.org/en-US/docs/Web/API/Window/prompt) function, which asks the user to enter data and stores it in a variable after they click _OK_. In this example, we're asking the user to enter a name and storing it in `myName`.
     
@@ -779,22 +704,17 @@ Next, let's change the page heading to show a personalized welcome message when 
     
 4.  Add the following conditional block after the function declaration. This is our _initialization code_ — it runs when the page first loads to start the program off:
     
-        if (!localStorage.getItem("name")) {
-          setUserName();
-        } else {
-          const storedName = localStorage.getItem("name");
-          myHeading.textContent = `Mozilla is cool, ${storedName}`;
-        }
-        
+    js
+    
+        if (!localStorage.getItem("name")) { setUserName(); } else { const storedName = localStorage.getItem("name"); myHeading.textContent = `Mozilla is cool, ${storedName}`; } 
     
     The first line of this block uses the negation operator (logical NOT, represented by the `!` character) to check whether the `name` data item is _not_ already stored in `localStorage`. If not, the `setUserName()` function runs to create it. If it exists (that is, the user set a username during a previous visit), we retrieve the stored name using [`localStorage.getItem()`](https://developer.mozilla.org/en-US/docs/Web/API/Storage/getItem "localStorage.getItem()") and set the `textContent` of the heading to a string, plus the user's name – just like we did inside `setUserName()`.
     
 5.  Add a `click` event handler function to the button. When clicked, `setUserName()` runs. This allows the user to store a different name if they want to.
     
-        myButton.addEventListener("click", () => {
-          setUserName();
-        });
-        
+    js
+    
+        myButton.addEventListener("click", () => { setUserName(); }); 
     
 6.  Save all files and load `index.html` in the browser. You should immediately be asked to enter your name. After you do so, it will appear inside the `<h1>` as part of the personalized greeting. Notice how the personalization persists even after you reload the page. You can click the "Change user" button to enter a new name.
     
@@ -809,16 +729,9 @@ Also, try clicking _OK_ without entering a name. You should end up with a title 
 
 To avoid these problems, you can add another conditional to check that the user hasn't entered a blank name. Update your `setUserName()` function to the following:
 
-    function setUserName() {
-      const myName = prompt("Please enter your name.");
-      if (!myName) {
-        setUserName();
-      } else {
-        localStorage.setItem("name", myName);
-        myHeading.textContent = `Mozilla is cool, ${myName}`;
-      }
-    }
-    
+js
+
+    function setUserName() { const myName = prompt("Please enter your name."); if (!myName) { setUserName(); } else { localStorage.setItem("name", myName); myHeading.textContent = `Mozilla is cool, ${myName}`; } } 
 
 In human language, this means: If `myName` has no value, run `setUserName()` again from the start. If it does have a value (if the above statement is not true), then store the value in `localStorage` and set it as the heading's text.
 
@@ -843,13 +756,17 @@ We've only really scratched the surface of JavaScript in this article. You'll le
 This is an excellent resource for aspiring web developers! Learn JavaScript in an interactive environment, with short lessons and interactive tests, guided by an automated assessment. The first 40 lessons are free. The complete course is available for a small one-time payment.
 
 *   [Previous](https://developer.mozilla.org/en-US/docs/Learn_web_development/Getting_started/Your_first_website/Styling_the_content)
+*   [Overview: Your first website](https://developer.mozilla.org/en-US/docs/Learn_web_development/Getting_started/Your_first_website)
 *   [Next](https://developer.mozilla.org/en-US/docs/Learn_web_development/Getting_started/Your_first_website/Publishing_your_website)
 
 ---
 
 ## Page: https://developer.mozilla.org/en-US/docs/Learn_web_development/Getting_started/Your_first_website/Publishing_your_website
 
+## Publishing your website
+
 *   [Previous](https://developer.mozilla.org/en-US/docs/Learn_web_development/Getting_started/Your_first_website/Adding_interactivity)
+*   [Overview: Your first website](https://developer.mozilla.org/en-US/docs/Learn_web_development/Getting_started/Your_first_website)
 *   [Next](https://developer.mozilla.org/en-US/docs/Learn_web_development/Getting_started/Web_standards)
 
 Once you finish writing the code and organizing the files that make up your website, you need to put it all online so people can find it. This article explains how to get your sample website online with little effort.
@@ -937,3 +854,12 @@ Now let's examine how to publish your site via GitHub Pages.
 To learn more, see [GitHub Pages Help](https://docs.github.com/en/pages/getting-started-with-github-pages).
 
 ## [Further reading](#further_reading)
+
+*   [What is a web server](https://developer.mozilla.org/en-US/docs/Learn_web_development/Howto/Web_mechanics/What_is_a_web_server)
+*   [Understanding domain names](https://developer.mozilla.org/en-US/docs/Learn_web_development/Howto/Web_mechanics/What_is_a_domain_name)
+*   [How much does it cost to do something on the web?](https://developer.mozilla.org/en-US/docs/Learn_web_development/Howto/Tools_and_setup/How_much_does_it_cost)
+*   [Deploy a Website](https://www.codecademy.com/learn/deploy-a-website): A nice tutorial from Codecademy that goes a bit further and shows some additional techniques.
+
+*   [Previous](https://developer.mozilla.org/en-US/docs/Learn_web_development/Getting_started/Your_first_website/Adding_interactivity)
+*   [Overview: Your first website](https://developer.mozilla.org/en-US/docs/Learn_web_development/Getting_started/Your_first_website)
+*   [Next](https://developer.mozilla.org/en-US/docs/Learn_web_development/Getting_started/Web_standards)

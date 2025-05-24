@@ -5,11 +5,13 @@ A tiny CLI app that crawls web pages starting from given URLs, scrapes main cont
 ## Prerequisites
 
 - Node.js and npm installed.
+- Kadoa API key (get one at [kadoa.com](https://kadoa.com))
 
 ## Installation
 
 1.  Clone/download files (`web2llm.js`, `package.json`).
 2.  In the script's directory, run: `npm install`
+3.  Create a `.env` file with your Kadoa API key: `KADOA_API_KEY=your_api_key_here`
 
 ## Usage
 
@@ -54,7 +56,7 @@ node web2llm.js -u https://example.com/docs/ -r .sidebar -r .demo -r .advertisem
 ## How it Works
 
 The script processes each starting URL provided via `-u`. For each start URL:
-1. It fetches the page.
+1. It fetches the page using the Kadoa API for reliable content extraction.
 2. Removes unwanted elements if `--remove` selectors are specified.
 3. Extracts main content using Readability.js (default) or a CSS selector (`-s`).
 4. Converts the content to Markdown using Turndown (with GFM plugin). Links are stripped by default unless `-h` is used.
@@ -71,13 +73,14 @@ The script processes each starting URL provided via `-u`. For each start URL:
 
 This tool relies on the following excellent libraries:
 
+- [Kadoa API](https://kadoa.com): For reliable web page content extraction.
 - [yargs](https://github.com/yargs/yargs): For command-line argument parsing.
-- [axios](https://github.com/axios/axios): For fetching web pages.
 - [cheerio](https://github.com/cheeriojs/cheerio): For parsing HTML and finding links.
 - [Mozilla Readability](https://github.com/mozilla/readability): For automatic content extraction.
 - [jsdom](https://github.com/jsdom/jsdom): Used by Readability for DOM parsing.
 - [Turndown](https://github.com/mixmark-io/turndown): For converting HTML to Markdown.
 - [turndown-plugin-gfm](https://github.com/mixmark-io/turndown-plugin-gfm): For GFM table support in Turndown.
+- [dotenv](https://github.com/motdotla/dotenv): For environment variable management.
 
 ## Author
 

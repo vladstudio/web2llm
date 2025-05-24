@@ -1,14 +1,17 @@
-import yargs from "yargs";
-import { hideBin } from "yargs/helpers";
+import { Readability } from "@mozilla/readability";
 import * as cheerio from "cheerio";
+import fs from "fs/promises";
+import { JSDOM } from "jsdom";
+import path from "path";
 import TurndownService from "turndown";
 import { gfm } from "turndown-plugin-gfm";
-import fs from "fs/promises";
 import { URL } from "url";
-import path from "path";
-import { Readability } from "@mozilla/readability";
-import { JSDOM } from "jsdom";
-import { chromium } from "playwright";
+import yargs from "yargs";
+import { hideBin } from "yargs/helpers";
+import { config } from "dotenv";
+
+// Load environment variables
+config();
 
 // Helper function for delay
 const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
@@ -173,10 +176,14 @@ async function main() {
     // Write only the combined markdown content to the file
     await fs.writeFile(outputFile, markdownContent.trim());
     console.log(
-      `OK: Visited ${totalVisitedCount} pages (limit: ${limit}). Saved content to ${path.basename(outputFile)}` // Use path.basename()
+      `OK: Visited ${totalVisitedCount} pages (limit: ${limit}). Saved content to ${path.basename(
+        outputFile
+      )}` // Use path.basename()
     );
   } catch (err) {
-    console.error(`ERROR: Writing to ${path.basename(outputFile)} failed: ${err.message}`); // Also update error message for consistency
+    console.error(
+      `ERROR: Writing to ${path.basename(outputFile)} failed: ${err.message}`
+    ); // Also update error message for consistency
     process.exit(1);
   }
 }
@@ -230,38 +237,40 @@ async function crawlAndScrape(
   }
 
   // Add rule for syntax-highlighted code blocks (e.g., Shiki)
-  turndownService.addRule('shikiCodeBlock', {
+  turndownService.addRule("shikiCodeBlock", {
     filter: function (node, options) {
       // Target <pre> elements that likely contain Shiki <span> structure
       return (
-        node.nodeName === 'PRE' &&
-        node.querySelector('span.line > span') // Check for nested spans typical of Shiki
+        node.nodeName === "PRE" && node.querySelector("span.line > span") // Check for nested spans typical of Shiki
       );
     },
     replacement: function (content, node, options) {
       // Extract text content from all child nodes, preserving line breaks
-      let code = '';
-      node.childNodes.forEach(child => {
+      let code = "";
+      node.childNodes.forEach((child) => {
         if (child.nodeType === Node.TEXT_NODE) {
           code += child.textContent;
-        } else if (child.nodeType === Node.ELEMENT_NODE && child.nodeName === 'SPAN' && child.classList.contains('line')) {
-           // Get text from spans within the line, handles nested spans
-           code += Array.from(child.childNodes)
-             .map(innerChild => innerChild.textContent)
-             .join('');
-           code += '\n'; // Add newline after each line span
+        } else if (
+          child.nodeType === Node.ELEMENT_NODE &&
+          child.nodeName === "SPAN" &&
+          child.classList.contains("line")
+        ) {
+          // Get text from spans within the line, handles nested spans
+          code += Array.from(child.childNodes)
+            .map((innerChild) => innerChild.textContent)
+            .join("");
+          code += "\n"; // Add newline after each line span
         } else {
-           // Fallback for unexpected structures within pre
-           code += child.textContent;
+          // Fallback for unexpected structures within pre
+          code += child.textContent;
         }
       });
 
       // Determine language (optional, basic check)
-      const language = node.getAttribute('data-language') || '';
-      return '\n```' + language + '\n' + code.trim() + '\n```\n';
-    }
+      const language = node.getAttribute("data-language") || "";
+      return "\n```" + language + "\n" + code.trim() + "\n```\n";
+    },
   });
-
 
   turndownService.use(gfm); // Apply GFM rules after custom rules if needed
 
@@ -303,29 +312,70 @@ async function crawlAndScrape(
     visitedCountOverall++;
 
     try {
-      // Always use Playwright to fetch fully rendered HTML
-      console.log(`Info: Fetching with Playwright: ${currentUrl}`);
-      const browser = await chromium.launch({ 
-  headless: true
-});
-      const page = await browser.newPage();
-      await page.goto(currentUrl, { waitUntil: "networkidle", timeout: 30000 });
-      let html = await page.content();
+      // Use Kadoa API to fetch webpage content
+      console.log(`Info: Fetching with Kadoa API: ${currentUrl}`);
+      
+      const kadoaApiKey = process.env.KADOA_API_KEY;
+      if (!kadoaApiKey) {
+        throw new Error("KADOA_API_KEY environment variable is not set");
+      }
+
+      const response = await fetch('https://api.kadoa.com/v4/adhoc/body', {
+        method: 'POST',
+        headers: {
+          'x-api-key': kadoaApiKey,
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ link: currentUrl })
+      });
+
+      if (!response.ok) {
+        throw new Error(`Kadoa API request failed: ${response.status} ${response.statusText}`);
+      }
+
+      const kadoaResult = await response.json();
+      
+      if (kadoaResult.status.toLowerCase() !== 'success') {
+        throw new Error(`Kadoa API returned non-success status: ${kadoaResult.status}`);
+      }
+
+      // Extract HTML from Kadoa response data
+      let html = '';
+      if (typeof kadoaResult.data === 'string') {
+        html = kadoaResult.data;
+      } else if (kadoaResult.data && typeof kadoaResult.data === 'object') {
+        // If data contains structured content, try to find HTML
+        if (kadoaResult.data.html) {
+          html = kadoaResult.data.html;
+        } else if (kadoaResult.data.content) {
+          html = kadoaResult.data.content;
+        } else {
+          // If no HTML found, create basic HTML structure with the data
+          html = `<html><body>${JSON.stringify(kadoaResult.data)}</body></html>`;
+        }
+      } else {
+        throw new Error('No usable content found in Kadoa API response');
+      }
+
+      // Ensure we have a complete HTML document
+      if (!html.includes('<html>') && !html.includes('<HTML>')) {
+        html = `<html><head><title>${currentUrl}</title></head><body>${html}</body></html>`;
+      }
 
       // Save raw HTML for debugging
       await fs.writeFile("temp.html", html);
-
-      await browser.close();
 
       // Remove specified CSS selectors from HTML
       if (removeSelectors.length > 0) {
         console.log(`Info: Removing selectors: ${removeSelectors.join(", ")}`);
         const $ = cheerio.load(html);
-        removeSelectors.forEach(selector => {
+        removeSelectors.forEach((selector) => {
           try {
             $(selector).remove();
           } catch (error) {
-            console.warn(`WARN: Invalid CSS selector "${selector}": ${error.message}`);
+            console.warn(
+              `WARN: Invalid CSS selector "${selector}": ${error.message}`
+            );
           }
         });
         html = $.html();

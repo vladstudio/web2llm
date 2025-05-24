@@ -4,7 +4,7 @@
 - **Test all**: `npm test` (uses Node.js built-in test runner)
 - **Test single file**: `node --test test/mdn.test.js`
 - **Run main script**: `node web2llm.js -u <URL> [options]`
-- **Install Playwright browsers**: `npx playwright install chromium`
+
 - **No build/lint/typecheck**: Project uses vanilla JS without build steps
 
 ## Code Style
