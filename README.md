@@ -28,6 +28,7 @@ node web2llm.js -u <URL1> [-u <URL2>...] [OPTIONS]
 - `-l`, `--limit`: Max total pages to crawl across all starting URLs (default: 2000).
 - `-x`, `--exclude`: Regex pattern(s) to exclude URLs. Provide multiple times for multiple patterns. Default excludes common non-HTML file extensions (`\.(txt|pdf|zip|tar|gz|rar|docx?|xlsx?|pptx?|jpe?g|png|gif|svg|webp|mp[34])$`).
 - `-h`, `--href`: Keep links in the output markdown. By default, links are stripped, keeping only the text content.
+- `-i`, `--images`: Keep images in the output markdown. By default, images are stripped.
 - `-r`, `--remove`: CSS selector(s) to remove from HTML before conversion. Provide multiple times for multiple selectors (e.g., `-r .sidebar -r .demo`).
 - `--help`: Show help message.
 

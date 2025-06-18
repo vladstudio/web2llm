@@ -77,8 +77,6 @@ To begin, you'll need to answer these questions:
 
 Next, grab pen and paper and sketch out roughly how you want your site to look. For your first simple webpage, there's not much to sketch out, but you should get in the habit of doing this now. It really helps — you don't have to be Van Gogh!
 
-![A rough drawing and sketch of a website on paper](https://developer.mozilla.org/en-US/docs/Learn_web_development/Getting_started/Your_first_website/What_will_your_website_look_like/website-drawing-scan.png)
-
 **Note:** Even on real, complex websites, the design teams usually start out with rough sketches on paper and later on build digital mockups using a graphics editor or web technologies.
 
 Web teams often include both a graphic designer and a user experience (UX) designer. Graphic designers put together the visuals of the website. UX designers have a somewhat more abstract role in addressing how users will experience and interact with the website.
@@ -87,22 +85,25 @@ At this point, it's good to start putting together the content that will eventua
 
 ## Choosing a theme color
 
-To choose a color, go to the Color Picker and find a color you like. When you click on a color, you'll see a strange six-character code like `#660066`. That's called a _hex code_ (short for hexadecimal), and represents your color. Copy the code down somewhere safe for now.
+Let's choose a background color for your page.
 
-![Color-Picker-Tool on MDN Docs website with RGB, HSL, and HEX colors ](https://developer.mozilla.org/en-US/docs/Learn_web_development/Getting_started/Your_first_website/What_will_your_website_look_like/color-picker.png)
+1.  Go to the Color Picker and find a color you like.
+2.  When you click on a color, you'll see a strange six-character code like `#660066`. That's called a _hex code_ (short for hexadecimal), and represents your color. Copy the code down somewhere safe for now.
 
 ## Choosing an image
 
-To choose an image, go to Google Images and search for something suitable.
+Now it's time to find an image to show on your site.
 
-1.  When you find the image you want, click on the image to get an enlarged view of it.
-2.  Right-click the image (Ctrl + click on a Mac), choose _Save Image As…_, and choose a safe place to save your image.
-
-![Search results for a search term on Google Images](https://developer.mozilla.org/en-US/docs/Learn_web_development/Getting_started/Your_first_website/What_will_your_website_look_like/updated-google-images.png)
-
-Note that most images on the web, including in Google Images, are copyrighted. To reduce your likelihood of violating copyright, you can use Google's license filter. Click on the _Tools_ button, then on the resulting _Usage rights_ option that appears below. You should choose the option _Creative Commons licenses_.
-
-![Filtered search results to get images of Creative Commons Licenses on Google Images](https://developer.mozilla.org/en-US/docs/Learn_web_development/Getting_started/Your_first_website/What_will_your_website_look_like/updated-google-images-licensing.png)
+1.  Go to Google Images.
+    
+2.  Note that most images on the web, including in Google Images, are copyrighted. To reduce your likelihood of violating copyright, you can use Google's license filter. Click on the _Tools_ button, then on the resulting _Usage rights_ option that appears below. You should choose the option _Creative Commons licenses_.
+    
+3.  Search for a suitable image.
+    
+4.  When you find the image you want, click on the image to get an enlarged view of it.
+    
+5.  Right-click the image (Ctrl + click on a Mac), choose _Save Image As…_, and choose a safe place to save your image.
+    
 
 ## Choosing a font
 
@@ -200,8 +201,6 @@ We have also included an `alt` (alternative) attribute. In the `alt` attribute, 
     
 2.  Something has gone wrong, causing the image not to display. If the `src` attribute does not contain a valid path to an image, the alt text will be displayed instead:
     
-    ![The words: my test image](https://developer.mozilla.org/en-US/docs/Learn_web_development/Getting_started/Your_first_website/Creating_the_content/alt-text-example.png)
-    
 
 The alt text you write should provide the reader with enough information to have a good idea of what the image conveys. In this example, our current text of "My test image" is not good because it doesn't convey descriptive information about the image. A much better alternative for our Firefox logo would be "The Firefox logo: a flaming fox surrounding the Earth."
 
@@ -232,7 +231,7 @@ html
 
 **Note:** Anything in HTML between `<!--` and `-->` is an **HTML comment**. The browser ignores comments as it renders the code. In other words, they are not visible on the page — just in the code. HTML comments are a way for you to add notes about your code or logic, which might be useful to others working on the same code, or you, if you came back to it after 6 months and can't remember what you did.
 
-Now try adding a suitable main title to your HTML page just above your `<img>` element. Save the file and view it in a browser to see the effect.
+Add your page title to the HTML page just above your `<img>` element, wrapped inside `<h1> ... </h1>` tags. Save the file and view it in a browser to see the effect.
 
 ### Paragraphs
 
@@ -301,8 +300,6 @@ Add a link to your page now, if you haven't already done so.
 ## Conclusion
 
 If you have followed all the instructions in this article, you should end up with a page that looks like the one below (you can also view it here):
-
-![A web page screenshot showing a Firefox logo, a heading saying Mozilla is cool, and two paragraphs of filler text](https://developer.mozilla.org/en-US/docs/Learn_web_development/Getting_started/Your_first_website/Creating_the_content/finished-test-page-small.png)
 
 If you get stuck, you can always compare your work with our finished example code on GitHub.
 
@@ -383,8 +380,6 @@ When using CSS, the first thing to get right is to make sure that your CSS is su
 5.  Save `index.html` and load it in your browser. You should see something like this:
     
 
-![A Mozilla logo and some paragraphs. The paragraph text has been styled red by our css.](https://developer.mozilla.org/en-US/docs/Learn_web_development/Getting_started/Your_first_website/Styling_the_content/website-screenshot-styled.png)
-
 If your paragraph text is red, congratulations! Your CSS is working. If not, go through the above steps and check carefully that you have followed each one correctly.
 
 ## CSS syntax basics
@@ -449,16 +444,12 @@ Let's return to our example and use CSS to improve the appearance of the text. W
     
 7.  Save your code and load your HTML in a browser (refresh it if you've got it open from before). Your work-in-progress should look similar to this:
     
-    ![A Mozilla logo and some paragraphs. A sans-serif font has been set, the font sizes, line height and letter spacing are adjusted, and the main page heading has been centered](https://developer.mozilla.org/en-US/docs/Learn_web_development/Getting_started/Your_first_website/Styling_the_content/website-screenshot-font-small.png)
-    
     **Note:** Try adjusting the `px` values until you end up with font sizes that you like for your heading and body text.
     
 
 ## CSS is all about boxes
 
 Something you'll notice about CSS as you use it more is that a lot of it is about boxes. Most HTML elements on a page can be thought of as boxes that sit on top of (or alongside) other boxes. You can set values on these boxes for size, color, positioning, etc. This is referred to as **the box model**.
-
-![Three boxes sat inside one another. From outside to in they are labelled margin, border and padding](https://developer.mozilla.org/en-US/docs/Learn_web_development/Getting_started/Your_first_website/Styling_the_content/box-model.png)
 
 Each box that takes up space on your page has properties like:
 
@@ -483,6 +474,8 @@ In each of the sections that follow:
 
 ## Changing the page color
 
+Add the following:
+
 css
 
     html { background-color: #00539f; } 
@@ -490,6 +483,8 @@ css
 This rule sets a background color for the entire page. Change the color code to the color you chose in What will your website look like?.
 
 ## Styling the body
+
+Next, add this rule:
 
 css
 
@@ -504,6 +499,8 @@ The above code sets new values for several properties of the `<body>` element. L
 *   `border: 5px solid black;`: This sets values for the width, style, and color of the border. In this case, it's a 5-pixel-wide solid black border around all sides of the body.
 
 ## Positioning and styling the main page title
+
+Now add this:
 
 css
 
@@ -522,6 +519,8 @@ Finally, `text-shadow` applies a shadow to the text content of the element:
 
 ## Centering the image
 
+Finally, insert this rule:
+
 css
 
     img { display: block; margin: 0 auto; max-width: 100%; } 
@@ -537,8 +536,6 @@ Finally, we set the `max-width` property to `100%` to ensure that if the image i
 ## Conclusion
 
 If you followed all the instructions in this article, you should have a page that looks similar to this one:
-
-![A Mozilla logo, centered, and a header and paragraphs. It now looks nicely styled, with a blue background for the whole page and orange background for the centered main content strip.](https://developer.mozilla.org/en-US/docs/Learn_web_development/Getting_started/Your_first_website/Styling_the_content/website-screenshot-final.png)
 
 You can view our version here. If you get stuck, you can always compare your work with our finished example code on GitHub.
 
@@ -626,8 +623,6 @@ To start you off with writing some JavaScript, we'll walk you through adding a _
     
 5.  Make sure the HTML and JavaScript files are saved, then load `index.html` in your browser. You should see something like this:
     
-
-![Heading "hello world" above a firefox logo](https://developer.mozilla.org/en-US/docs/Learn_web_development/Getting_started/Your_first_website/Adding_interactivity/hello-world.png)
 
 Let's break down how this example works.
 
@@ -738,8 +733,6 @@ In human language, this means: If `myName` has no value, run `setUserName()` aga
 ## Conclusion
 
 If you have followed all the instructions in this article, you should end up with a page that looks something like the image below. You can also view our version.
-
-![Final look of HTML page after creating elements: a header, large centered logo, content, and a button](https://developer.mozilla.org/en-US/docs/Learn_web_development/Getting_started/Your_first_website/Adding_interactivity/website-screen-scripted.png)
 
 If you get stuck, you can compare your work with our finished example code on GitHub.
 
